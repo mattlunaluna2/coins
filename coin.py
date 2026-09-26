@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 """
 COIN — Pump/Dump Bot
-- Sigue TODAS las monedas de CoinBeacon /market/pumping
-- Tipos: pump_5m, pump_10m, dump_5m, dump_10m
+- Sigue TODAS las monedas de CoinBeacon
+- Solo avisa PUMP de cualquier moneda
+- Solo avisa DUMP de monedas con PUMP previa (< 24h)
 - 5m: % ≥ 3% | 10m: % ≥ 5%
-- Ambos: volumen confirmado obligatorio + cooldown 30 min
+- Vol confirmed obligatorio + cooldown 30 min + 1 alerta por dirección/run
 """
 
 import json
@@ -21,6 +22,7 @@ PCT_MIN_5M = 3.0
 PCT_MIN_10M = 5.0
 REQUIERE_VOL_CONFIRMED = True
 COOLDOWN_MIN = 30
+PUMP_ACTIVA_HORAS = 24
 
 STATE_FILE = Path("data/coin_state.json")
 SIGNALS_LOG = Path("data/coin_log.jsonl")
@@ -36,7 +38,7 @@ def hora_lima():
 
 def cargar_estado():
     if not STATE_FILE.exists():
-        return {"vistos": [], "cooldown": {}}
+        return {"vistos": [], "cooldown": {}, "pumps_activas": {}}
     try:
         with STATE_FILE.open("r", encoding="utf-8") as f:
             data = json.load(f)
@@ -45,10 +47,12 @@ def cargar_estado():
                 data["vistos"] = []
             if "cooldown" not in data:
                 data["cooldown"] = {}
+            if "pumps_activas" not in data:
+                data["pumps_activas"] = {}
             return data
     except Exception:
         pass
-    return {"vistos": [], "cooldown": {}}
+    return {"vistos": [], "cooldown": {}, "pumps_activas": {}}
 
 
 def guardar_estado(estado):
@@ -133,7 +137,8 @@ def clasificar_evento(ev):
 def main():
     print("=" * 70, flush=True)
     print("🪙 COIN — Pump/Dump Bot", flush=True)
-    print(f"   Tipos: pump_5m, pump_10m, dump_5m, dump_10m", flush=True)
+    print(f"   Pump: cualquier moneda", flush=True)
+    print(f"   Dump: solo monedas con pump activa (< {PUMP_ACTIVA_HORAS}h)", flush=True)
     print(f"   Umbrales: 5m ≥ {PCT_MIN_5M}% | 10m ≥ {PCT_MIN_10M}%", flush=True)
     print(f"   Vol confirmed: {REQUIERE_VOL_CONFIRMED} | Cooldown: {COOLDOWN_MIN} min", flush=True)
     print("=" * 70, flush=True)
@@ -142,6 +147,23 @@ def main():
     estado = cargar_estado()
     vistos = set(estado.get("vistos", []))
     cooldowns = estado.get("cooldown", {})
+    pumps_activas = estado.get("pumps_activas", {})
+
+    ahora_ts = datetime.now(timezone.utc).timestamp()
+
+    # Limpiar pumps antiguas
+    pumps_activas_limpias = {}
+    for sym, ts_pump in pumps_activas.items():
+        try:
+            edad_h = (ahora_ts - float(ts_pump)) / 3600
+            if edad_h < PUMP_ACTIVA_HORAS:
+                pumps_activas_limpias[sym] = ts_pump
+        except (ValueError, TypeError):
+            continue
+    pumps_activas = pumps_activas_limpias
+
+    if pumps_activas:
+        print(f"\n💼 Pumps activas ({len(pumps_activas)}): {', '.join(pumps_activas.keys())}", flush=True)
 
     print("\n📡 Consultando CoinBeacon...", flush=True)
     eventos = consultar_pumping_events()
@@ -164,8 +186,8 @@ def main():
     eventos_filtrados = list(eventos_por_grupo.values())
     print(f"   Eventos únicos por moneda+tipo: {len(eventos_filtrados)}", flush=True)
 
+    direcciones_por_moneda = {}
     enviadas = 0
-    ahora_ts = datetime.now(timezone.utc).timestamp()
 
     for ev in eventos_filtrados:
         symbol_full = ev.get("symbol", "")
@@ -178,6 +200,9 @@ def main():
         bias = ev.get("bias", "")
         clasif = ev.get("classification", "")
         setup = ev.get("setupScore", 0)
+
+        es_pump = "pump" in tipo
+        es_dump = "dump" in tipo
 
         clave_evento = f"{symbol_full}_{tipo}_{spotted_at}"
         if clave_evento in vistos:
@@ -202,6 +227,18 @@ def main():
             vistos.add(clave_evento)
             continue
 
+        if es_dump and symbol_base not in pumps_activas:
+            print(f"      ⏭️ {symbol_base} {tipo} omitido (sin pump previa)", flush=True)
+            vistos.add(clave_evento)
+            continue
+
+        direccion = "up" if es_pump else "down"
+        direcciones_usadas = direcciones_por_moneda.get(symbol_base, set())
+        if direccion in direcciones_usadas:
+            print(f"      ⏭️ {symbol_base} {tipo} omitido (ya alertado {direccion})", flush=True)
+            vistos.add(clave_evento)
+            continue
+
         price = ev.get("price", 0)
         prev_price = ev.get("prevPrice", 0)
         quote_vol = ev.get("quoteVolume24h", 0)
@@ -220,6 +257,10 @@ def main():
         if vol_ok:
             vol_txt += "  ✅ Vol confirmed"
 
+        tag_extra = ""
+        if es_dump and symbol_base in pumps_activas:
+            tag_extra = "🔄 Cierre de pump previa\n"
+
         msg = (
             f"{emoji} {symbol_base} — {tipo_str}\n"
             f"━━━━━━━━━━━━━━━━━━━\n"
@@ -229,6 +270,7 @@ def main():
             f"🎯 Smart Setup: {setup:.1f}/10\n"
             f"💰 Vol 24h: ${quote_vol:,.0f}\n"
             f"🧭 {bias.upper()} | {clasif}\n"
+            f"{tag_extra}"
             f"🕐 {ts_str} Lima\n"
             f"━━━━━━━━━━━━━━━━━━━"
         )
@@ -237,6 +279,14 @@ def main():
             enviadas += 1
             vistos.add(clave_evento)
             cooldowns[clave_cooldown] = ahora_ts
+            direcciones_por_moneda.setdefault(symbol_base, set()).add(direccion)
+
+            if es_pump:
+                pumps_activas[symbol_base] = ahora_ts
+            elif es_dump and symbol_base in pumps_activas:
+                pumps_activas.pop(symbol_base, None)
+                print(f"      ✅ {symbol_base} cerrada (dump tras pump)", flush=True)
+
             log_senal({
                 "ts": datetime.now(timezone.utc).isoformat(),
                 "symbol": symbol_base,
@@ -262,11 +312,13 @@ def main():
 
     estado["vistos"] = todos_vistos
     estado["cooldown"] = cooldowns
+    estado["pumps_activas"] = pumps_activas
     estado["updated_at"] = datetime.now(timezone.utc).isoformat()
     guardar_estado(estado)
 
     print("\n" + "=" * 70, flush=True)
     print(f"🎯 Alertas enviadas: {enviadas}", flush=True)
+    print(f"💼 Pumps activas al cierre: {len(pumps_activas)}", flush=True)
     print("=" * 70, flush=True)
     print("🏁 TERMINADO", flush=True)
 
