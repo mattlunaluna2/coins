@@ -93,9 +93,9 @@ def enviar_telegram(msg):
 
 
 def consultar_pumping_events():
-    token = os.environ.get("COINBEACON_TOKEN4")
+    token = os.environ.get("COINBEACON_TOKEN")
     if not token:
-        print("⚠️ COINBEACON_TOKEN4 no configurado", flush=True)
+        print("⚠️ COINBEACON_TOKEN no configurado", flush=True)
         return []
 
     types = "pump_5m,pump_10m,dump_5m,dump_10m"
