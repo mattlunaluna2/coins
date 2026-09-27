@@ -211,7 +211,7 @@ def clasificar_rvol(rvol):
 
 def main():
     print("=" * 70, flush=True)
-    print("🪙 COIN — Pump/Dump Bot (solo sostenibles)", flush=True)
+    print("🪙 COIN — Pump/Dump Bot", flush=True)
     print(f"   Pump: cualquier moneda", flush=True)
     print(f"   Dump: solo monedas con pump activa (< {PUMP_ACTIVA_HORAS}h)", flush=True)
     print(f"   Umbrales: 5m ≥ {PCT_MIN_5M}% | 10m ≥ {PCT_MIN_10M}%", flush=True)
