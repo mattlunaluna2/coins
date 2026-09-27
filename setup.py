@@ -31,7 +31,7 @@ UMBRAL_PUNTOS = 40
 
 # Filtro RSI 15m (entrada en suelo del gráfico 15m)
 RSI_15M_MIN = 30.0
-RSI_15M_MAX = 42.0
+RSI_15M_MAX = 34.0
 
 # Alertas opcionales
 ALERTA_NUEVO_PATRON = True
