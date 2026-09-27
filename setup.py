@@ -255,7 +255,7 @@ def construir_mensaje(symbol, actual, anterior, motivos, puntuacion):
         emoji = "⚪"
 
     lineas = [
-        f"{emoji} {symbol} setup",
+        f"{emoji} {symbol} setup 15M",
         f"━━━━━━━━━━━━━━━━━━━",
     ]
 
