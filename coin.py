@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-COIN — Pump/Dump Bot (solo movimientos sostenibles)
+COIN — Pump/Dump Bot
 - Sigue TODAS las monedas de CoinBeacon
 - Solo avisa PUMP de cualquier moneda
 - Solo avisa DUMP de monedas con PUMP previa (< 24h)
