@@ -3,8 +3,9 @@
 """
 SETUP — Smart Setup Bot (CoinBeacon /setups)
 - Sigue top N monedas de OKX
-- Detecta cambios en el Smart Setup (bias, régimen, archetype, patrones)
-- Alerta a Telegram cuando hay cambio relevante
+- Detecta INICIO de movimiento alcista
+- Solo alerta cambios relevantes (bias, régimen, archetype, patrones)
+- Primera vez que ve una moneda: solo guarda, no alerta
 """
 
 import json
@@ -20,20 +21,15 @@ from pathlib import Path
 # ═══════════════════════════════════════════════
 TIMEFRAME = "15m"
 TOP_MONEDAS = 50
-SLEEP_ENTRE_LLAMADAS = 1.2     # segundos entre llamadas (rate limit 60/min)
+SLEEP_ENTRE_LLAMADAS = 1.2
 
-# Filtros para alertar
-CONFIANZA_MIN = 7.0            # 0-10
-DIRECTION_SCORE_MIN = 70       # 0-100
-PERCENTILE_MIN = 90            # 0-100 (top 10%)
+# Filtros
+CONFIANZA_MIN = 7.0
+DIRECTION_SCORE_MIN = 70
 
-# Qué alertar
-ALERTA_NUEVO_SETUP = True       # archetype aparece
-ALERTA_SETUP_ROTO = True        # archetype desaparece
-ALERTA_CAMBIO_BIAS = True       # bullish ↔ bearish
-ALERTA_CAMBIO_REGIMEN = True    # STRONG TREND UP → NEUTRAL, etc.
-ALERTA_NUEVO_PATRON = True      # Double Bottom, Hammer, etc.
-ALERTA_CONFIRMADO_TF = True     # pasa a confirmado por TF mayor
+# Alertas
+ALERTA_NUEVO_PATRON = True
+ALERTA_CONFIRMADO_TF = True
 
 EXCLUIR = {"USDC", "USDT", "DAI", "TUSD", "FDUSD", "BUSD", "USDD"}
 
@@ -152,7 +148,6 @@ def consultar_setup(symbol_binance):
 
 
 def extraer_datos_clave(data):
-    """Extrae solo los campos que nos interesan del JSON."""
     if not data:
         return None
     setup = data.get("setup", {})
@@ -184,7 +179,6 @@ def extraer_datos_clave(data):
 
 
 def construir_mensaje(symbol, actual, anterior, motivos):
-    """Construye el mensaje de Telegram con los cambios detectados."""
     precio = actual.get("price", 0)
     bias = actual.get("bias", "")
     regime = actual.get("regime", "")
@@ -196,15 +190,16 @@ def construir_mensaje(symbol, actual, anterior, motivos):
     rev = actual.get("reversal", 0)
     tfa = actual.get("trend_alignment", {}) or {}
     confirmed = actual.get("confirmed_by_tf", "")
+    score = actual.get("direction_score", 0)
 
-    emoji = "🟢" if bias == "bullish" else "🔴" if bias == "bearish" else "⚪"
+    emoji = "🟢"
 
     lineas = [
         f"{emoji} {symbol} — {motivos[0]['titulo']}",
         f"━━━━━━━━━━━━━━━━━━━",
         f"💰 Precio: ${precio:.6f}" if precio else "💰 Precio: N/A",
         f"📊 Régimen: {regime}",
-        f"🎯 Bias: {bias.upper()} | Score: {actual.get('direction_score', 0)}",
+        f"🎯 Bias: {bias.upper()} | Score: {score}",
         f"📈 Confianza: {conf:.1f}/10 (percentil {pctl:.1f})",
     ]
 
@@ -222,8 +217,8 @@ def construir_mensaje(symbol, actual, anterior, motivos):
     if narrative:
         lineas.append(f"💡 {narrative}")
 
-    # Añadir motivo específico
-    lineas.append(f"🔔 {' + '.join([m['texto'] for m in motivos])}")
+    for m in motivos:
+        lineas.append(f"🔔 {m['texto']}")
 
     lineas.append(f"🕐 {hora_lima().strftime('%H:%M')} Lima")
     lineas.append(f"━━━━━━━━━━━━━━━━━━━")
@@ -232,77 +227,101 @@ def construir_mensaje(symbol, actual, anterior, motivos):
 
 
 def detectar_cambios(actual, anterior):
-    """Compara estado actual vs anterior. Devuelve lista de motivos."""
+    """
+    Solo alerta INICIO de movimiento alcista.
+    Primera vez que ve la moneda → solo guarda, no alerta.
+    """
+    if not anterior:
+        return []
+
     motivos = []
 
-    if not anterior:
-        # Primera vez que vemos esta moneda
-        if (ALERTA_NUEVO_SETUP and actual["archetype_key"]
-                and actual["confidence"] >= CONFIANZA_MIN
-                and actual["percentile"] >= PERCENTILE_MIN):
-            motivos.append({
-                "tipo": "nuevo_setup",
-                "titulo": "NUEVO SETUP DETECTADO",
-                "texto": f"Nuevo: {actual['archetype_label']}",
-            })
-        return motivos
+    bias_actual = actual.get("bias", "")
+    bias_antes = anterior.get("bias", "")
+    regime_actual = actual.get("regime", "")
+    regime_antes = anterior.get("regime", "")
+    arch_actual = actual.get("archetype_key", "")
+    arch_antes = anterior.get("archetype_key", "")
+    arch_dir = actual.get("archetype_direction", "")
+    conf = actual.get("confidence", 0)
+    score = actual.get("direction_score", 0)
+    pctl = actual.get("percentile", 0)
+    confirmed = actual.get("confirmed_by_tf", "")
+    confirmed_antes = anterior.get("confirmed_by_tf", "")
 
-    # Cambio de bias
-    if ALERTA_CAMBIO_BIAS and actual["bias"] != anterior.get("bias"):
-        if actual["bias"] in ("bullish", "bearish"):
-            motivos.append({
-                "tipo": "cambio_bias",
-                "titulo": "CAMBIO DE BIAS",
-                "texto": f"De {anterior.get('bias','')} a {actual['bias']}",
-            })
+    # Filtro base
+    if conf < CONFIANZA_MIN:
+        return []
+    if score < DIRECTION_SCORE_MIN and bias_actual != "bullish":
+        return []
 
-    # Cambio de régimen
-    if ALERTA_CAMBIO_REGIMEN and actual["regime"] != anterior.get("regime"):
+    # SEÑAL 1: Cambio de bias a BULLISH
+    if bias_actual == "bullish" and bias_antes != "bullish":
         motivos.append({
-            "tipo": "cambio_regimen",
-            "titulo": "CAMBIO DE RÉGIMEN",
-            "texto": f"De {anterior.get('regime','')} a {actual['regime']}",
+            "tipo": "bias_bullish",
+            "titulo": "INICIO ALCISTA — Bias cambió a BULLISH",
+            "texto": f"De {bias_antes or 'neutral'} → BULLISH (score {score})",
         })
 
-    # Nuevo archetype
-    if (ALERTA_NUEVO_SETUP and actual["archetype_key"]
-            and actual["archetype_key"] != anterior.get("archetype_key")
-            and actual["confidence"] >= CONFIANZA_MIN):
+    # SEÑAL 2: Nuevo archetype alcista
+    if (arch_actual and arch_actual != arch_antes and arch_dir == "long"):
         motivos.append({
-            "tipo": "nuevo_archetype",
-            "titulo": "NUEVO SETUP",
-            "texto": f"Nuevo archetype: {actual['archetype_label']}",
+            "tipo": "nuevo_archetype_long",
+            "titulo": "INICIO ALCISTA — Nuevo setup LONG",
+            "texto": f"Setup: {actual.get('archetype_label','')}",
         })
 
-    # Setup roto
-    if (ALERTA_SETUP_ROTO and not actual["archetype_key"]
-            and anterior.get("archetype_key")):
+    # SEÑAL 3: Régimen alcista
+    if (regime_actual in ("TREND UP", "STRONG TREND UP")
+            and regime_antes not in ("TREND UP", "STRONG TREND UP")):
         motivos.append({
-            "tipo": "setup_roto",
-            "titulo": "SETUP ROTO",
-            "texto": f"Se perdió: {anterior.get('archetype_label','')}",
+            "tipo": "regimen_alcista",
+            "titulo": "INICIO ALCISTA — Nuevo régimen alcista",
+            "texto": f"Régimen: {regime_actual}",
         })
 
-    # Nuevo patrón
+    # SEÑAL 4: Nuevo patrón alcista
     if ALERTA_NUEVO_PATRON:
         patrones_antes = set(anterior.get("patterns", []))
         patrones_ahora = set(actual.get("patterns", []))
         nuevos = patrones_ahora - patrones_antes
-        if nuevos:
+        patrones_bull = {"Double Bottom", "Hammer", "Morning Star",
+                         "Bullish Engulfing", "Inverse Head and Shoulders",
+                         "Three White Soldiers", "Bullish Harami",
+                         "Hikkake"}
+        nuevos_bull = [p for p in nuevos if p in patrones_bull]
+        if nuevos_bull:
             motivos.append({
-                "tipo": "nuevo_patron",
-                "titulo": "NUEVO PATRÓN",
-                "texto": f"Patrón: {', '.join(nuevos)}",
+                "tipo": "nuevo_patron_bull",
+                "titulo": "INICIO ALCISTA — Patrón detectado",
+                "texto": f"Patrón: {', '.join(nuevos_bull)}",
             })
 
-    # Nueva confirmación por TF mayor
-    if (ALERTA_CONFIRMADO_TF and actual["confirmed_by_tf"]
-            and not anterior.get("confirmed_by_tf")):
+    # SEÑAL 5: Confirmación por TF mayor + bias bullish
+    if (ALERTA_CONFIRMADO_TF and confirmed and not confirmed_antes
+            and bias_actual == "bullish"):
         motivos.append({
-            "tipo": "confirmado_tf",
-            "titulo": "CONFIRMADO POR TF MAYOR",
-            "texto": f"Confirmado por: {actual['confirmed_by_tf']}",
+            "tipo": "confirmado_tf_bull",
+            "titulo": "INICIO ALCISTA — Confirmado por TF mayor",
+            "texto": f"Confirmado por: {confirmed}",
         })
+
+    # SEÑAL 6: Setup muy fuerte (percentil 95+ + bullish)
+    pctl_antes = anterior.get("percentile", 0)
+    if (bias_actual == "bullish" and pctl >= 95 and pctl_antes < 95):
+        motivos.append({
+            "tipo": "setup_fuerte",
+            "titulo": "SETUP ALCISTA FUERTE",
+            "texto": f"Percentil {pctl:.1f} (antes {pctl_antes:.1f})",
+        })
+
+    # Deduplicar: si hay bias_bullish, eliminar régimen duplicado
+    tipos = [m["tipo"] for m in motivos]
+    if "bias_bullish" in tipos and "regimen_alcista" in tipos:
+        motivos = [m for m in motivos if m["tipo"] != "regimen_alcista"]
+        for m in motivos:
+            if m["tipo"] == "bias_bullish":
+                m["texto"] += f" | Régimen: {regime_actual}"
 
     return motivos
 
@@ -311,7 +330,8 @@ def main():
     print("=" * 70, flush=True)
     print("📐 SETUP — Smart Setup Bot", flush=True)
     print(f"   Timeframe: {TIMEFRAME} | Top {TOP_MONEDAS} monedas", flush=True)
-    print(f"   Confianza min: {CONFIANZA_MIN} | Score min: {DIRECTION_SCORE_MIN} | Percentile: {PERCENTILE_MIN}", flush=True)
+    print(f"   Confianza min: {CONFIANZA_MIN} | Score min: {DIRECTION_SCORE_MIN}", flush=True)
+    print(f"   Solo alerta INICIO ALCISTA (bias/régimen/archetype/patrón)", flush=True)
     print("=" * 70, flush=True)
     print(f"\nHora UTC: {datetime.now(timezone.utc).isoformat()}", flush=True)
 
@@ -328,12 +348,11 @@ def main():
 
     enviadas = 0
     errores = 0
+    nuevas_monedas = 0
 
     for i, m in enumerate(monedas, 1):
         symbol_binance = m["symbol"]
         base = m["base"]
-
-        print(f"\n[{i}/{len(monedas)}] 🔍 {base}", flush=True)
 
         data = consultar_setup(symbol_binance)
         if not data:
@@ -343,18 +362,21 @@ def main():
 
         actual = extraer_datos_clave(data)
         if not actual:
-            print(f"      ⚠️ sin datos clave", flush=True)
             time.sleep(SLEEP_ENTRE_LLAMADAS)
             continue
 
         anterior = monedas_estado.get(symbol_binance)
 
-        print(f"      Bias: {actual['bias']} | Régimen: {actual['regime']} | Conf: {actual['confidence']:.1f} | Archetype: {actual['archetype_key']}", flush=True)
+        if not anterior:
+            nuevas_monedas += 1
+            print(f"[{i}/{len(monedas)}] 🆕 {base} (primera vez, guardando)", flush=True)
+        else:
+            print(f"[{i}/{len(monedas)}] 🔍 {base} | bias={actual['bias']} regime={actual['regime']} conf={actual['confidence']:.1f} arch={actual['archetype_key']}", flush=True)
 
         motivos = detectar_cambios(actual, anterior)
 
         if motivos:
-            print(f"      🎯 {len(motivos)} cambio(s) detectado(s): {[m['tipo'] for m in motivos]}", flush=True)
+            print(f"      🎯 {len(motivos)} cambio(s): {[m['tipo'] for m in motivos]}", flush=True)
             msg = construir_mensaje(base, actual, anterior, motivos)
             if enviar_telegram(msg):
                 enviadas += 1
@@ -384,6 +406,7 @@ def main():
     print("\n" + "=" * 70, flush=True)
     print(f"🎯 Alertas enviadas: {enviadas}", flush=True)
     print(f"⚠️ Errores: {errores}", flush=True)
+    print(f"🆕 Monedas nuevas (primera vez): {nuevas_monedas}", flush=True)
     print(f"💾 Monedas en estado: {len(monedas_estado)}", flush=True)
     print("=" * 70, flush=True)
     print("🏁 TERMINADO", flush=True)
