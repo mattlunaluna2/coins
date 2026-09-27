@@ -163,7 +163,7 @@ def extraer_datos_clave(data):
     pattern_names = [p.get("type", "") for p in patterns_list if p.get("type")]
 
     return {
-        "price": data.get("price"),
+        "price": data.get("price") or setup.get("price") or data.get("currentPrice"),
         "bias": setup.get("bias", ""),
         "regime": (setup.get("regime", {}) or {}).get("label", ""),
         "confidence": setup.get("confidence", 0),
