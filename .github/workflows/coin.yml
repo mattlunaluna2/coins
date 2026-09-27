@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: repo-main-push
+  group: coin-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
