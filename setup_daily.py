@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 SETUP DAILY — Smart Setup Bot (1d)
-- Sigue top 50 monedas de OKX
+- Sigue top N monedas de OKX
 - Detecta INICIO de tendencia alcista en DIARIO
-- Cron cada 4h
+- Filtro RSI 4h entre 30 y 34 (solo suelos)
 """
 
 import json
@@ -19,13 +19,17 @@ from pathlib import Path
 # CONFIGURACIÓN
 # ═══════════════════════════════════════════════
 TIMEFRAME = "1d"
-TOP_MONEDAS = 50
-SLEEP_ENTRE_LLAMADAS = 2.0
+TOP_MONEDAS = 40
+SLEEP_ENTRE_LLAMADAS = 1.2
 
 CONFIANZA_MIN = 6.0
 DIRECTION_SCORE_MIN = 60
 
 UMBRAL_PUNTOS = 30
+
+# Filtro RSI 4h: solo alertar si está entre 30 y 34 (suelos)
+RSI_4H_MIN = 30.0
+RSI_4H_MAX = 34.0
 
 EXCLUIR = {"USDC", "USDT", "DAI", "TUSD", "FDUSD", "BUSD", "USDD"}
 
@@ -36,6 +40,7 @@ LIMA_OFFSET = timedelta(hours=-5)
 
 COINBEACON_SETUP_URL = "https://api.coinbeacon.io/setups/binance"
 OKX_TICKERS_URL = "https://www.okx.com/api/v5/market/tickers?instType=SPOT"
+OKX_CANDLES_URL = "https://www.okx.com/api/v5/market/candles"
 
 
 def hora_lima():
@@ -94,7 +99,7 @@ def enviar_telegram(msg):
         return False
 
 
-def obtener_top_monedas(limit=50):
+def obtener_top_monedas(limit=40):
     try:
         req = urllib.request.Request(OKX_TICKERS_URL, headers={"User-Agent": "Mozilla/5.0"})
         with urllib.request.urlopen(req, timeout=15) as r:
@@ -119,6 +124,50 @@ def obtener_top_monedas(limit=50):
         pares.append({"symbol": f"{base}USDT", "base": base, "vol": vol})
     pares.sort(key=lambda x: x["vol"], reverse=True)
     return pares[:limit]
+
+
+def calcular_rsi(prices, period=14):
+    if len(prices) < period + 1:
+        return None
+    changes = [prices[i] - prices[i-1] for i in range(1, len(prices))]
+    gains = [max(c, 0) for c in changes]
+    losses = [max(-c, 0) for c in changes]
+    avg_gain = sum(gains[:period]) / period
+    avg_loss = sum(losses[:period]) / period
+    for i in range(period, len(changes)):
+        avg_gain = (avg_gain * (period - 1) + gains[i]) / period
+        avg_loss = (avg_loss * (period - 1) + losses[i]) / period
+    if avg_loss == 0:
+        return 100.0
+    rs = avg_gain / avg_loss
+    return 100 - (100 / (1 + rs))
+
+
+def obtener_rsi_4h(symbol_binance):
+    if symbol_binance.endswith("USDT"):
+        base = symbol_binance[:-4]
+        inst_id = f"{base}-USDT"
+    else:
+        return None
+
+    url = f"{OKX_CANDLES_URL}?instId={inst_id}&bar=4H&limit=30"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception:
+        return None
+
+    if data.get("code") != "0":
+        return None
+
+    velas = data.get("data", [])
+    if len(velas) < 15:
+        return None
+
+    velas.reverse()
+    cierres = [float(v[4]) for v in velas]
+    return calcular_rsi(cierres)
 
 
 def consultar_setup(symbol_binance):
@@ -215,14 +264,11 @@ def calcular_puntuacion(motivos, actual, anterior):
     return puntos
 
 
-def construir_mensaje(symbol, actual, anterior, motivos, puntuacion):
+def construir_mensaje(symbol, actual, anterior, motivos, puntuacion, rsi_4h=None):
     precio = actual.get("price", 0)
     bias = actual.get("bias", "")
     regime = actual.get("regime", "")
-    cont = actual.get("continuation", 0)
-    rev = actual.get("reversal", 0)
     score = actual.get("direction_score", 0)
-    confirmed = actual.get("confirmed_by_tf", "")
 
     if bias == "bullish":
         emoji = "🟢"
@@ -231,37 +277,28 @@ def construir_mensaje(symbol, actual, anterior, motivos, puntuacion):
     else:
         emoji = "⚪"
 
+    rsi_str = f"{rsi_4h:.1f}" if rsi_4h is not None else "N/A"
+
     lineas = [
         f"{emoji} {symbol} setup 1D",
         f"━━━━━━━━━━━━━━━━━━━",
     ]
 
     if precio is not None and precio > 0:
-        lineas.append(f"💰 Precio: ${precio:.6f}")
+        lineas.append(f"💰 ${precio:,.6f}")
     else:
-        lineas.append(f"💰 Precio: N/A")
+        lineas.append(f"💰 N/A")
 
-    lineas.append(f"📊 Régimen: {regime}")
-    lineas.append(f"🎯 Bias: {bias.upper()}")
-    lineas.append(f"📊 Score: {score}")
-
-    if confirmed:
-        lineas.append(f"✅ Confirmado por: {confirmed}")
-
-    lineas.append(f"🔮 Continuación: {cont}/100")
-    lineas.append(f"🔮 Reversión: {rev}/100")
-    lineas.append(f"━━━━━━━━━━━━━━━━━━━")
-    lineas.append(f"🎯 Puntuación: {puntuacion}/100 (umbral {UMBRAL_PUNTOS})")
-    lineas.append(f"📋 Criterios cumplidos: {len(motivos)}")
-    for m in motivos:
-        lineas.append(f"• {m['texto']}")
+    lineas.append(f"📊 {regime}")
+    lineas.append(f"🎯 {bias.upper()} | RSI 4h: {rsi_str}")
+    lineas.append(f"🔥 Score: {score} | Puntuación: {puntuacion}")
     lineas.append(f"🕐 {hora_lima().strftime('%H:%M')} Lima")
     lineas.append(f"━━━━━━━━━━━━━━━━━━━")
 
     return "\n".join(lineas)
 
 
-def detectar_cambios(actual, anterior):
+def detectar_cambios(actual, anterior, rsi_4h=None):
     if not anterior:
         return []
 
@@ -285,21 +322,25 @@ def detectar_cambios(actual, anterior):
     if score < DIRECTION_SCORE_MIN and bias_actual != "bullish":
         return []
 
-    # Contradicción: bias bullish pero régimen bajista → rebote
     if bias_actual == "bullish" and "TREND DOWN" in regime_actual:
         return []
+
+    # Filtro RSI 4h entre 30 y 34
+    if rsi_4h is not None:
+        if rsi_4h > RSI_4H_MAX:
+            return []
+        if rsi_4h < RSI_4H_MIN:
+            return []
 
     if bias_actual == "bullish" and bias_antes != "bullish":
         motivos.append({
             "tipo": "bias_bullish",
-            "titulo": "INICIO ALCISTA — Bias cambió a BULLISH",
-            "texto": f"De {bias_antes or 'neutral'} → BULLISH (score {score})",
+            "texto": f"De {bias_antes or 'neutral'} → BULLISH",
         })
 
     if (arch_actual and arch_actual != arch_antes and arch_dir == "long"):
         motivos.append({
             "tipo": "nuevo_archetype_long",
-            "titulo": "INICIO ALCISTA — Nuevo setup LONG",
             "texto": f"Setup: {actual.get('archetype_label','')}",
         })
 
@@ -307,7 +348,6 @@ def detectar_cambios(actual, anterior):
             and regime_antes not in ("TREND UP", "STRONG TREND UP")):
         motivos.append({
             "tipo": "regimen_alcista",
-            "titulo": "INICIO ALCISTA — Nuevo régimen alcista",
             "texto": f"Régimen: {regime_actual}",
         })
 
@@ -321,14 +361,12 @@ def detectar_cambios(actual, anterior):
     if nuevos_bull:
         motivos.append({
             "tipo": "nuevo_patron_bull",
-            "titulo": "INICIO ALCISTA — Patrón detectado",
             "texto": f"Patrón: {', '.join(nuevos_bull)}",
         })
 
     if (confirmed and not confirmed_antes and bias_actual == "bullish"):
         motivos.append({
             "tipo": "confirmado_tf_bull",
-            "titulo": "INICIO ALCISTA — Confirmado por TF mayor",
             "texto": f"Confirmado por: {confirmed}",
         })
 
@@ -336,7 +374,6 @@ def detectar_cambios(actual, anterior):
     if (bias_actual == "bullish" and pctl >= 95 and pctl_antes < 95):
         motivos.append({
             "tipo": "setup_fuerte",
-            "titulo": "SETUP ALCISTA FUERTE",
             "texto": f"Percentil {pctl:.1f} (antes {pctl_antes:.1f})",
         })
 
@@ -365,6 +402,7 @@ def main():
     print(f"   Timeframe: {TIMEFRAME} | Top {TOP_MONEDAS} monedas", flush=True)
     print(f"   Confianza min: {CONFIANZA_MIN} | Score min: {DIRECTION_SCORE_MIN}", flush=True)
     print(f"   Umbral puntuación: {UMBRAL_PUNTOS}/100", flush=True)
+    print(f"   RSI 4h entre {RSI_4H_MIN} y {RSI_4H_MAX}", flush=True)
     print("=" * 70, flush=True)
     print(f"\nHora UTC: {datetime.now(timezone.utc).isoformat()}", flush=True)
 
@@ -400,20 +438,23 @@ def main():
 
         anterior = monedas_estado.get(symbol_binance)
 
+        rsi_4h = obtener_rsi_4h(symbol_binance)
+        rsi_str = f"{rsi_4h:.1f}" if rsi_4h is not None else "N/A"
+
         if not anterior:
             nuevas_monedas += 1
-            print(f"[{i}/{len(monedas)}] 🆕 {base} (guardando)", flush=True)
+            print(f"[{i}/{len(monedas)}] 🆕 {base} RSI4h={rsi_str}", flush=True)
         else:
             precio_dbg = actual.get("price")
             precio_str = f"${precio_dbg:.6f}" if precio_dbg else "N/A"
-            print(f"[{i}/{len(monedas)}] 🔍 {base} {precio_str} | bias={actual['bias']} regime={actual['regime']} conf={actual['confidence']:.1f}", flush=True)
+            print(f"[{i}/{len(monedas)}] 🔍 {base} {precio_str} | bias={actual['bias']} regime={actual['regime']} conf={actual['confidence']:.1f} | RSI4h={rsi_str}", flush=True)
 
-        motivos = detectar_cambios(actual, anterior)
+        motivos = detectar_cambios(actual, anterior, rsi_4h)
 
         if motivos:
             puntuacion = motivos[0].get("puntuacion", 0)
             print(f"      🎯 {len(motivos)} señal(es) | puntos={puntuacion}/100", flush=True)
-            msg = construir_mensaje(base, actual, anterior, motivos, puntuacion)
+            msg = construir_mensaje(base, actual, anterior, motivos, puntuacion, rsi_4h)
             if enviar_telegram(msg):
                 enviadas += 1
                 log_senal({
@@ -427,11 +468,13 @@ def main():
                     "confidence": actual["confidence"],
                     "archetype": actual["archetype_key"],
                     "price": actual["price"],
+                    "rsi_4h": rsi_4h,
                 })
                 print(f"      ✅ enviado", flush=True)
 
         monedas_estado[symbol_binance] = {
             **actual,
+            "rsi_4h": rsi_4h,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
 
