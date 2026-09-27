@@ -1,0 +1,66 @@
+name: SETUP 4H
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    - cron: '10 * * * *'
+    - cron: '40 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: setup-4h-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check syntax
+        run: python -m py_compile setup_4h.py
+
+      - name: Run Setup 4H
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          COINBEACON_TOKEN: ${{ secrets.COINBEACON_TOKEN }}
+        run: python setup_4h.py
+
+      - name: Commit state
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [ -f data/setup_4h_state.json ]; then
+            git add data/setup_4h_state.json
+          fi
+          if [ -f data/setup_4h_log.jsonl ]; then
+            git add data/setup_4h_log.jsonl
+          fi
+
+          if git diff --staged --quiet; then
+            echo "📭 Sin cambios"
+          else
+            git commit -m "setup_4h: update [skip ci]"
+
+            for i in 1 2 3; do
+              git pull --rebase origin main && break
+              sleep 5
+            done
+
+            for i in 1 2 3; do
+              git push && echo "✅ Push OK" && break
+              git pull --rebase origin main || true
+              sleep 10
+            done
+          fi
