@@ -201,9 +201,9 @@ def calcular_puntuacion(motivos, actual, anterior):
 
         elif tipo == "bias_bullish":
             if bias_antes == "bearish":
-                puntos += 25   # cambio real de dirección
+                puntos += 25
             elif bias_antes in ("", "neutral"):
-                puntos += 15   # menos significativo
+                puntos += 15
 
         elif tipo == "setup_fuerte":
             puntos += 20
@@ -241,46 +241,39 @@ def construir_mensaje(symbol, actual, anterior, motivos, puntuacion):
     precio = actual.get("price", 0)
     bias = actual.get("bias", "")
     regime = actual.get("regime", "")
-    conf = actual.get("confidence", 0)
-    pctl = actual.get("percentile", 0)
-    archetype = actual.get("archetype_label", "")
-    narrative = actual.get("narrative", "")
     cont = actual.get("continuation", 0)
     rev = actual.get("reversal", 0)
-    tfa = actual.get("trend_alignment", {}) or {}
-    confirmed = actual.get("confirmed_by_tf", "")
     score = actual.get("direction_score", 0)
+    confirmed = actual.get("confirmed_by_tf", "")
 
-    emoji = "🟢"
+    # Círculo según bias
+    if bias == "bullish":
+        emoji = "🟢"
+    elif bias == "bearish":
+        emoji = "🔴"
+    else:
+        emoji = "⚪"
 
     lineas = [
-        f"{emoji} {symbol} — {motivos[0]['titulo']}",
+        f"{emoji} {symbol} setup",
         f"━━━━━━━━━━━━━━━━━━━",
-        f"💰 Precio: ${precio:.6f}" if precio else "💰 Precio: N/A",
-        f"📊 Régimen: {regime}",
-        f"🎯 Bias: {bias.upper()} | Score: {score}",
-        f"📈 Confianza: {conf:.1f}/10 (percentil {pctl:.1f})",
     ]
 
-    if archetype:
-        lineas.append(f"📐 Setup: {archetype}")
+    if precio:
+        lineas.append(f"💰 Precio: ${precio:.6f}")
+    else:
+        lineas.append(f"💰 Precio: N/A")
+
+    lineas.append(f"📊 Régimen: {regime}")
+    lineas.append(f"🎯 Bias: {bias.upper()}")
+    lineas.append(f"📊 Score: {score}")
+
     if confirmed:
         lineas.append(f"✅ Confirmado por: {confirmed}")
 
-    lineas.append(f"🔮 Continuación: {cont}/100 | Reversión: {rev}/100")
-
-    if tfa:
-        tfa_txt = " | ".join([f"{tf}:{v}" for tf, v in tfa.items()])
-        lineas.append(f"📊 Alineación: {tfa_txt}")
-
-    if narrative:
-        lineas.append(f"💡 {narrative}")
-
-    for m in motivos:
-        lineas.append(f"🔔 {m['texto']}")
-
+    lineas.append(f"🔮 Continuación: {cont}/100")
+    lineas.append(f"🔮 Reversión: {rev}/100")
     lineas.append(f"🎯 Puntuación: {puntuacion}/100")
-
     lineas.append(f"🕐 {hora_lima().strftime('%H:%M')} Lima")
     lineas.append(f"━━━━━━━━━━━━━━━━━━━")
 
@@ -395,7 +388,7 @@ def detectar_cambios(actual, anterior):
     # Calcular puntuación por pesos
     puntuacion = calcular_puntuacion(motivos, actual, anterior)
 
-    # Guardar puntuación en el primer motivo para mostrarla
+    # Guardar puntuación en el primer motivo
     motivos[0]["puntuacion"] = puntuacion
 
     # Umbral mínimo de puntuación
@@ -407,7 +400,7 @@ def detectar_cambios(actual, anterior):
 
 def main():
     print("=" * 70, flush=True)
-    print("📐 SETUP — Smart Setup Bot", flush=True)
+    print("📐 SETUP", flush=True)
     print(f"   Timeframe: {TIMEFRAME} | Top {TOP_MONEDAS} monedas", flush=True)
     print(f"   Confianza min: {CONFIANZA_MIN} | Score min: {DIRECTION_SCORE_MIN}", flush=True)
     print(f"   Umbral puntuación: {UMBRAL_PUNTOS}/100", flush=True)
@@ -428,7 +421,6 @@ def main():
     enviadas = 0
     errores = 0
     nuevas_monedas = 0
-    filtradas_por_umbral = 0
 
     for i, m in enumerate(monedas, 1):
         symbol_binance = m["symbol"]
