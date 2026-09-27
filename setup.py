@@ -3,8 +3,8 @@
 """
 SETUP — Smart Setup Bot (CoinBeacon /setups)
 - Sigue top N monedas de OKX
-- Detecta INICIO de movimiento alcista
-- Solo alerta cambios relevantes (bias, régimen, archetype, patrones)
+- Detecta INICIO de movimiento alcista con sistema de puntuación por pesos
+- Solo alerta cuando la puntuación ≥ UMBRAL_PUNTOS
 - Primera vez que ve una moneda: solo guarda, no alerta
 """
 
@@ -23,14 +23,18 @@ TIMEFRAME = "15m"
 TOP_MONEDAS = 50
 SLEEP_ENTRE_LLAMADAS = 1.2
 
-# Filtros
+# Filtros base
 CONFIANZA_MIN = 7.0
 DIRECTION_SCORE_MIN = 70
 
-# Alertas
+# Umbral de puntuación para alertar (sobre 100)
+UMBRAL_PUNTOS = 40
+
+# Alertas opcionales
 ALERTA_NUEVO_PATRON = True
 ALERTA_CONFIRMADO_TF = True
 
+# Excluir stablecoins
 EXCLUIR = {"USDC", "USDT", "DAI", "TUSD", "FDUSD", "BUSD", "USDD"}
 
 STATE_FILE = Path("data/setup_state.json")
@@ -178,7 +182,62 @@ def extraer_datos_clave(data):
     }
 
 
-def construir_mensaje(symbol, actual, anterior, motivos):
+def calcular_puntuacion(motivos, actual, anterior):
+    """
+    Calcula un score 0-100 según el peso de cada señal.
+    """
+    puntos = 0
+
+    bias_antes = anterior.get("bias", "")
+
+    for m in motivos:
+        tipo = m["tipo"]
+
+        if tipo == "confirmado_tf_bull":
+            puntos += 30
+
+        elif tipo == "regimen_alcista":
+            puntos += 25
+
+        elif tipo == "bias_bullish":
+            if bias_antes == "bearish":
+                puntos += 25   # cambio real de dirección
+            elif bias_antes in ("", "neutral"):
+                puntos += 15   # menos significativo
+
+        elif tipo == "setup_fuerte":
+            puntos += 20
+
+        elif tipo == "nuevo_archetype_long":
+            arch = actual.get("archetype_key", "")
+            if arch in ("breakout_watch", "pattern_breakout", "trendline_break"):
+                puntos += 20
+            elif arch in ("level_bounce", "support_bounce"):
+                puntos += 10
+            else:
+                puntos += 12
+
+        elif tipo == "nuevo_patron_bull":
+            puntos += 10
+
+    # Bonus por confianza
+    conf = actual.get("confidence", 0)
+    if conf >= 8.5:
+        puntos += 10
+    elif conf >= 8.0:
+        puntos += 5
+
+    # Bonus por percentil
+    pctl = actual.get("percentile", 0)
+    if pctl >= 95:
+        puntos += 10
+    elif pctl >= 90:
+        puntos += 5
+
+    return puntos
+
+
+def construir_mensaje(symbol, actual, anterior, motivos, puntuacion):
     precio = actual.get("price", 0)
     bias = actual.get("bias", "")
     regime = actual.get("regime", "")
@@ -220,6 +279,8 @@ def construir_mensaje(symbol, actual, anterior, motivos):
     for m in motivos:
         lineas.append(f"🔔 {m['texto']}")
 
+    lineas.append(f"🎯 Puntuación: {puntuacion}/100")
+
     lineas.append(f"🕐 {hora_lima().strftime('%H:%M')} Lima")
     lineas.append(f"━━━━━━━━━━━━━━━━━━━")
 
@@ -229,7 +290,8 @@ def construir_mensaje(symbol, actual, anterior, motivos):
 def detectar_cambios(actual, anterior):
     """
     Solo alerta INICIO de movimiento alcista.
-    Primera vez que ve la moneda → solo guarda, no alerta.
+    Primera vez → solo guarda, no alerta.
+    Requiere puntuación ≥ UMBRAL_PUNTOS y sin contradicciones.
     """
     if not anterior:
         return []
@@ -249,10 +311,14 @@ def detectar_cambios(actual, anterior):
     confirmed = actual.get("confirmed_by_tf", "")
     confirmed_antes = anterior.get("confirmed_by_tf", "")
 
-    # Filtro base
+    # Filtro base: confianza mínima
     if conf < CONFIANZA_MIN:
         return []
     if score < DIRECTION_SCORE_MIN and bias_actual != "bullish":
+        return []
+
+    # Filtro contradicción: bias bullish pero régimen bajista → rebote, no tendencia
+    if bias_actual == "bullish" and "TREND DOWN" in regime_actual:
         return []
 
     # SEÑAL 1: Cambio de bias a BULLISH
@@ -297,7 +363,7 @@ def detectar_cambios(actual, anterior):
                 "texto": f"Patrón: {', '.join(nuevos_bull)}",
             })
 
-    # SEÑAL 5: Confirmación por TF mayor + bias bullish
+    # SEÑAL 5: Confirmación por TF mayor
     if (ALERTA_CONFIRMADO_TF and confirmed and not confirmed_antes
             and bias_actual == "bullish"):
         motivos.append({
@@ -306,7 +372,7 @@ def detectar_cambios(actual, anterior):
             "texto": f"Confirmado por: {confirmed}",
         })
 
-    # SEÑAL 6: Setup muy fuerte (percentil 95+ + bullish)
+    # SEÑAL 6: Setup fuerte (percentil 95+)
     pctl_antes = anterior.get("percentile", 0)
     if (bias_actual == "bullish" and pctl >= 95 and pctl_antes < 95):
         motivos.append({
@@ -315,13 +381,26 @@ def detectar_cambios(actual, anterior):
             "texto": f"Percentil {pctl:.1f} (antes {pctl_antes:.1f})",
         })
 
-    # Deduplicar: si hay bias_bullish, eliminar régimen duplicado
+    # Deduplicar régimen duplicado
     tipos = [m["tipo"] for m in motivos]
     if "bias_bullish" in tipos and "regimen_alcista" in tipos:
         motivos = [m for m in motivos if m["tipo"] != "regimen_alcista"]
         for m in motivos:
             if m["tipo"] == "bias_bullish":
                 m["texto"] += f" | Régimen: {regime_actual}"
+
+    if not motivos:
+        return []
+
+    # Calcular puntuación por pesos
+    puntuacion = calcular_puntuacion(motivos, actual, anterior)
+
+    # Guardar puntuación en el primer motivo para mostrarla
+    motivos[0]["puntuacion"] = puntuacion
+
+    # Umbral mínimo de puntuación
+    if puntuacion < UMBRAL_PUNTOS:
+        return []
 
     return motivos
 
@@ -331,7 +410,7 @@ def main():
     print("📐 SETUP — Smart Setup Bot", flush=True)
     print(f"   Timeframe: {TIMEFRAME} | Top {TOP_MONEDAS} monedas", flush=True)
     print(f"   Confianza min: {CONFIANZA_MIN} | Score min: {DIRECTION_SCORE_MIN}", flush=True)
-    print(f"   Solo alerta INICIO ALCISTA (bias/régimen/archetype/patrón)", flush=True)
+    print(f"   Umbral puntuación: {UMBRAL_PUNTOS}/100", flush=True)
     print("=" * 70, flush=True)
     print(f"\nHora UTC: {datetime.now(timezone.utc).isoformat()}", flush=True)
 
@@ -349,6 +428,7 @@ def main():
     enviadas = 0
     errores = 0
     nuevas_monedas = 0
+    filtradas_por_umbral = 0
 
     for i, m in enumerate(monedas, 1):
         symbol_binance = m["symbol"]
@@ -371,19 +451,21 @@ def main():
             nuevas_monedas += 1
             print(f"[{i}/{len(monedas)}] 🆕 {base} (primera vez, guardando)", flush=True)
         else:
-            print(f"[{i}/{len(monedas)}] 🔍 {base} | bias={actual['bias']} regime={actual['regime']} conf={actual['confidence']:.1f} arch={actual['archetype_key']}", flush=True)
+            print(f"[{i}/{len(monedas)}] 🔍 {base} | bias={actual['bias']} regime={actual['regime']} conf={actual['confidence']:.1f}", flush=True)
 
         motivos = detectar_cambios(actual, anterior)
 
         if motivos:
-            print(f"      🎯 {len(motivos)} cambio(s): {[m['tipo'] for m in motivos]}", flush=True)
-            msg = construir_mensaje(base, actual, anterior, motivos)
+            puntuacion = motivos[0].get("puntuacion", 0)
+            print(f"      🎯 {len(motivos)} señal(es) | puntos={puntuacion}/100", flush=True)
+            msg = construir_mensaje(base, actual, anterior, motivos, puntuacion)
             if enviar_telegram(msg):
                 enviadas += 1
                 log_senal({
                     "ts": datetime.now(timezone.utc).isoformat(),
                     "symbol": base,
                     "cambios": [m["tipo"] for m in motivos],
+                    "puntuacion": puntuacion,
                     "bias": actual["bias"],
                     "regime": actual["regime"],
                     "confidence": actual["confidence"],
