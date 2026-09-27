@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-COIN — Pump/Dump Bot
+COIN — Pump/Dump Bot (solo movimientos sostenibles)
 - Sigue TODAS las monedas de CoinBeacon
 - Solo avisa PUMP de cualquier moneda
 - Solo avisa DUMP de monedas con PUMP previa (< 24h)
-- 5m: % ≥ 3% | 10m: % ≥ 5%
-- Vol confirmed obligatorio + cooldown 30 min + 1 alerta por dirección/run
+- Tipos: pump_5m, pump_10m, dump_5m, dump_10m (sin 1m)
+- Filtros:
+    * 5m ≥ 3%  | 10m ≥ 5%
+    * RVOL entre 2× y 15× (evita débiles y manipulaciones)
+    * Volumen confirmado
+    * Cooldown 30 min por moneda+tipo+bias+clasif
+    * 1 alerta por dirección por moneda por run
 """
 
 import json
@@ -20,6 +25,8 @@ SYMBOLS = []
 
 PCT_MIN_5M = 3.0
 PCT_MIN_10M = 5.0
+RVOL_MIN = 2.0        # mínimo (débil)
+RVOL_MAX = 15.0       # máximo (manipulación)
 REQUIERE_VOL_CONFIRMED = True
 COOLDOWN_MIN = 30
 PUMP_ACTIVA_HORAS = 24
@@ -134,12 +141,27 @@ def clasificar_evento(ev):
     return emoji, tipo_str
 
 
+def clasificar_rvol(rvol):
+    """Clasifica el RVOL para dar contexto visual."""
+    if rvol >= 50:
+        return "⚠️ manipulacion"
+    elif rvol >= 20:
+        return "🔥 alto"
+    elif rvol >= 8:
+        return "✅ saludable"
+    elif rvol >= 3:
+        return "✅ normal"
+    else:
+        return "➖ bajo"
+
+
 def main():
     print("=" * 70, flush=True)
-    print("🪙 COIN — Pump/Dump Bot", flush=True)
+    print("🪙 COIN — Pump/Dump Bot (solo sostenibles)", flush=True)
     print(f"   Pump: cualquier moneda", flush=True)
     print(f"   Dump: solo monedas con pump activa (< {PUMP_ACTIVA_HORAS}h)", flush=True)
     print(f"   Umbrales: 5m ≥ {PCT_MIN_5M}% | 10m ≥ {PCT_MIN_10M}%", flush=True)
+    print(f"   RVOL: entre {RVOL_MIN}× y {RVOL_MAX}× (evita manipulación)", flush=True)
     print(f"   Vol confirmed: {REQUIERE_VOL_CONFIRMED} | Cooldown: {COOLDOWN_MIN} min", flush=True)
     print("=" * 70, flush=True)
     print(f"\nHora UTC: {datetime.now(timezone.utc).isoformat()}", flush=True)
@@ -208,10 +230,12 @@ def main():
         if clave_evento in vistos:
             continue
 
+        # FILTRO 1: Volumen confirmado
         if REQUIERE_VOL_CONFIRMED and not vol_ok:
             vistos.add(clave_evento)
             continue
 
+        # FILTRO 2: % mínimo
         if "5m" in tipo:
             if abs(pct) < PCT_MIN_5M:
                 vistos.add(clave_evento)
@@ -221,17 +245,26 @@ def main():
                 vistos.add(clave_evento)
                 continue
 
+        # FILTRO 3: RVOL sostenible (entre 2× y 15×)
+        if rvol < RVOL_MIN or rvol > RVOL_MAX:
+            print(f"      ⏭️ {symbol_base} {tipo} omitido (RVOL {rvol:.2f}× fuera de [{RVOL_MIN}-{RVOL_MAX}])", flush=True)
+            vistos.add(clave_evento)
+            continue
+
+        # FILTRO 4: Cooldown
         clave_cooldown = f"{symbol_base}_{tipo}_{bias}_{clasif}"
         ultimo = cooldowns.get(clave_cooldown, 0)
         if ahora_ts - ultimo < COOLDOWN_MIN * 60:
             vistos.add(clave_evento)
             continue
 
+        # FILTRO 5: Dump solo si pump previa activa
         if es_dump and symbol_base not in pumps_activas:
             print(f"      ⏭️ {symbol_base} {tipo} omitido (sin pump previa)", flush=True)
             vistos.add(clave_evento)
             continue
 
+        # FILTRO 6: 1 alerta por dirección por moneda por run
         direccion = "up" if es_pump else "down"
         direcciones_usadas = direcciones_por_moneda.get(symbol_base, set())
         if direccion in direcciones_usadas:
@@ -244,6 +277,7 @@ def main():
         quote_vol = ev.get("quoteVolume24h", 0)
 
         emoji, tipo_str = clasificar_evento(ev)
+        rvol_txt = clasificar_rvol(rvol)
 
         ts_ev = datetime.fromtimestamp(spotted_at / 1000, tz=timezone.utc) + LIMA_OFFSET
         ts_str = ts_ev.strftime("%H:%M")
@@ -252,10 +286,6 @@ def main():
             precio_txt = f"${prev_price:.6f} → ${price:.6f}"
         else:
             precio_txt = f"${price:.6f}"
-
-        vol_txt = f"⚡ RVOL: {rvol:.2f}×"
-        if vol_ok:
-            vol_txt += "  ✅ Vol confirmed"
 
         tag_extra = ""
         if es_dump and symbol_base in pumps_activas:
@@ -266,7 +296,7 @@ def main():
             f"━━━━━━━━━━━━━━━━━━━\n"
             f"💵 {precio_txt}\n"
             f"📊 Movimiento: {pct:+.2f}%\n"
-            f"{vol_txt}\n"
+            f"⚡ RVOL: {rvol:.2f}× {rvol_txt}\n"
             f"🎯 Smart Setup: {setup:.1f}/10\n"
             f"💰 Vol 24h: ${quote_vol:,.0f}\n"
             f"🧭 {bias.upper()} | {clasif}\n"
@@ -300,14 +330,15 @@ def main():
                 "bias": bias,
                 "clasif": clasif,
             })
-            print(f"   {emoji} {symbol_base} {tipo} {pct:+.2f}% (setup {setup:.1f}) → enviado", flush=True)
+            print(f"   {emoji} {symbol_base} {tipo} {pct:+.2f}% RVOL {rvol:.2f}× (setup {setup:.1f}) → enviado", flush=True)
 
+    # Limitar historial
     todos_vistos = list(vistos)
     if len(todos_vistos) > 3000:
         todos_vistos = todos_vistos[-3000:]
 
-    if len(cooldowns) > 300:
-        cooldowns_ordenados = sorted(cooldowns.items(), key=lambda x: x[1], reverse=True)[:300]
+    if len(cooldowns) > 500:
+        cooldowns_ordenados = sorted(cooldowns.items(), key=lambda x: x[1], reverse=True)[:500]
         cooldowns = dict(cooldowns_ordenados)
 
     estado["vistos"] = todos_vistos
