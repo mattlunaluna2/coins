@@ -5,12 +5,14 @@ permissions:
 
 on:
   schedule:
-    # Cada 15 min, alineado con cierre de vela 15m
-    - cron: '1,16,31,46 * * * *'
+    - cron: '1 * * * *'
+    - cron: '16 * * * *'
+    - cron: '31 * * * *'
+    - cron: '46 * * * *'
   workflow_dispatch:
 
 concurrency:
-  group: repo-main-push
+  group: setup-15m-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
