@@ -9,6 +9,8 @@ COIN — Pump/Dump Bot (solo movimientos sostenibles)
 - Filtros:
     * 5m ≥ 3%  | 10m ≥ 5%
     * RVOL entre 2× y 15× (evita débiles y manipulaciones)
+    * Cambio 24h ≤ 30% (evita techos tras pump ya agotado)
+    * Ratio 1h/24h ≤ 0.5 (evita pump agresivo concentrado)
     * Volumen confirmado
     * Cooldown 30 min por moneda+tipo+bias+clasif
     * 1 alerta por dirección por moneda por run
@@ -16,6 +18,7 @@ COIN — Pump/Dump Bot (solo movimientos sostenibles)
 
 import json
 import os
+import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone, timedelta
@@ -30,6 +33,10 @@ RVOL_MAX = 15.0       # máximo (manipulación)
 REQUIERE_VOL_CONFIRMED = True
 COOLDOWN_MIN = 30
 PUMP_ACTIVA_HORAS = 24
+
+# Filtros de contexto (evitan entrar en techos)
+CAMBIO_24H_MAX = 30.0       # Bloquear si subió > 30% en 24h
+RATIO_1H_24H_MAX = 0.5      # Bloquear si 1h/24h > 0.5 (pump agresivo)
 
 STATE_FILE = Path("data/coin_state.json")
 SIGNALS_LOG = Path("data/coin_log.jsonl")
@@ -127,6 +134,53 @@ def consultar_pumping_events():
         return []
 
 
+OKX_CANDLES_URL = "https://www.okx.com/api/v5/market/candles"
+
+
+def obtener_cambios(symbol_binance):
+    """
+    Devuelve dict con cambios % en 1h, 4h, 24h usando velas 1H de OKX.
+    """
+    if symbol_binance.endswith("USDT"):
+        base = symbol_binance[:-4]
+        inst_id = f"{base}-USDT"
+    else:
+        return None
+
+    url = f"{OKX_CANDLES_URL}?instId={inst_id}&bar=1H&limit=25"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception:
+        return None
+
+    if data.get("code") != "0":
+        return None
+
+    velas = data.get("data", [])
+    if len(velas) < 25:
+        return None
+
+    velas.reverse()
+    precios = [float(v[4]) for v in velas]
+    actual = precios[-1]
+
+    def cambio(h):
+        if len(precios) < h + 1:
+            return None
+        pasado = precios[-(h + 1)]
+        if pasado <= 0:
+            return None
+        return ((actual - pasado) / pasado) * 100
+
+    return {
+        "c1h": cambio(1),
+        "c4h": cambio(4),
+        "c24h": cambio(24),
+    }
+
+
 def clasificar_evento(ev):
     tipo = ev.get("type", "")
     if "pump" in tipo:
@@ -162,6 +216,8 @@ def main():
     print(f"   Dump: solo monedas con pump activa (< {PUMP_ACTIVA_HORAS}h)", flush=True)
     print(f"   Umbrales: 5m ≥ {PCT_MIN_5M}% | 10m ≥ {PCT_MIN_10M}%", flush=True)
     print(f"   RVOL: entre {RVOL_MIN}× y {RVOL_MAX}× (evita manipulación)", flush=True)
+    print(f"   Cambio 24h máx: {CAMBIO_24H_MAX}%", flush=True)
+    print(f"   Ratio 1h/24h máx: {RATIO_1H_24H_MAX}", flush=True)
     print(f"   Vol confirmed: {REQUIERE_VOL_CONFIRMED} | Cooldown: {COOLDOWN_MIN} min", flush=True)
     print("=" * 70, flush=True)
     print(f"\nHora UTC: {datetime.now(timezone.utc).isoformat()}", flush=True)
@@ -250,6 +306,24 @@ def main():
             print(f"      ⏭️ {symbol_base} {tipo} omitido (RVOL {rvol:.2f}× fuera de [{RVOL_MIN}-{RVOL_MAX}])", flush=True)
             vistos.add(clave_evento)
             continue
+
+        # FILTRO 3.5: Contexto de tendencia (solo para pumps)
+        if es_pump:
+            cambios = obtener_cambios(symbol_full)
+            if cambios and cambios["c24h"] is not None:
+                c24 = cambios["c24h"]
+                c1 = cambios["c1h"] or 0
+                ratio = c1 / c24 if c24 > 0 else 0
+
+                if c24 > CAMBIO_24H_MAX:
+                    print(f"      ⏭️ {symbol_base} {tipo} omitido (cambio 24h {c24:+.1f}%)", flush=True)
+                    vistos.add(clave_evento)
+                    continue
+
+                if ratio > RATIO_1H_24H_MAX and c24 > 5:
+                    print(f"      ⏭️ {symbol_base} {tipo} omitido (ratio 1h/24h {ratio:.2f}, pump agresivo)", flush=True)
+                    vistos.add(clave_evento)
+                    continue
 
         # FILTRO 4: Cooldown
         clave_cooldown = f"{symbol_base}_{tipo}_{bias}_{clasif}"
