@@ -1,4 +1,4 @@
-name: COIN
+name: COIN PUMP DUMP
 
 permissions:
   contents: write
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: coin-${{ github.ref }}
+  group: coin-pump-dump-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
       - name: Check syntax
         run: python -m py_compile coin.py
 
-      - name: Run Coin Bot
+      - name: Run Coin Pump Dump
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -50,7 +50,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "📭 Sin cambios"
           else
-            git commit -m "coin: update [skip ci]"
+            git commit -m "coin pump dump: update [skip ci]"
 
             for i in 1 2 3; do
               git pull --rebase origin main && break
