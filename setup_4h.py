@@ -29,7 +29,7 @@ UMBRAL_PUNTOS = 35
 
 # Filtro RSI 4h: solo alertar si está entre 34 y 50
 RSI_4H_MIN = 30.0
-RSI_4H_MAX = 34.0
+RSI_4H_MAX = 37.0
 
 EXCLUIR = {"USDC", "USDT", "DAI", "TUSD", "FDUSD", "BUSD", "USDD"}
 
