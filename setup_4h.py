@@ -31,7 +31,14 @@ UMBRAL_PUNTOS = 35
 RSI_4H_MIN = 30.0
 RSI_4H_MAX = 37.0
 
-EXCLUIR = {"USDC", "USDT", "DAI", "TUSD", "FDUSD", "BUSD", "USDD"}
+EXCLUIR = {
+    # Stablecoins
+    "USDC", "USDT", "DAI", "TUSD", "FDUSD", "BUSD", "USDD", "USDE",
+    # Oro / Commodities
+    "XAUT", "PAXG",
+    # Wrapped / Derivados
+    "WBTC", "WETH", "STETH", "WSTETH",
+}
 
 STATE_FILE = Path("data/setup_4h_state.json")
 SIGNALS_LOG = Path("data/setup_4h_log.jsonl")
