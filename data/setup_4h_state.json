@@ -1,149 +1,45 @@
 {
   "monedas": {
     "BTCUSDT": {
-      "price": 83292,
+      "price": 83764.01,
       "bias": "bearish",
       "regime": "TREND DOWN",
-      "confidence": 5.9,
-      "direction_score": -33,
-      "percentile": 50.4,
-      "archetype_key": "breakout_watch",
-      "archetype_label": "Breakout watch",
-      "archetype_direction": "short",
-      "narrative": "Breakout watch on 4h. 2.2\u00d7 volume. 3/5 checks pass. TREND DOWN.",
+      "confidence": 7.5,
+      "direction_score": -18,
+      "percentile": 90.1,
+      "archetype_key": "level_bounce",
+      "archetype_label": "Support bounce",
+      "archetype_direction": "long",
+      "narrative": "Support bounce on 4h. 2.3\u00d7 volume. 5/5 checks pass. TREND DOWN.",
       "confirmed_by_tf": null,
       "continuation": 71,
       "reversal": 14,
-      "exhaustion": 43,
+      "exhaustion": 14,
       "patterns": [
         "Double Top",
         "Double Bottom"
       ],
       "trend_alignment": {
-        "4h": -33,
+        "4h": -18,
         "1d": 57,
         "1w": 33
       },
-      "rsi_4h": 40.1020762331498,
-      "updated_at": "2026-09-28T15:50:02.966940+00:00"
+      "rsi_4h": 49.1225224814492,
+      "updated_at": "2026-09-28T16:26:45.718322+00:00"
     },
     "ETHUSDT": {
-      "price": 2676.55,
+      "price": 2690.99,
       "bias": "bearish",
       "regime": "TREND DOWN",
-      "confidence": 6.3,
-      "direction_score": -67,
-      "percentile": 62.5,
+      "confidence": 5.9,
+      "direction_score": -54,
+      "percentile": 49.1,
       "archetype_key": "breakout_watch",
       "archetype_label": "Breakout watch",
       "archetype_direction": "short",
-      "narrative": "Breakout watch on 4h. 1.8\u00d7 volume. 3/5 checks pass. TREND DOWN.",
+      "narrative": "Breakout watch on 4h. 2.2\u00d7 volume. 3/5 checks pass. TREND DOWN.",
       "confirmed_by_tf": null,
       "continuation": 43,
-      "reversal": 29,
-      "exhaustion": 29,
-      "patterns": [
-        "Double Top"
-      ],
-      "trend_alignment": {
-        "4h": -67,
-        "1d": 73,
-        "1w": 33
-      },
-      "rsi_4h": 48.369761040127685,
-      "updated_at": "2026-09-28T15:50:04.932524+00:00"
-    },
-    "ZECUSDT": {
-      "price": 1529.93,
-      "bias": "bullish",
-      "regime": "STRONG TREND UP",
-      "confidence": 7.4,
-      "direction_score": 43,
-      "percentile": 90.7,
-      "archetype_key": "breakout_watch",
-      "archetype_label": "Breakout watch",
-      "archetype_direction": "long",
-      "narrative": "Breakout watch on 4h. 3/5 checks pass. STRONG TREND UP.",
-      "confirmed_by_tf": "1d",
-      "continuation": 50,
-      "reversal": 14,
-      "exhaustion": 14,
-      "patterns": [
-        "Ascending Broadening Wedge"
-      ],
-      "trend_alignment": {
-        "4h": 43,
-        "1d": 63,
-        "1w": 69
-      },
-      "rsi_4h": 45.47824688569183,
-      "updated_at": "2026-09-28T15:50:10.626518+00:00"
-    },
-    "SOLUSDT": {
-      "price": 118.56,
-      "bias": "bullish",
-      "regime": "STRONG TREND UP",
-      "confidence": 6.1,
-      "direction_score": 26,
-      "percentile": 56.6,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
-      "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 2/5 checks pass. STRONG TREND UP.",
-      "confirmed_by_tf": "1d",
-      "continuation": 71,
-      "reversal": 29,
-      "exhaustion": 0,
-      "patterns": [
-        "Ascending Channel"
-      ],
-      "trend_alignment": {
-        "4h": 26,
-        "1d": 78,
-        "1w": 48
-      },
-      "rsi_4h": 48.82128738330454,
-      "updated_at": "2026-09-28T15:50:06.782504+00:00"
-    },
-    "XRPUSDT": {
-      "price": 1.4944,
-      "bias": "bearish",
-      "regime": "TREND DOWN",
-      "confidence": 6.9,
-      "direction_score": -60,
-      "percentile": 80.6,
-      "archetype_key": "breakout_retest",
-      "archetype_label": "Breakout retest",
-      "archetype_direction": "short",
-      "narrative": "Breakout retest \u2014 retest held just now on 4h. 4/6 checks pass. TREND DOWN.",
-      "confirmed_by_tf": null,
-      "continuation": 29,
-      "reversal": 29,
-      "exhaustion": 14,
-      "patterns": [
-        "Ascending Channel"
-      ],
-      "trend_alignment": {
-        "4h": -60,
-        "1d": 42,
-        "1w": 41
-      },
-      "rsi_4h": 46.172326823915846,
-      "updated_at": "2026-09-28T15:50:08.757832+00:00"
-    },
-    "DOGEUSDT": {
-      "price": 0.09324,
-      "bias": "bearish",
-      "regime": "TREND DOWN",
-      "confidence": 5,
-      "direction_score": -27,
-      "percentile": 25.3,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
-      "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 1.5\u00d7 volume. 3/5 checks pass. TREND DOWN.",
-      "confirmed_by_tf": "1w",
-      "continuation": 29,
       "reversal": 14,
       "exhaustion": 29,
       "patterns": [
@@ -151,179 +47,282 @@
         "Double Top"
       ],
       "trend_alignment": {
-        "4h": -27,
+        "4h": -54,
+        "1d": 73,
+        "1w": 33
+      },
+      "rsi_4h": 53.32298191076005,
+      "updated_at": "2026-09-28T16:26:47.580986+00:00"
+    },
+    "ZECUSDT": {
+      "price": 1534.74,
+      "bias": "neutral",
+      "regime": "STRONG TREND UP",
+      "confidence": 7,
+      "direction_score": 9,
+      "percentile": 79.5,
+      "archetype_key": "breakout_watch",
+      "archetype_label": "Breakout watch",
+      "archetype_direction": "long",
+      "narrative": "Breakout watch on 4h. 1.8\u00d7 volume. 4/5 checks pass. STRONG TREND UP.",
+      "confirmed_by_tf": "1d",
+      "continuation": 43,
+      "reversal": 14,
+      "exhaustion": 14,
+      "patterns": [
+        "Ascending Broadening Wedge"
+      ],
+      "trend_alignment": {
+        "4h": 9,
+        "1d": 63,
+        "1w": 69
+      },
+      "rsi_4h": 48.41959864700739,
+      "updated_at": "2026-09-28T16:26:53.213358+00:00"
+    },
+    "SOLUSDT": {
+      "price": 119.78,
+      "bias": "bullish",
+      "regime": "STRONG TREND UP",
+      "confidence": 4.6,
+      "direction_score": 30,
+      "percentile": 15.8,
+      "archetype_key": "level_bounce",
+      "archetype_label": "Resistance fade",
+      "archetype_direction": "short",
+      "narrative": "Resistance fade on 4h. 1.3\u00d7 volume. 2/5 checks pass. STRONG TREND UP.",
+      "confirmed_by_tf": "1d",
+      "continuation": 79,
+      "reversal": 43,
+      "exhaustion": 0,
+      "patterns": [
+        "Ascending Channel"
+      ],
+      "trend_alignment": {
+        "4h": 30,
+        "1d": 78,
+        "1w": 48
+      },
+      "rsi_4h": 53.884223715180966,
+      "updated_at": "2026-09-28T16:26:49.489023+00:00"
+    },
+    "XRPUSDT": {
+      "price": 1.5126,
+      "bias": "bearish",
+      "regime": "TREND DOWN",
+      "confidence": 7.3,
+      "direction_score": -80,
+      "percentile": 86.7,
+      "archetype_key": "breakout_retest",
+      "archetype_label": "Breakout retest",
+      "archetype_direction": "short",
+      "narrative": "Breakout retest \u2014 retest held just now on 4h. 1.7\u00d7 volume. 5/6 checks pass. TREND DOWN.",
+      "confirmed_by_tf": null,
+      "continuation": 29,
+      "reversal": 14,
+      "exhaustion": 14,
+      "patterns": [
+        "Ascending Channel"
+      ],
+      "trend_alignment": {
+        "4h": -80,
+        "1d": 42,
+        "1w": 41
+      },
+      "rsi_4h": 51.808755080932805,
+      "updated_at": "2026-09-28T16:26:51.377345+00:00"
+    },
+    "DOGEUSDT": {
+      "price": 0.09467,
+      "bias": "bearish",
+      "regime": "TREND DOWN",
+      "confidence": 7.6,
+      "direction_score": -78,
+      "percentile": 91.5,
+      "archetype_key": "breakout_retest",
+      "archetype_label": "Breakout retest",
+      "archetype_direction": "short",
+      "narrative": "Breakout retest \u2014 retest held just now on 4h. 1.9\u00d7 volume. 6/6 checks pass. TREND DOWN.",
+      "confirmed_by_tf": "1w",
+      "continuation": 29,
+      "reversal": 14,
+      "exhaustion": 14,
+      "patterns": [
+        "Ascending Broadening Wedge",
+        "Double Top"
+      ],
+      "trend_alignment": {
+        "4h": -78,
         "1d": 85,
         "1w": -50
       },
-      "rsi_4h": 43.77244223931897,
-      "updated_at": "2026-09-28T15:50:12.448930+00:00"
+      "rsi_4h": 50.77564381955138,
+      "updated_at": "2026-09-28T16:26:55.005071+00:00"
     },
     "SUIUSDT": {
-      "price": 1.1486,
+      "price": 1.1708,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 6.8,
-      "direction_score": 65,
-      "percentile": 76.9,
+      "confidence": 7.4,
+      "direction_score": 33,
+      "percentile": 88.1,
       "archetype_key": "breakout_retest",
       "archetype_label": "Breakout retest",
       "archetype_direction": "long",
-      "narrative": "Breakout retest \u2014 retest held just now on 4h. 1.7\u00d7 volume. 4/6 checks pass. STRONG TREND UP.",
+      "narrative": "Breakout retest \u2014 retest held just now on 4h. 2.5\u00d7 volume. 5/6 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 71,
-      "reversal": 14,
+      "reversal": 43,
       "exhaustion": 0,
       "patterns": [
         "Ascending Broadening Wedge"
       ],
       "trend_alignment": {
-        "4h": 65,
+        "4h": 33,
         "1d": 48,
         "1w": 22
       },
-      "rsi_4h": 52.92223804058296,
-      "updated_at": "2026-09-28T15:50:14.310129+00:00"
+      "rsi_4h": 56.88813004889656,
+      "updated_at": "2026-09-28T16:26:56.810746+00:00"
     },
     "NEARUSDT": {
-      "price": 4.903,
+      "price": 4.977,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 7.7,
-      "direction_score": 60,
-      "percentile": 94.1,
+      "confidence": 5.9,
+      "direction_score": 26,
+      "percentile": 47.6,
       "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
-      "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 1.4\u00d7 volume. 3/5 checks pass. STRONG TREND UP.",
+      "archetype_label": "Resistance fade",
+      "archetype_direction": "short",
+      "narrative": "Resistance fade on 4h. 1.9\u00d7 volume. 4/5 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
-      "continuation": 64,
-      "reversal": 43,
+      "continuation": 79,
+      "reversal": 14,
       "exhaustion": 0,
       "patterns": [
         "Reversal Rising Wedge"
       ],
       "trend_alignment": {
-        "4h": 60,
+        "4h": 26,
         "1d": 66,
         "1w": 48
       },
-      "rsi_4h": 50.26213481148865,
-      "updated_at": "2026-09-28T15:50:16.142412+00:00"
+      "rsi_4h": 53.813223366749654,
+      "updated_at": "2026-09-28T16:26:58.889468+00:00"
     },
     "WLDUSDT": {
-      "price": 0.4862,
+      "price": 0.4963,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 3.1,
-      "direction_score": 65,
-      "percentile": 0.6,
+      "confidence": 6,
+      "direction_score": 20,
+      "percentile": 53.5,
       "archetype_key": "level_bounce",
-      "archetype_label": "Resistance fade",
-      "archetype_direction": "short",
-      "narrative": "Resistance fade on 4h. 0/5 checks pass. STRONG TREND UP.",
+      "archetype_label": "Support bounce",
+      "archetype_direction": "long",
+      "narrative": "Support bounce on 4h. 1.9\u00d7 volume. 3/5 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
-      "continuation": 71,
-      "reversal": 14,
+      "continuation": 50,
+      "reversal": 43,
       "exhaustion": 0,
       "patterns": [
         "Ascending Broadening Wedge"
       ],
       "trend_alignment": {
-        "4h": 65,
+        "4h": 20,
         "1d": 53,
         "1w": 43
       },
-      "rsi_4h": 49.521980296293385,
-      "updated_at": "2026-09-28T15:50:23.700803+00:00"
+      "rsi_4h": 53.10834923786677,
+      "updated_at": "2026-09-28T16:27:06.281956+00:00"
     },
     "UNIUSDT": {
-      "price": 8.838,
+      "price": 8.958,
       "bias": "bearish",
       "regime": "TREND DOWN",
-      "confidence": 6.5,
-      "direction_score": -54,
-      "percentile": 69.6,
+      "confidence": 7.1,
+      "direction_score": -64,
+      "percentile": 83.3,
       "archetype_key": "pattern_breakout",
       "archetype_label": "Breakout \u2014 Ascending Channel",
       "archetype_direction": "short",
-      "narrative": "Breakout \u2014 Ascending Channel \u2014 broke just now on 4h. 1.8\u00d7 volume. 5/6 checks pass. TREND DOWN.",
+      "narrative": "Breakout \u2014 Ascending Channel \u2014 broke 1 bar ago on 4h. 1.8\u00d7 volume. 5/6 checks pass. TREND DOWN.",
       "confirmed_by_tf": null,
-      "continuation": 21,
-      "reversal": 29,
+      "continuation": 29,
+      "reversal": 0,
       "exhaustion": 29,
       "patterns": [
         "Ascending Channel"
       ],
       "trend_alignment": {
-        "4h": -54,
+        "4h": -64,
         "1d": 29,
         "1w": 35
       },
-      "rsi_4h": 36.726016873545156,
-      "updated_at": "2026-09-28T15:50:18.104568+00:00"
+      "rsi_4h": 41.30737698508998,
+      "updated_at": "2026-09-28T16:27:02.642084+00:00"
     },
     "GRAMUSDT": {
-      "price": 1.588,
+      "price": 1.637,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 4,
-      "direction_score": 79,
-      "percentile": 5.7,
+      "confidence": 6.1,
+      "direction_score": 100,
+      "percentile": 55.7,
+      "archetype_key": "level_bounce",
+      "archetype_label": "Support bounce",
+      "archetype_direction": "long",
+      "narrative": "Support bounce on 4h. 1.7\u00d7 volume. 2/5 checks pass. STRONG TREND UP.",
+      "confirmed_by_tf": "1d",
+      "continuation": 71,
+      "reversal": 0,
+      "exhaustion": 14,
+      "patterns": [],
+      "trend_alignment": {
+        "4h": 100,
+        "1d": 36
+      },
+      "rsi_4h": 64.14554594660044,
+      "updated_at": "2026-09-28T16:27:28.066413+00:00"
+    },
+    "ARBUSDT": {
+      "price": 0.2046,
+      "bias": "bearish",
+      "regime": "TREND DOWN",
+      "confidence": 6.4,
+      "direction_score": -71,
+      "percentile": 67,
       "archetype_key": "level_bounce",
       "archetype_label": "Resistance fade",
       "archetype_direction": "short",
-      "narrative": "Resistance fade on 4h. 2.2\u00d7 volume. 2/5 checks pass. STRONG TREND UP.",
-      "confirmed_by_tf": "1d",
-      "continuation": 91,
-      "reversal": 29,
-      "exhaustion": 29,
-      "patterns": [
-        "Descending Channel"
-      ],
-      "trend_alignment": {
-        "4h": 79,
-        "1d": 36
-      },
-      "rsi_4h": 58.952747691186914,
-      "updated_at": "2026-09-28T15:50:45.500524+00:00"
-    },
-    "ARBUSDT": {
-      "price": 0.2026,
-      "bias": "neutral",
-      "regime": "TREND UP",
-      "confidence": 5.7,
-      "direction_score": -14,
-      "percentile": 45.4,
-      "archetype_key": "pattern_breakout",
-      "archetype_label": "Breakout \u2014 Ascending Channel",
-      "archetype_direction": "short",
-      "narrative": "Breakout \u2014 Ascending Channel \u2014 broke 1 bar ago on 4h. 4/6 checks pass. TREND UP.",
+      "narrative": "Resistance fade on 4h. 1.3\u00d7 volume. 2/5 checks pass. TREND DOWN.",
       "confirmed_by_tf": null,
-      "continuation": 29,
-      "reversal": 29,
+      "continuation": 14,
+      "reversal": 71,
       "exhaustion": 29,
       "patterns": [
         "Ascending Channel"
       ],
       "trend_alignment": {
-        "4h": -14,
+        "4h": -71,
         "1d": 36,
         "1w": 35
       },
-      "rsi_4h": 37.00950778404017,
-      "updated_at": "2026-09-28T15:50:41.827924+00:00"
+      "rsi_4h": 41.045775368299566,
+      "updated_at": "2026-09-28T16:27:24.415333+00:00"
     },
     "FILUSDT": {
-      "price": 1.0353,
+      "price": 1.0553,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 5.6,
-      "direction_score": 64,
-      "percentile": 42.5,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
+      "confidence": 7.2,
+      "direction_score": 40,
+      "percentile": 85.1,
+      "archetype_key": "breakout_watch",
+      "archetype_label": "Breakout watch",
       "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 2/5 checks pass. STRONG TREND UP.",
+      "narrative": "Breakout watch on 4h. 1.6\u00d7 volume. 4/5 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 100,
       "reversal": 0,
@@ -333,24 +332,24 @@
         "Double Bottom"
       ],
       "trend_alignment": {
-        "4h": 64,
+        "4h": 40,
         "1d": 46,
         "1w": 0
       },
-      "rsi_4h": 47.612876557160426,
-      "updated_at": "2026-09-28T15:50:34.534169+00:00"
+      "rsi_4h": 52.27861659096573,
+      "updated_at": "2026-09-28T16:27:17.105251+00:00"
     },
     "PEPEUSDT": {
-      "price": 4.18e-06,
+      "price": 4.23e-06,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 7.6,
-      "direction_score": -43,
-      "percentile": 93.3,
+      "confidence": 7.8,
+      "direction_score": -62,
+      "percentile": 94.7,
       "archetype_key": "breakout_retest",
       "archetype_label": "Breakout retest",
       "archetype_direction": "short",
-      "narrative": "Breakout retest \u2014 retest held just now on 4h. 1.4\u00d7 volume. 5/6 checks pass. STRONG TREND DOWN.",
+      "narrative": "Breakout retest \u2014 retest held just now on 4h. 2.1\u00d7 volume. 6/6 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1w",
       "continuation": 43,
       "reversal": 29,
@@ -360,75 +359,75 @@
         "Double Bottom"
       ],
       "trend_alignment": {
-        "4h": -43,
+        "4h": -62,
         "1d": 35,
         "1w": -24
       },
-      "rsi_4h": 40.623581979280715,
-      "updated_at": "2026-09-28T15:50:43.698111+00:00"
+      "rsi_4h": 46.58508561436999,
+      "updated_at": "2026-09-28T16:27:26.251476+00:00"
     },
     "TRUMPUSDT": {
-      "price": 1.982,
-      "bias": "neutral",
+      "price": 2.016,
+      "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 6.6,
-      "direction_score": 0,
-      "percentile": 74.1,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
+      "confidence": 5.7,
+      "direction_score": -29,
+      "percentile": 45.1,
+      "archetype_key": "breakout_watch",
+      "archetype_label": "Breakout watch",
       "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 1.4\u00d7 volume. 4/5 checks pass. STRONG TREND DOWN.",
+      "narrative": "Breakout watch on 4h. 1.8\u00d7 volume. 4/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": null,
-      "continuation": 29,
+      "continuation": 36,
       "reversal": 14,
       "exhaustion": 29,
       "patterns": [
         "Ascending Channel"
       ],
       "trend_alignment": {
-        "4h": 0,
+        "4h": -29,
         "1d": 60,
         "1w": 5
       },
-      "rsi_4h": 41.71193770760926,
-      "updated_at": "2026-09-28T15:50:40.002726+00:00"
+      "rsi_4h": 47.78196634661013,
+      "updated_at": "2026-09-28T16:27:20.720192+00:00"
     },
     "XPLUSDT": {
-      "price": 0.09701,
+      "price": 0.09916,
       "bias": "neutral",
       "regime": "STRONG TREND UP",
-      "confidence": 5.2,
-      "direction_score": 11,
-      "percentile": 31.3,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
+      "confidence": 5,
+      "direction_score": 9,
+      "percentile": 23.6,
+      "archetype_key": "breakout_retest",
+      "archetype_label": "Breakout retest",
       "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 2/5 checks pass. STRONG TREND UP.",
+      "narrative": "Breakout retest \u2014 retest held just now on 4h. 4/6 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 21,
       "reversal": 0,
-      "exhaustion": 0,
+      "exhaustion": 29,
       "patterns": [
         "Ascending Broadening Wedge"
       ],
       "trend_alignment": {
-        "4h": 11,
+        "4h": 9,
         "1d": 100
       },
-      "rsi_4h": 44.54840330368658,
-      "updated_at": "2026-09-28T15:50:59.378225+00:00"
+      "rsi_4h": 48.19418212263592,
+      "updated_at": "2026-09-28T16:27:41.895834+00:00"
     },
     "PUMPUSDT": {
-      "price": 0.005132,
+      "price": 0.005407,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 7.8,
-      "direction_score": 61,
-      "percentile": 95.2,
-      "archetype_key": "pattern_breakout",
-      "archetype_label": "Breakout \u2014 Symmetrical Triangle",
+      "confidence": 8.3,
+      "direction_score": 81,
+      "percentile": 98.1,
+      "archetype_key": "level_bounce",
+      "archetype_label": "Support bounce",
       "archetype_direction": "long",
-      "narrative": "Breakout \u2014 Symmetrical Triangle \u2014 broke 5 bars ago on 4h. 2.1\u00d7 volume. 5/6 checks pass. STRONG TREND UP.",
+      "narrative": "Support bounce on 4h. 3.0\u00d7 volume. 5/5 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 96,
       "reversal": 14,
@@ -437,219 +436,218 @@
         "Symmetrical Triangle"
       ],
       "trend_alignment": {
-        "4h": 61,
+        "4h": 81,
         "1d": 71
       },
-      "rsi_4h": 70.35422916965118,
-      "updated_at": "2026-09-28T15:50:27.161876+00:00"
+      "rsi_4h": 76.25602649974843,
+      "updated_at": "2026-09-28T16:27:09.781787+00:00"
     },
     "AVAXUSDT": {
-      "price": 10.337,
-      "bias": "neutral",
-      "regime": "STRONG TREND UP",
-      "confidence": 4.4,
-      "direction_score": 6,
-      "percentile": 11.3,
+      "price": 10.454,
+      "bias": "bearish",
+      "regime": "RANGE",
+      "confidence": 5.5,
+      "direction_score": -69,
+      "percentile": 35.1,
       "archetype_key": "level_bounce",
       "archetype_label": "Resistance fade",
       "archetype_direction": "short",
-      "narrative": "Resistance fade on 4h. 0/5 checks pass. STRONG TREND UP.",
-      "confirmed_by_tf": "1d",
-      "continuation": 86,
-      "reversal": 14,
+      "narrative": "Resistance fade on 4h. 2.0\u00d7 volume. 1/5 checks pass. RANGE.",
+      "confirmed_by_tf": null,
+      "continuation": 57,
+      "reversal": 0,
       "exhaustion": 0,
       "patterns": [
         "Ascending Broadening Wedge",
         "Double Top"
       ],
       "trend_alignment": {
-        "4h": 6,
+        "4h": -69,
         "1d": 68,
         "1w": 5
       },
-      "rsi_4h": 43.33682309723539,
-      "updated_at": "2026-09-28T15:50:54.147330+00:00"
+      "rsi_4h": 48.61318829388928,
+      "updated_at": "2026-09-28T16:27:36.557537+00:00"
     },
     "ONDOUSDT": {
-      "price": 0.5175,
+      "price": 0.5214,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 3.6,
-      "direction_score": 68,
-      "percentile": 2.2,
+      "confidence": 5.6,
+      "direction_score": 30,
+      "percentile": 38.7,
       "archetype_key": "level_bounce",
       "archetype_label": "Resistance fade",
       "archetype_direction": "short",
-      "narrative": "Resistance fade on 4h. 2.6\u00d7 volume. 1/5 checks pass. STRONG TREND UP.",
+      "narrative": "Resistance fade on 4h. 2.4\u00d7 volume. 3/5 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 86,
-      "reversal": 14,
+      "reversal": 29,
       "exhaustion": 0,
       "patterns": [
         "Ascending Broadening Wedge"
       ],
       "trend_alignment": {
-        "4h": 68,
+        "4h": 30,
         "1d": 47,
         "1w": 33
       },
-      "rsi_4h": 53.73222000518643,
-      "updated_at": "2026-09-28T15:50:21.874545+00:00"
+      "rsi_4h": 56.33596689858923,
+      "updated_at": "2026-09-28T16:27:04.458519+00:00"
     },
     "ENAUSDT": {
-      "price": 0.259,
+      "price": 0.2616,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 7.4,
-      "direction_score": 62,
-      "percentile": 89.8,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
-      "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 4/5 checks pass. STRONG TREND UP.",
-      "confirmed_by_tf": "1d",
-      "continuation": 79,
-      "reversal": 43,
-      "exhaustion": 0,
-      "patterns": [
-        "Ascending Broadening Wedge",
-        "Bull Flag"
-      ],
-      "trend_alignment": {
-        "4h": 62,
-        "1d": 73,
-        "1w": 56
-      },
-      "rsi_4h": 56.37009321899671,
-      "updated_at": "2026-09-28T15:50:38.163039+00:00"
-    },
-    "BCHUSDT": {
-      "price": 309.6,
-      "bias": "bearish",
-      "regime": "STRONG TREND DOWN",
-      "confidence": 5.7,
-      "direction_score": -59,
-      "percentile": 44.5,
+      "confidence": 5.1,
+      "direction_score": 44,
+      "percentile": 25,
       "archetype_key": "level_bounce",
       "archetype_label": "Resistance fade",
       "archetype_direction": "short",
-      "narrative": "Resistance fade on 4h. 1.4\u00d7 volume. 1/5 checks pass. STRONG TREND DOWN.",
+      "narrative": "Resistance fade on 4h. 1.7\u00d7 volume. 3/5 checks pass. STRONG TREND UP.",
+      "confirmed_by_tf": "1d",
+      "continuation": 64,
+      "reversal": 29,
+      "exhaustion": 0,
+      "patterns": [
+        "Ascending Broadening Wedge"
+      ],
+      "trend_alignment": {
+        "4h": 44,
+        "1d": 73,
+        "1w": 56
+      },
+      "rsi_4h": 59.52335573431246,
+      "updated_at": "2026-09-28T16:27:22.542329+00:00"
+    },
+    "BCHUSDT": {
+      "price": 312.1,
+      "bias": "bearish",
+      "regime": "STRONG TREND DOWN",
+      "confidence": 4.4,
+      "direction_score": -85,
+      "percentile": 9.9,
+      "archetype_key": "level_bounce",
+      "archetype_label": "Support bounce",
+      "archetype_direction": "long",
+      "narrative": "Support bounce on 4h. 1.6\u00d7 volume. 2/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": null,
-      "continuation": 46,
-      "reversal": 14,
-      "exhaustion": 29,
+      "continuation": 43,
+      "reversal": 29,
+      "exhaustion": 14,
       "patterns": [
         "Double Top",
         "Double Bottom"
       ],
       "trend_alignment": {
-        "4h": -59,
+        "4h": -85,
         "1d": 24,
         "1w": 57
       },
-      "rsi_4h": 31.48706133628609,
-      "updated_at": "2026-09-28T15:50:55.957583+00:00"
+      "rsi_4h": 36.90846326135238,
+      "updated_at": "2026-09-28T16:27:38.457665+00:00"
     },
     "LTCUSDT": {
-      "price": 70.13,
+      "price": 70.48,
       "bias": "neutral",
       "regime": "STRONG TREND UP",
-      "confidence": 5.4,
-      "direction_score": 10,
-      "percentile": 35.7,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Resistance fade",
-      "archetype_direction": "short",
-      "narrative": "Resistance fade on 4h. 1.5\u00d7 volume. 3/5 checks pass. STRONG TREND UP.",
+      "confidence": 6.7,
+      "direction_score": 14,
+      "percentile": 72,
+      "archetype_key": "breakout_retest",
+      "archetype_label": "Breakout retest",
+      "archetype_direction": "long",
+      "narrative": "Breakout retest \u2014 retest held just now on 4h. 1.9\u00d7 volume. 5/6 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 71,
-      "reversal": 57,
-      "exhaustion": 14,
+      "reversal": 71,
+      "exhaustion": 0,
       "patterns": [
         "Ascending Broadening Wedge",
         "Double Top"
       ],
       "trend_alignment": {
-        "4h": 10,
+        "4h": 14,
         "1d": 46,
         "1w": 56
       },
-      "rsi_4h": 56.49272898020538,
-      "updated_at": "2026-09-28T15:50:36.374162+00:00"
+      "rsi_4h": 57.813225910448956,
+      "updated_at": "2026-09-28T16:27:18.917888+00:00"
     },
     "LINKUSDT": {
-      "price": 14.367,
+      "price": 14.891,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 5.3,
-      "direction_score": 38,
-      "percentile": 34.1,
-      "archetype_key": "breakout_retest",
-      "archetype_label": "Breakout retest",
-      "archetype_direction": "short",
-      "narrative": "Breakout retest \u2014 retest held just now on 4h. 1.5\u00d7 volume. 4/6 checks pass. STRONG TREND UP.",
+      "confidence": 8.1,
+      "direction_score": 73,
+      "percentile": 96.7,
+      "archetype_key": "reversal",
+      "archetype_label": "Reversal attempt",
+      "archetype_direction": "long",
+      "narrative": "Reversal attempt after a failed-breakout trap on 4h. 4.6\u00d7 volume. 3/5 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
-      "continuation": 57,
+      "continuation": 64,
       "reversal": 14,
       "exhaustion": 14,
       "patterns": [],
       "trend_alignment": {
-        "4h": 38,
+        "4h": 73,
         "1d": 39,
         "1w": 14
       },
-      "rsi_4h": 67.5291929121781,
-      "updated_at": "2026-09-28T15:50:32.715166+00:00"
+      "rsi_4h": 73.76946274190945,
+      "updated_at": "2026-09-28T16:27:15.317333+00:00"
     },
     "TAOUSDT": {
-      "price": 299.7,
+      "price": 303.9,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 6.6,
-      "direction_score": 20,
-      "percentile": 73.3,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
+      "confidence": 7,
+      "direction_score": 16,
+      "percentile": 81.8,
+      "archetype_key": "breakout_watch",
+      "archetype_label": "Breakout watch",
       "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 1.3\u00d7 volume. 3/5 checks pass. STRONG TREND UP.",
+      "narrative": "Breakout watch on 4h. 1.7\u00d7 volume. 4/5 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 79,
       "reversal": 43,
       "exhaustion": 0,
       "patterns": [],
       "trend_alignment": {
-        "4h": 20,
+        "4h": 16,
         "1d": 46,
         "1w": 27
       },
-      "rsi_4h": 45.35090012941262,
-      "updated_at": "2026-09-28T15:51:04.860043+00:00"
+      "rsi_4h": 49.68449864145284,
+      "updated_at": "2026-09-28T16:27:47.404723+00:00"
     },
     "ADAUSDT": {
-      "price": 0.2441,
-      "bias": "bullish",
+      "price": 0.2477,
+      "bias": "neutral",
       "regime": "STRONG TREND UP",
-      "confidence": 7,
-      "direction_score": 20,
-      "percentile": 82.6,
+      "confidence": 6.2,
+      "direction_score": -8,
+      "percentile": 62.1,
       "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
-      "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 4/5 checks pass. STRONG TREND UP.",
-      "confirmed_by_tf": "1d",
-      "continuation": 57,
+      "archetype_label": "Resistance fade",
+      "archetype_direction": "short",
+      "narrative": "Resistance fade on 4h. 2.5\u00d7 volume. 4/5 checks pass. STRONG TREND UP.",
+      "confirmed_by_tf": null,
+      "continuation": 36,
       "reversal": 14,
-      "exhaustion": 0,
+      "exhaustion": 29,
       "patterns": [
         "Continuation Rising Wedge"
       ],
       "trend_alignment": {
-        "4h": 20,
+        "4h": -8,
         "1d": 100,
         "1w": 16
       },
-      "rsi_4h": 45.53007763433123,
-      "updated_at": "2026-09-28T15:50:52.289278+00:00"
+      "rsi_4h": 52.16770657594706,
+      "updated_at": "2026-09-28T16:27:34.727074+00:00"
     },
     "WUSDT": {
       "price": 0.01406,
@@ -705,16 +703,16 @@
       "updated_at": "2026-09-28T02:48:44.036147+00:00"
     },
     "DOTUSDT": {
-      "price": 1.164,
+      "price": 1.185,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 4.2,
-      "direction_score": 37,
-      "percentile": 7.8,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Resistance fade",
-      "archetype_direction": "short",
-      "narrative": "Resistance fade on 4h. 1/5 checks pass. STRONG TREND UP.",
+      "confidence": 6.7,
+      "direction_score": 29,
+      "percentile": 73.6,
+      "archetype_key": "breakout_retest",
+      "archetype_label": "Breakout retest",
+      "archetype_direction": "long",
+      "narrative": "Breakout retest \u2014 retest held just now on 4h. 2.3\u00d7 volume. 5/6 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 86,
       "reversal": 0,
@@ -723,12 +721,12 @@
         "Ascending Channel"
       ],
       "trend_alignment": {
-        "4h": 37,
+        "4h": 29,
         "1d": 100,
         "1w": -10
       },
-      "rsi_4h": 45.78164471661924,
-      "updated_at": "2026-09-28T15:51:11.955741+00:00"
+      "rsi_4h": 50.59936616695207,
+      "updated_at": "2026-09-28T16:27:56.337359+00:00"
     },
     "DASHUSDT": {
       "price": 64.73,
@@ -783,59 +781,58 @@
       "updated_at": "2026-09-28T12:54:23.525104+00:00"
     },
     "BNBUSDT": {
-      "price": 762.41,
+      "price": 768.06,
       "bias": "bearish",
       "regime": "TREND DOWN",
-      "confidence": 6.8,
-      "direction_score": -20,
-      "percentile": 77.5,
-      "archetype_key": "breakout_retest",
-      "archetype_label": "Breakout retest",
+      "confidence": 7.2,
+      "direction_score": -54,
+      "percentile": 85.1,
+      "archetype_key": "pattern_breakout",
+      "archetype_label": "Breakout \u2014 Ascending Broadening Wedge",
       "archetype_direction": "short",
-      "narrative": "Breakout retest \u2014 retest held just now on 4h. 1.5\u00d7 volume. 4/6 checks pass. TREND DOWN.",
+      "narrative": "Breakout \u2014 Ascending Broadening Wedge \u2014 broke just now on 4h. 2.0\u00d7 volume. 5/6 checks pass. TREND DOWN.",
       "confirmed_by_tf": null,
       "continuation": 57,
       "reversal": 14,
-      "exhaustion": 43,
+      "exhaustion": 0,
       "patterns": [
         "Ascending Broadening Wedge",
         "Double Top",
         "Double Bottom"
       ],
       "trend_alignment": {
-        "4h": -20,
+        "4h": -54,
         "1d": 48,
         "1w": 68
       },
-      "rsi_4h": 42.24291441468591,
-      "updated_at": "2026-09-28T15:51:03.038431+00:00"
+      "rsi_4h": 50.25199569683234,
+      "updated_at": "2026-09-28T16:27:45.593847+00:00"
     },
     "XLMUSDT": {
-      "price": 0.2205,
-      "bias": "bearish",
+      "price": 0.2266,
+      "bias": "neutral",
       "regime": "STRONG TREND UP",
-      "confidence": 6.3,
-      "direction_score": -33,
-      "percentile": 61.9,
-      "archetype_key": "breakout_retest",
-      "archetype_label": "Breakout retest",
-      "archetype_direction": "short",
-      "narrative": "Breakout retest \u2014 retest held just now on 4h. 1.3\u00d7 volume. 4/6 checks pass. STRONG TREND UP.",
-      "confirmed_by_tf": null,
-      "continuation": 43,
+      "confidence": 8.6,
+      "direction_score": 14,
+      "percentile": 99.2,
+      "archetype_key": "level_bounce",
+      "archetype_label": "Support bounce",
+      "archetype_direction": "long",
+      "narrative": "Support bounce on 4h. 6.6\u00d7 volume. 5/5 checks pass. STRONG TREND UP.",
+      "confirmed_by_tf": "1d",
+      "continuation": 64,
       "reversal": 100,
       "exhaustion": 14,
       "patterns": [
-        "Reversal Rising Wedge",
         "Double Top"
       ],
       "trend_alignment": {
-        "4h": -33,
+        "4h": 14,
         "1d": 90,
         "1w": 62
       },
-      "rsi_4h": 60.92206920256715,
-      "updated_at": "2026-09-28T15:50:30.891594+00:00"
+      "rsi_4h": 65.56641690076522,
+      "updated_at": "2026-09-28T16:27:13.446886+00:00"
     },
     "AAVEUSDT": {
       "price": 155.64,
@@ -918,16 +915,16 @@
       "updated_at": "2026-09-28T00:32:55.891147+00:00"
     },
     "XAUTUSDT": {
-      "price": 4125.54,
+      "price": 4136.7,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 9.1,
-      "direction_score": -47,
-      "percentile": 99.5,
+      "confidence": 9.2,
+      "direction_score": -53,
+      "percentile": 99.8,
       "archetype_key": "pattern_breakout",
       "archetype_label": "Breakout \u2014 Reversal Falling Wedge",
       "archetype_direction": "short",
-      "narrative": "Breakout \u2014 Reversal Falling Wedge \u2014 broke 2 bars ago on 4h. 5.0\u00d7 volume. 6/6 checks pass. STRONG TREND DOWN.",
+      "narrative": "Breakout \u2014 Reversal Falling Wedge \u2014 broke 3 bars ago on 4h. 4.5\u00d7 volume. 5/6 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1d",
       "continuation": 75,
       "reversal": 29,
@@ -937,59 +934,61 @@
         "Double Bottom"
       ],
       "trend_alignment": {
-        "4h": -47,
+        "4h": -53,
         "1d": -72
       },
-      "rsi_4h": 11.795415433039551,
-      "updated_at": "2026-09-28T15:50:29.052658+00:00"
+      "rsi_4h": 20.926302181863463,
+      "updated_at": "2026-09-28T16:27:11.615025+00:00"
     },
     "SEIUSDT": {
-      "price": 0.0781,
+      "price": 0.07871,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 4.3,
-      "direction_score": 70,
-      "percentile": 9.6,
+      "confidence": 4.8,
+      "direction_score": 66,
+      "percentile": 18.6,
       "archetype_key": "level_bounce",
       "archetype_label": "Resistance fade",
       "archetype_direction": "short",
-      "narrative": "Resistance fade on 4h. 2.5\u00d7 volume. 4/5 checks pass. STRONG TREND UP.",
+      "narrative": "Resistance fade on 4h. 1.7\u00d7 volume. 4/5 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 77,
-      "reversal": 43,
+      "reversal": 29,
       "exhaustion": 14,
-      "patterns": [],
+      "patterns": [
+        "Ascending Broadening Wedge"
+      ],
       "trend_alignment": {
-        "4h": 70,
+        "4h": 66,
         "1d": 47,
         "1w": 33
       },
-      "rsi_4h": 65.17689476494063,
-      "updated_at": "2026-09-28T15:51:01.214067+00:00"
+      "rsi_4h": 67.17132413578565,
+      "updated_at": "2026-09-28T16:27:43.760118+00:00"
     },
     "HBARUSDT": {
-      "price": 0.12297,
+      "price": 0.12642,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 8.2,
-      "direction_score": 68,
-      "percentile": 97.7,
+      "confidence": 8.1,
+      "direction_score": 64,
+      "percentile": 96.9,
       "archetype_key": "trendline_break",
       "archetype_label": "Trendline break",
       "archetype_direction": "long",
-      "narrative": "Trendline break \u2014 broke just now on 4h. 29.4\u00d7 volume. 6/6 checks pass. STRONG TREND UP.",
+      "narrative": "Trendline break \u2014 broke 1 bar ago on 4h. 8.1\u00d7 volume. 6/6 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 68,
-      "reversal": 29,
+      "reversal": 0,
       "exhaustion": 43,
       "patterns": [],
       "trend_alignment": {
-        "4h": 68,
+        "4h": 64,
         "1d": 76,
         "1w": -18
       },
-      "rsi_4h": 86.95530794127149,
-      "updated_at": "2026-09-28T15:50:20.003296+00:00"
+      "rsi_4h": 87.5940437682174,
+      "updated_at": "2026-09-28T16:27:00.771495+00:00"
     },
     "RLUSDUSDT": {
       "price": 1.0004,
@@ -1015,55 +1014,55 @@
       "updated_at": "2026-09-28T13:52:15.262332+00:00"
     },
     "ALGOUSDT": {
-      "price": 0.1346,
+      "price": 0.1356,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
-      "confidence": 8.4,
-      "direction_score": 81,
-      "percentile": 98,
+      "confidence": 7.8,
+      "direction_score": 69,
+      "percentile": 94.5,
       "archetype_key": "pattern_breakout",
       "archetype_label": "Breakout \u2014 Ascending Broadening Wedge",
       "archetype_direction": "long",
-      "narrative": "Breakout \u2014 Ascending Broadening Wedge \u2014 broke just now on 4h. 13.0\u00d7 volume. 6/6 checks pass. STRONG TREND UP.",
+      "narrative": "Breakout \u2014 Ascending Broadening Wedge \u2014 broke 1 bar ago on 4h. 7.6\u00d7 volume. 5/6 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 82,
-      "reversal": 43,
-      "exhaustion": 29,
+      "reversal": 0,
+      "exhaustion": 43,
       "patterns": [
         "Ascending Broadening Wedge"
       ],
       "trend_alignment": {
-        "4h": 81,
+        "4h": 69,
         "1d": 31,
         "1w": -26
       },
-      "rsi_4h": 74.02944602925125,
-      "updated_at": "2026-09-28T15:51:08.290210+00:00"
+      "rsi_4h": 76.64439781858587,
+      "updated_at": "2026-09-28T16:27:52.660917+00:00"
     },
     "JUPUSDT": {
-      "price": 0.3272,
-      "bias": "bullish",
+      "price": 0.3304,
+      "bias": "neutral",
       "regime": "STRONG TREND UP",
       "confidence": 7.4,
-      "direction_score": 75,
-      "percentile": 90.5,
-      "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
+      "direction_score": 5,
+      "percentile": 88.7,
+      "archetype_key": "breakout_retest",
+      "archetype_label": "Breakout retest",
       "archetype_direction": "long",
-      "narrative": "Support bounce on 4h. 4/5 checks pass. STRONG TREND UP.",
+      "narrative": "Breakout retest \u2014 retest held just now on 4h. 3.8\u00d7 volume. 6/6 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1d",
       "continuation": 64,
-      "reversal": 14,
+      "reversal": 100,
       "exhaustion": 0,
       "patterns": [],
       "trend_alignment": {
-        "4h": 75,
+        "4h": 5,
         "1d": 51,
         "1w": 60
       },
-      "rsi_4h": 50.45284657846247,
-      "updated_at": "2026-09-28T15:51:13.774506+00:00"
+      "rsi_4h": 53.667995750975194,
+      "updated_at": "2026-09-28T16:27:54.505224+00:00"
     }
   },
-  "updated_at": "2026-09-28T15:51:14.974678+00:00"
+  "updated_at": "2026-09-28T16:27:57.537520+00:00"
 }
