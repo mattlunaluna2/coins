@@ -5,6 +5,7 @@ SETUP DAILY — Smart Setup Bot (1d)
 - Sigue top N monedas de OKX
 - Detecta INICIO de tendencia alcista en DIARIO
 - Filtro RSI 4h entre 30 y 34 (solo suelos)
+- Alerta niveles macro de BTC: SMA50 1W, punto medio y SMA200 1W
 """
 
 import json
@@ -168,6 +169,39 @@ def obtener_rsi_4h(symbol_binance):
     velas.reverse()
     cierres = [float(v[4]) for v in velas]
     return calcular_rsi(cierres)
+
+
+def obtener_btc_smas_semanales():
+    """Devuelve precio actual, SMA50, SMA200 y punto medio de BTC (velas 1W)."""
+    url = f"{OKX_CANDLES_URL}?instId=BTC-USDT&bar=1W&limit=250"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=15) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception:
+        return None
+
+    if data.get("code") != "0":
+        return None
+
+    velas = data.get("data", [])
+    if len(velas) < 200:
+        return None
+
+    velas.reverse()
+    cierres = [float(v[4]) for v in velas]
+    precio = cierres[-1]
+
+    sma50 = sum(cierres[-50:]) / 50
+    sma200 = sum(cierres[-200:]) / 200
+    punto_medio = (sma50 + sma200) / 2
+
+    return {
+        "precio": precio,
+        "sma50": sma50,
+        "sma200": sma200,
+        "punto_medio": punto_medio,
+    }
 
 
 def consultar_setup(symbol_binance):
@@ -408,6 +442,74 @@ def main():
 
     estado = cargar_estado()
     monedas_estado = estado.get("monedas", {})
+
+    # ═══════════════════════════════════════════════
+    # ANÁLISIS DE BTC — NIVELES MACRO SEMANALES
+    # ═══════════════════════════════════════════════
+    print("\n" + "#" * 70, flush=True)
+    print("📊 BTC — NIVELES MACRO SEMANALES (SMA)", flush=True)
+    print("#" * 70, flush=True)
+
+    smas = obtener_btc_smas_semanales()
+    if smas:
+        precio_btc = smas["precio"]
+        sma50 = smas["sma50"]
+        sma200 = smas["sma200"]
+        punto_medio = smas["punto_medio"]
+
+        dist_sma50 = ((precio_btc - sma50) / sma50) * 100
+        dist_sma200 = ((precio_btc - sma200) / sma200) * 100
+        dist_punto_medio = ((precio_btc - punto_medio) / punto_medio) * 100
+
+        print(f"   Precio BTC:    ${precio_btc:,.2f}", flush=True)
+        print(f"   SMA 50 (1W):   ${sma50:,.2f}  ({dist_sma50:+.2f}%)", flush=True)
+        print(f"   Punto medio:   ${punto_medio:,.2f}  ({dist_punto_medio:+.2f}%)", flush=True)
+        print(f"   SMA 200 (1W):  ${sma200:,.2f}  ({dist_sma200:+.2f}%)", flush=True)
+
+        # Estado para no repetir alertas
+        btc_estado = estado.get("_BTC_NIVELES", {})
+        ahora_ts = datetime.now(timezone.utc).timestamp()
+
+        def alertar_nivel(nombre, precio_nivel, distancia_pct, emoji, umbral_cerca=2.0, umbral_toca=0.5):
+            """Alerta si el precio está cerca de un nivel (y no se ha alertado recientemente)."""
+            clave = f"nivel_{nombre}"
+            ultima_alerta = btc_estado.get(clave, {})
+
+            # ¿Está en zona?
+            if abs(distancia_pct) <= umbral_toca:
+                nivel_alerta = "tocando"
+            elif abs(distancia_pct) <= umbral_cerca:
+                nivel_alerta = "cerca"
+            else:
+                # Si se aleja > 5% → resetear
+                if ultima_alerta.get("nivel") and abs(distancia_pct) > 5:
+                    btc_estado[clave] = {}
+                return
+
+            # ¿Ya se avisó de este nivel en este movimiento?
+            if ultima_alerta.get("nivel") == nivel_alerta:
+                return
+
+            # Construir mensaje
+            if nivel_alerta == "tocando":
+                titulo = f"{emoji} BTC — {nombre.upper()} TOCANDO"
+                detalle = f"Precio: ${precio_btc:,.2f}\nNivel: ${precio_nivel:,.2f}\nDistancia: {distancia_pct:+.2f}%"
+            else:
+                titulo = f"{emoji} BTC — {nombre.upper()} CERCA"
+                detalle = f"Precio: ${precio_btc:,.2f}\nNivel: ${precio_nivel:,.2f}\nDistancia: {distancia_pct:+.2f}%"
+
+            enviar_telegram(f"{titulo}\n━━━━━━━━━━━━━━━━━━━\n{detalle}\n🕐 {hora_lima().strftime('%H:%M')} Lima\n━━━━━━━━━━━━━━━━━━━")
+            print(f"   {emoji} Alerta BTC — {nombre} {nivel_alerta}", flush=True)
+            btc_estado[clave] = {"nivel": nivel_alerta, "ts": ahora_ts}
+
+        # Ejecutar las 3 alertas
+        alertar_nivel("SMA 50 semanal", sma50, dist_sma50, "🟠")
+        alertar_nivel("Punto medio (2022-style)", punto_medio, dist_punto_medio, "🟡")
+        alertar_nivel("SMA 200 semanal", sma200, dist_sma200, "🟢")
+
+        estado["_BTC_NIVELES"] = btc_estado
+    else:
+        print("   ⚠️ No se pudieron calcular las SMAs semanales", flush=True)
 
     print("\n📡 Obteniendo top monedas de OKX...", flush=True)
     monedas = obtener_top_monedas(TOP_MONEDAS)
