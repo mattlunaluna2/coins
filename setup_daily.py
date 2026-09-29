@@ -5,7 +5,7 @@ SETUP DAILY — Smart Setup Bot (1d)
 - Sigue top N monedas de OKX
 - Detecta INICIO de tendencia alcista en DIARIO
 - Filtro RSI 4h entre 30 y 34 (solo suelos)
-- Alerta niveles macro de BTC: SMA50 1W, punto medio y SMA200 1W
+- Alerta niveles macro de BTC: SMA50 1W, punto medio y SMA200 1W con contexto
 """
 
 import json
@@ -470,7 +470,8 @@ def main():
         btc_estado = estado.get("_BTC_NIVELES", {})
         ahora_ts = datetime.now(timezone.utc).timestamp()
 
-        def alertar_nivel(nombre, precio_nivel, distancia_pct, emoji, umbral_cerca=2.0, umbral_toca=0.5):
+        # Ejecutar las 3 alertas con contexto
+        def alertar_nivel(nombre, precio_nivel, distancia_pct, emoji, contexto="", umbral_cerca=2.0, umbral_toca=0.5):
             """Alerta si el precio está cerca de un nivel (y no se ha alertado recientemente)."""
             clave = f"nivel_{nombre}"
             ultima_alerta = btc_estado.get(clave, {})
@@ -493,19 +494,35 @@ def main():
             # Construir mensaje
             if nivel_alerta == "tocando":
                 titulo = f"{emoji} BTC — {nombre.upper()} TOCANDO"
-                detalle = f"Precio: ${precio_btc:,.2f}\nNivel: ${precio_nivel:,.2f}\nDistancia: {distancia_pct:+.2f}%"
             else:
                 titulo = f"{emoji} BTC — {nombre.upper()} CERCA"
-                detalle = f"Precio: ${precio_btc:,.2f}\nNivel: ${precio_nivel:,.2f}\nDistancia: {distancia_pct:+.2f}%"
+
+            detalle = f"Precio: ${precio_btc:,.2f}\nNivel: ${precio_nivel:,.2f}\nDistancia: {distancia_pct:+.2f}%"
+
+            if contexto:
+                detalle += f"\n\n{contexto}"
 
             enviar_telegram(f"{titulo}\n━━━━━━━━━━━━━━━━━━━\n{detalle}\n🕐 {hora_lima().strftime('%H:%M')} Lima\n━━━━━━━━━━━━━━━━━━━")
             print(f"   {emoji} Alerta BTC — {nombre} {nivel_alerta}", flush=True)
             btc_estado[clave] = {"nivel": nivel_alerta, "ts": ahora_ts}
 
-        # Ejecutar las 3 alertas
-        alertar_nivel("SMA 50 semanal", sma50, dist_sma50, "🟠")
-        alertar_nivel("Punto medio (2022-style)", punto_medio, dist_punto_medio, "🟡")
-        alertar_nivel("SMA 200 semanal", sma200, dist_sma200, "🟢")
+        # 🟠 SMA 50 → Posible pullback
+        alertar_nivel(
+            "SMA 50 semanal", sma50, dist_sma50, "🟠",
+            "⚠️ Atención: posible pullback en camino\nVigila el RSI 4h de las alts."
+        )
+
+        # 🟡 Punto medio → Zona de retroceso 2022
+        alertar_nivel(
+            "Punto medio (2022-style)", punto_medio, dist_punto_medio, "🟡",
+            "📉 Zona clave de retroceso (~50%)\nAquí paró el mercado en 2022."
+        )
+
+        # 🟢 SMA 200 → Pánico / Zona histórica
+        alertar_nivel(
+            "SMA 200 semanal", sma200, dist_sma200, "🟢",
+            "🚨 PÁNICO: Zona histórica de compra\nSuelo macro de BTC. Oportunidad a largo plazo."
+        )
 
         estado["_BTC_NIVELES"] = btc_estado
     else:
