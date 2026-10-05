@@ -4,6 +4,7 @@
 """
 RECOLECTOR ALTS — repo: mattlunaluna2/coins
 OKX primario + MEXC fallback. Paralelo con retry.
+Acumula velas crudas (histórico) para todas las monedas.
 """
 
 import json
@@ -15,6 +16,10 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 SYMBOLS = [
+    # De interspot (únicas)
+    "SUI", "RAY", "INJ", "STX", "HYPE",
+
+    # Base actual
     "BTC", "ETH", "BNB", "SOL", "XRP", "DOGE", "LINK", "LTC",
     "FLUID", "ORCA", "GEOD", "SYRUP", "PEAQ", "SKY", "TIA", "AXS",
     "ATH", "STRK", "AAVE", "MORPHO", "LDO", "COMP", "FET",
@@ -39,6 +44,11 @@ CACHE_DIR.mkdir(exist_ok=True)
 
 OKX_INTERVALOS = {"5m": "5m", "15m": "15m", "1h": "1H"}
 MEXC_INTERVALOS = {"5m": "5m", "15m": "15m", "1h": "60m"}
+
+# Retención de velas acumuladas
+MAX_VELAS_5m  = 300
+MAX_VELAS_15m = 250
+MAX_VELAS_1h  = 200
 
 
 def fetch_con_retry(url, max_intentos=MAX_REINTENTOS, headers=None):
@@ -131,6 +141,19 @@ def fetch_klines(symbol, intervalo, limite=OKX_LIMIT_VELAS):
     if velas:
         return velas, "mexc"
     return [], "none"
+
+
+def acumular_velas(existentes, nuevas, max_velas):
+    """Fusiona existentes + nuevas, deduplica por ts, recorta a las últimas max_velas."""
+    if not existentes:
+        existentes = []
+    ts_vistos = {v["ts"] for v in existentes}
+    for v in nuevas:
+        if v["ts"] not in ts_vistos:
+            existentes.append(v)
+            ts_vistos.add(v["ts"])
+    existentes.sort(key=lambda x: x["ts"])
+    return existentes[-max_velas:]
 
 
 def calcular_rsi(prices, period=14):
@@ -262,9 +285,10 @@ def procesar_moneda(symbol, ahora):
     cache["pulso"] = pulso
     cache["source"] = src_15m
 
-    cache["velas_5m"]  = velas_5m
-    cache["velas_15m"] = velas_15m
-    cache["velas_1h"]  = velas_1h
+    # Acumular velas crudas (histórico)
+    cache["velas_5m"]  = acumular_velas(cache.get("velas_5m",  []), velas_5m,  MAX_VELAS_5m)
+    cache["velas_15m"] = acumular_velas(cache.get("velas_15m", []), velas_15m, MAX_VELAS_15m)
+    cache["velas_1h"]  = acumular_velas(cache.get("velas_1h",  []), velas_1h,  MAX_VELAS_1h)
 
     guardar_cache(symbol, cache)
 
@@ -279,6 +303,7 @@ def main():
     print("📦 RECOLECTOR ALTS — repo mattlunaluna2/coins", flush=True)
     print(f"   {len(SYMBOLS)} monedas | 5m, 15m, 1h", flush=True)
     print(f"   Fuente: OKX (primario) + MEXC (fallback)", flush=True)
+    print(f"   Acumula velas: 5m={MAX_VELAS_5m} | 15m={MAX_VELAS_15m} | 1h={MAX_VELAS_1h}", flush=True)
     print(f"   Workers: {MAX_WORKERS} | Pausa: {PAUSA_ENTRE_REQ}s", flush=True)
     print("=" * 70, flush=True)
     print(f"\nHora UTC: {ahora.isoformat()}", flush=True)
