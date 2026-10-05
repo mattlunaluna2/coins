@@ -3,12 +3,14 @@
 
 """
 RECOLECTOR ALTS — repo: mattlunaluna2/coins
-Descarga velas crudas de 60 monedas desde OKX (paralelo).
+Descarga velas crudas de 60 monedas desde OKX (paralelo con retry).
 Guarda JSON por moneda en data/cache/.
 """
 
 import json
+import time
 import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -44,7 +46,9 @@ SYMBOLS = [
 
 OKX_LIMIT_VELAS = 200
 RETENCION_PULSO_H = 168
-MAX_WORKERS = 10   # threads paralelos (recomendado 10, máximo 20)
+MAX_WORKERS = 3              # reducido de 10 → 3 (evita rate limit)
+PAUSA_ENTRE_REQ = 0.2        # segundos de pausa entre cada request
+MAX_REINTENTOS = 3           # intentos antes de fallar
 
 DATA_DIR = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
@@ -59,8 +63,27 @@ OKX_INTERVALOS = {
 
 
 # ============================================================
-# FETCH
+# FETCH con RETRY
 # ============================================================
+
+def fetch_con_retry(url, max_intentos=MAX_REINTENTOS):
+    """Descarga con retry exponencial para manejar 429 rate limit."""
+    for intento in range(max_intentos):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                return json.loads(r.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            if e.code == 429:
+                espera = 2 ** intento  # 1s, 2s, 4s
+                print(f"   ⏳ 429 rate limit, esperando {espera}s...", flush=True)
+                time.sleep(espera)
+                continue
+            return None
+        except Exception:
+            return None
+    return None
+
 
 def fetch_okx_klines(symbol, intervalo, limite=OKX_LIMIT_VELAS):
     bar = OKX_INTERVALOS.get(intervalo)
@@ -71,15 +94,9 @@ def fetch_okx_klines(symbol, intervalo, limite=OKX_LIMIT_VELAS):
         f"https://www.okx.com/api/v5/market/candles"
         f"?instId={inst_id}&bar={bar}&limit={limite}"
     )
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=20) as r:
-            raw = json.loads(r.read().decode("utf-8"))
-    except Exception as e:
-        print(f"   ⚠️ OKX {symbol} {intervalo}: {str(e)[:60]}", flush=True)
-        return []
 
-    if raw.get("code") != "0":
+    raw = fetch_con_retry(url)
+    if not raw or raw.get("code") != "0":
         return []
 
     data = raw.get("data", [])
@@ -98,6 +115,9 @@ def fetch_okx_klines(symbol, intervalo, limite=OKX_LIMIT_VELAS):
             })
         except (ValueError, IndexError):
             continue
+
+    # Pequeña pausa entre requests para no saturar OKX
+    time.sleep(PAUSA_ENTRE_REQ)
     return velas
 
 
@@ -259,10 +279,12 @@ def procesar_moneda(symbol, ahora):
 
 def main():
     ahora = datetime.now(timezone.utc)
+    inicio = time.time()
 
     print("\n" + "=" * 70, flush=True)
     print("📦 RECOLECTOR ALTS — repo mattlunaluna2/coins", flush=True)
-    print(f"   {len(SYMBOLS)} monedas | 5m, 15m, 1h | {MAX_WORKERS} threads", flush=True)
+    print(f"   {len(SYMBOLS)} monedas | 5m, 15m, 1h", flush=True)
+    print(f"   Workers: {MAX_WORKERS} | Pausa: {PAUSA_ENTRE_REQ}s", flush=True)
     print("=" * 70, flush=True)
     print(f"\nHora UTC: {ahora.isoformat()}", flush=True)
 
@@ -292,10 +314,13 @@ def main():
                 fallidos += 1
                 print(f"   ❌ {sym}: excepción {str(e)[:60]}", flush=True)
 
+    duracion = time.time() - inicio
+
     print("\n" + "=" * 70, flush=True)
     print(f"Guardados:     {guardados}", flush=True)
     print(f"Sin cambios:   {sin_cambios}", flush=True)
     print(f"Fallidos:      {fallidos}", flush=True)
+    print(f"⏱️  Duración:   {duracion:.1f}s", flush=True)
     print(f"💾 Cache dir:  {CACHE_DIR}", flush=True)
     print("🏁 PROGRAMA TERMINADO", flush=True)
 
