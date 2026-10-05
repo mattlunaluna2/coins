@@ -22,7 +22,7 @@ SYMBOLS = [
     "APT", "AVAX", "ARB", "UNI", "SUSHI", "DASH", "ENA", "NEAR",
     "GALA", "ALGO", "DOT", "ICP", "FIL", "IMX", "ZEC", "WLD",
     "PYTH", "ZEN", "KAVA", "TWT",
-    "SAND", "MANA", "APE", "SUPER", "ZRO", "PUMP",
+    "SAND", "MANA", "APE", "SEI", "ZRO", "PUMP",
     "SENT", "API3", "CETUS", "AERO",
 ]
 
