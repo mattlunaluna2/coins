@@ -16,7 +16,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 SYMBOLS = [
     "BTC", "ETH", "BNB", "SOL", "XRP", "DOGE", "LINK", "LTC",
-    "FLUID", "ORCA", "GEOD", "SYRUP", "PEAQ", "SKY", "AKT", "AXS",
+    "FLUID", "ORCA", "GEOD", "SYRUP", "PEAQ", "SKY", "TIA", "AXS",
     "ATH", "STRK", "AAVE", "MORPHO", "LDO", "COMP", "FET",
     "BEAM", "IOTA", "HNT", "CHIP", "BAT", "RUNE", "XTZ",
     "APT", "AVAX", "ARB", "UNI", "SUSHI", "DASH", "ENA", "NEAR",
