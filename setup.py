@@ -6,7 +6,8 @@ SETUP — Smart Setup Bot (15m) con filtros técnicos por moneda
 - Sin filtros de BTC
 - Filtros técnicos individuales: ADX, Squeeze Momentum, ATR percentil
 - Mantiene uso de CoinBeacon (setup + líneas de soporte/resistencia)
-- DIAGNÓSTICO: contador de qué filtro detuvo cada señal
+- DIAGNÓSTICO: cada filtro cuenta independientemente
+- INFORME: lista de monedas entrando en "zona buena" para vigilar
 """
 
 import json
@@ -21,11 +22,8 @@ from pathlib import Path
 # LISTA FIJA DE 60 MONEDAS PREMIUM
 # ═══════════════════════════════════════════════
 SYMBOLS = [
-    # Núcleo
     "BTC", "ETH", "BNB", "SOL", "XRP", "DOGE", "LINK", "LTC",
-    # De interspot (únicas)
     "SUI", "RAY", "INJ", "STX", "HYPE",
-    # De coins (únicas)
     "FLUID", "ORCA", "GEOD", "SYRUP", "PEAQ", "SKY", "AKT", "AXS",
     "ATH", "STRK", "AAVE", "MORPHO", "LDO", "COMP", "FET",
     "BEAM", "IOTA", "HNT", "CHIP", "BAT", "RUNE", "XTZ",
@@ -47,25 +45,34 @@ CONFIANZA_MIN = 7.0
 DIRECTION_SCORE_MIN = 70
 UMBRAL_PUNTOS = 40
 
-# Filtros técnicos nuevos (validados con análisis de 4,256 líneas)
+# Filtros técnicos
 ADX_LENGTH = 14
 ADX_UMBRAL = 23.0
 ATR_PERIOD = 14
 ATR_VENTANA = 100
-ATR_UMBRAL_MIN = 20.0  # Evitar compresión extrema (ATR% bajo)
+ATR_UMBRAL_MIN = 20.0
 
-# Filtros para Squeeze Momentum
+# Squeeze Momentum
 SQZ_BB_LENGTH = 20
 SQZ_BB_MULT = 2.0
 SQZ_KC_LENGTH = 20
 SQZ_KC_MULT = 1.5
 
 RSI_15M_MIN = 30.0
-RSI_15M_MAX = 42.0  # Ajustado para captar entradas en suelo
+RSI_15M_MAX = 42.0
 
 # Alertas opcionales
 ALERTA_NUEVO_PATRON = True
 ALERTA_CONFIRMADO_TF = True
+
+# ═══════════════════════════════════════════════
+# UMBRALES "ZONA BUENA" (para informe, sin bloquear)
+# ═══════════════════════════════════════════════
+# Estos NO son filtros duros. Son solo para clasificar
+# las monedas en el informe final como "candidatas".
+ZONA_BUENA_CONFIANZA_MIN = 6.0
+ZONA_BUENA_ADX_MIN = 18.0           # Un poco menos que el umbral (23)
+ZONA_BUENA_ATR_MIN = 15.0            # Un poco menos que el umbral (20)
 
 EXCLUIR = {"USDC", "USDT", "DAI", "TUSD", "FDUSD", "BUSD", "USDD"}
 
@@ -95,17 +102,19 @@ CONTADOR_FILTROS = {
     "PASA": 0,
 }
 
-# ============================================================
-# FUNCIONES DE CÁLCULO DE INDICADORES TÉCNICOS
-# ============================================================
+# Lista de monedas "en zona buena" (informe final)
+ZONA_BUENA = []
 
-def _media(xs):
-    return sum(xs) / len(xs) if xs else 0.0
+
+# ============================================================
+# INDICADORES TÉCNICOS
+# ============================================================
 
 def _sma(serie, length):
     if len(serie) < length:
         return None
     return sum(serie[-length:]) / length
+
 
 def _stdev(serie, length):
     if len(serie) < length:
@@ -113,6 +122,7 @@ def _stdev(serie, length):
     ventana = serie[-length:]
     m = sum(ventana) / length
     return (sum((x - m) ** 2 for x in ventana) / length) ** 0.5
+
 
 def _linreg_value(y):
     n = len(y)
@@ -127,6 +137,7 @@ def _linreg_value(y):
     slope = num / den
     return y_mean + slope * ((n - 1) - x_mean)
 
+
 def calcular_adx(velas, length=14):
     n = len(velas)
     if n < length * 2:
@@ -134,31 +145,28 @@ def calcular_adx(velas, length=14):
     highs = [v["high"] for v in velas]
     lows = [v["low"] for v in velas]
     closes = [v["close"] for v in velas]
-    
     tr_list, plus_dm_list, minus_dm_list = [], [], []
     for i in range(1, n):
         tr = max(highs[i] - lows[i],
                  abs(highs[i] - closes[i-1]),
                  abs(lows[i] - closes[i-1]))
         tr_list.append(tr)
-        
         up_move = highs[i] - highs[i-1]
         down_move = lows[i-1] - lows[i]
         plus_dm = up_move if (up_move > down_move and up_move > 0) else 0.0
         minus_dm = down_move if (down_move > up_move and down_move > 0) else 0.0
         plus_dm_list.append(plus_dm)
         minus_dm_list.append(minus_dm)
-    
+
     def smooth(data, period):
         smoothed = [sum(data[:period])]
         for i in range(period, len(data)):
             smoothed.append(smoothed[-1] - (smoothed[-1] / period) + data[i])
         return smoothed
-    
+
     atr_smooth = smooth(tr_list, length)
     plus_dm_smooth = smooth(plus_dm_list, length)
     minus_dm_smooth = smooth(minus_dm_list, length)
-    
     di_plus_list, di_minus_list, dx_list = [], [], []
     for i in range(len(atr_smooth)):
         if atr_smooth[i] == 0:
@@ -170,11 +178,15 @@ def calcular_adx(velas, length=14):
         di_sum = di_plus + di_minus
         if di_sum != 0:
             dx_list.append(abs(di_plus - di_minus) / di_sum * 100)
-    
     if len(dx_list) < length:
         return None
     adx = sum(dx_list[-length:]) / length
-    return {"adx": adx, "di_plus": di_plus_list[-1] if di_plus_list else None, "di_minus": di_minus_list[-1] if di_minus_list else None}
+    return {
+        "adx": adx,
+        "di_plus": di_plus_list[-1] if di_plus_list else None,
+        "di_minus": di_minus_list[-1] if di_minus_list else None,
+    }
+
 
 def calcular_squeeze_momentum(velas, length=20, mult=2.0, lengthKC=20, multKC=1.5):
     if len(velas) < 2 * lengthKC:
@@ -183,14 +195,12 @@ def calcular_squeeze_momentum(velas, length=20, mult=2.0, lengthKC=20, multKC=1.
     lows = [v["low"] for v in velas]
     closes = [v["close"] for v in velas]
     n = lengthKC
-    
     basis = _sma(closes, length)
     dev = _stdev(closes, length)
     if basis is None or dev is None:
         return None
     dev *= mult
     upperBB, lowerBB = basis + dev, basis - dev
-    
     ma = _sma(closes, n)
     if ma is None:
         return None
@@ -206,10 +216,8 @@ def calcular_squeeze_momentum(velas, length=20, mult=2.0, lengthKC=20, multKC=1.
         return None
     upperKC = ma + rangema * multKC
     lowerKC = ma - rangema * multKC
-    
     squeeze_on = (lowerBB > lowerKC) and (upperBB < upperKC)
     squeeze_off = (lowerBB < lowerKC) and (upperBB > upperKC)
-    
     serie_mom = []
     for i in range(n - 1, len(closes)):
         hh = max(highs[i-n+1:i+1])
@@ -225,7 +233,14 @@ def calcular_squeeze_momentum(velas, length=20, mult=2.0, lengthKC=20, multKC=1.
         color = "lime" if m_actual > m_prev else "green"
     else:
         color = "red" if m_actual < m_prev else "maroon"
-    return {"squeeze_on": squeeze_on, "squeeze_off": squeeze_off, "momentum": m_actual, "momentum_prev": m_prev, "color": color}
+    return {
+        "squeeze_on": squeeze_on,
+        "squeeze_off": squeeze_off,
+        "momentum": m_actual,
+        "momentum_prev": m_prev,
+        "color": color,
+    }
+
 
 def calcular_atr_percentile(velas, period=14, ventana=100):
     if len(velas) < period + ventana + 1:
@@ -252,9 +267,6 @@ def calcular_atr_percentile(velas, period=14, ventana=100):
     menores = sum(1 for x in historico if x <= actual)
     return round((menores / len(historico)) * 100, 2)
 
-# ============================================================
-# OBTENCIÓN DE VELAS DESDE OKX
-# ============================================================
 
 def obtener_velas_okx(symbol, timeframe="15m", limit=200):
     base = symbol.replace("USDT", "")
@@ -288,12 +300,14 @@ def obtener_velas_okx(symbol, timeframe="15m", limit=200):
             continue
     return resultado
 
+
 # ============================================================
-# FUNCIONES ORIGINALES (CoinBeacon, estado, Telegram)
+# HELPERS
 # ============================================================
 
 def hora_lima():
     return datetime.now(timezone.utc) + LIMA_OFFSET
+
 
 def cargar_estado():
     if not STATE_FILE.exists():
@@ -307,10 +321,12 @@ def cargar_estado():
         pass
     return {"monedas": {}}
 
+
 def guardar_estado(estado):
     STATE_FILE.parent.mkdir(exist_ok=True)
     with STATE_FILE.open("w", encoding="utf-8") as f:
         json.dump(estado, f, indent=2)
+
 
 def log_senal(registro):
     SIGNALS_LOG.parent.mkdir(exist_ok=True)
@@ -324,6 +340,7 @@ def log_senal(registro):
             pass
     with SIGNALS_LOG.open("a", encoding="utf-8") as f:
         f.write(json.dumps(registro, ensure_ascii=False) + "\n")
+
 
 def enviar_telegram(msg):
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
@@ -345,6 +362,7 @@ def enviar_telegram(msg):
         print(f"      ⚠️ Telegram: {str(e)[:60]}", flush=True)
         return False
 
+
 def consultar_setup(symbol_binance):
     token = os.environ.get("COINBEACON_TOKEN")
     if not token:
@@ -362,6 +380,7 @@ def consultar_setup(symbol_binance):
     except Exception as e:
         print(f"      ⚠️ setup {symbol_binance}: {str(e)[:60]}", flush=True)
         return None
+
 
 def extraer_datos_clave(data):
     if not data:
@@ -391,6 +410,7 @@ def extraer_datos_clave(data):
         "patterns": pattern_names,
         "trend_alignment": setup.get("trendAlignment", {}),
     }
+
 
 def calcular_puntuacion(motivos, actual, anterior):
     puntos = 0
@@ -430,6 +450,7 @@ def calcular_puntuacion(motivos, actual, anterior):
         puntos += 5
     return puntos
 
+
 def construir_mensaje(symbol, actual, anterior, motivos, puntuacion, rsi_15m=None, filtros_tecnicos=None):
     precio = actual.get("price", 0)
     bias = actual.get("bias", "")
@@ -455,7 +476,7 @@ def construir_mensaje(symbol, actual, anterior, motivos, puntuacion, rsi_15m=Non
     lineas.append(f"📉 RSI 15m: {rsi15_str}")
     lineas.append(f"📊 Score: {score}")
     lineas.append(f"🎯 Puntuación: {puntuacion}/100")
-    
+
     if filtros_tecnicos:
         adx = filtros_tecnicos.get("adx")
         if adx:
@@ -466,20 +487,149 @@ def construir_mensaje(symbol, actual, anterior, motivos, puntuacion, rsi_15m=Non
         atr_pct = filtros_tecnicos.get("atr_pct")
         if atr_pct is not None:
             lineas.append(f"📉 ATR%: {atr_pct:.1f}")
-    
+
     lineas.append(f"🕐 {hora_lima().strftime('%H:%M')} Lima")
     lineas.append(f"━━━━━━━━━━━━━━━━━━━")
     return "\n".join(lineas)
 
+
 # ============================================================
-# DETECCIÓN DE CAMBIOS CON FILTROS TÉCNICOS (con diagnóstico)
+# EVALUAR FILTROS INDEPENDIENTES
+# ============================================================
+
+def evaluar_filtros_independientes(actual, filtros_tecnicos, rsi_15m=None):
+    """
+    Evalúa TODOS los filtros de forma independiente.
+    Cada filtro que falla incrementa su contador.
+    Devuelve lista de rechazos.
+    """
+    global CONTADOR_FILTROS
+    rechazos = []
+
+    bias_actual = actual.get("bias", "")
+    regime_actual = actual.get("regime", "")
+    conf = actual.get("confidence", 0)
+    score = actual.get("direction_score", 0)
+
+    # Filtro 1: Confianza
+    if conf < CONFIANZA_MIN:
+        rechazos.append("CONFIANZA_BAJA")
+
+    # Filtro 2: Score
+    if score < DIRECTION_SCORE_MIN and bias_actual != "bullish":
+        rechazos.append("SCORE_BAJO")
+
+    # Filtro 3: Bias vs régimen
+    if bias_actual == "bullish" and "TREND DOWN" in regime_actual:
+        rechazos.append("BIAS_REGIME_CONTRADICCION")
+
+    # Filtro 4: RSI
+    if rsi_15m is not None:
+        if rsi_15m > RSI_15M_MAX or rsi_15m < RSI_15M_MIN:
+            rechazos.append("RSI_FUERA_RANGO")
+
+    # Filtro 5: ADX + DI
+    if filtros_tecnicos:
+        adx_data = filtros_tecnicos.get("adx")
+        if adx_data:
+            adx_val = adx_data.get("adx", 0)
+            di_plus = adx_data.get("di_plus") or 0
+            di_minus = adx_data.get("di_minus") or 0
+
+            if adx_val < ADX_UMBRAL:
+                rechazos.append("ADX_BAJO")
+
+            if bias_actual == "bullish" and di_plus <= di_minus:
+                rechazos.append("DI_NO_ALINEADO")
+            if bias_actual == "bearish" and di_minus <= di_plus:
+                rechazos.append("DI_NO_ALINEADO")
+
+        # Filtro 6: Squeeze
+        sqz_data = filtros_tecnicos.get("sqz")
+        if sqz_data:
+            sqz_color = sqz_data.get("color", "")
+            if bias_actual == "bullish" and sqz_color not in ("lime", "maroon"):
+                rechazos.append("SQZ_NO_ALINEADO")
+            if bias_actual == "bearish" and sqz_color not in ("red", "green"):
+                rechazos.append("SQZ_NO_ALINEADO")
+
+        # Filtro 7: ATR
+        atr_pct = filtros_tecnicos.get("atr_pct")
+        if atr_pct is not None and atr_pct < ATR_UMBRAL_MIN:
+            rechazos.append("ATR_BAJO")
+
+    # Registrar TODOS los rechazos
+    for r in rechazos:
+        CONTADOR_FILTROS[r] += 1
+
+    return rechazos
+
+
+def calcular_zona_buena(actual, filtros_tecnicos):
+    """
+    Calcula cuántos criterios de 'zona buena' cumple la moneda.
+    NO es un filtro. Solo para clasificar en el informe.
+    
+    Criterios:
+      - Bias bullish (o neutral con tendencia al alza)
+      - Confianza >= 6
+      - ADX >= 18
+      - DI+ > DI- (presión alcista)
+      - Squeeze lime o maroon
+      - ATR% >= 15 (no dormida)
+    """
+    criterios = []
+    cumplidos = 0
+
+    bias = actual.get("bias", "")
+    conf = actual.get("confidence", 0)
+
+    if bias == "bullish":
+        criterios.append("Bias bullish")
+        cumplidos += 1
+    if conf >= ZONA_BUENA_CONFIANZA_MIN:
+        criterios.append(f"Conf {conf:.1f}≥{ZONA_BUENA_CONFIANZA_MIN}")
+        cumplidos += 1
+
+    if filtros_tecnicos:
+        adx_data = filtros_tecnicos.get("adx")
+        if adx_data:
+            if adx_data.get("adx", 0) >= ZONA_BUENA_ADX_MIN:
+                criterios.append(f"ADX {adx_data['adx']:.1f}≥{ZONA_BUENA_ADX_MIN}")
+                cumplidos += 1
+            di_plus = adx_data.get("di_plus") or 0
+            di_minus = adx_data.get("di_minus") or 0
+            if di_plus > di_minus:
+                criterios.append("DI+ > DI-")
+                cumplidos += 1
+
+        sqz_data = filtros_tecnicos.get("sqz")
+        if sqz_data:
+            if sqz_data.get("color") in ("lime", "maroon"):
+                criterios.append(f"SQZ {sqz_data['color']}")
+                cumplidos += 1
+
+        atr_pct = filtros_tecnicos.get("atr_pct")
+        if atr_pct is not None and atr_pct >= ZONA_BUENA_ATR_MIN:
+            criterios.append(f"ATR% {atr_pct:.1f}")
+            cumplidos += 1
+
+    return cumplidos, criterios
+
+
+# ============================================================
+# DETECCIÓN DE CAMBIOS
 # ============================================================
 
 def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
+    """
+    Solo se llama si TODOS los filtros pasaron.
+    Busca motivos positivos.
+    """
     global CONTADOR_FILTROS
     if not anterior:
         return []
-    motivos = []
+
     bias_actual = actual.get("bias", "")
     bias_antes = anterior.get("bias", "")
     regime_actual = actual.get("regime", "")
@@ -487,75 +637,24 @@ def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
     arch_actual = actual.get("archetype_key", "")
     arch_antes = anterior.get("archetype_key", "")
     arch_dir = actual.get("archetype_direction", "")
-    conf = actual.get("confidence", 0)
     score = actual.get("direction_score", 0)
     pctl = actual.get("percentile", 0)
     confirmed = actual.get("confirmed_by_tf", "")
     confirmed_antes = anterior.get("confirmed_by_tf", "")
-    
-    # Filtros base originales
-    if conf < CONFIANZA_MIN:
-        CONTADOR_FILTROS["CONFIANZA_BAJA"] += 1
-        return []
-    if score < DIRECTION_SCORE_MIN and bias_actual != "bullish":
-        CONTADOR_FILTROS["SCORE_BAJO"] += 1
-        return []
-    if bias_actual == "bullish" and "TREND DOWN" in regime_actual:
-        CONTADOR_FILTROS["BIAS_REGIME_CONTRADICCION"] += 1
-        return []
-    
-    # Filtro RSI 15m
-    if rsi_15m is not None:
-        if rsi_15m > RSI_15M_MAX or rsi_15m < RSI_15M_MIN:
-            CONTADOR_FILTROS["RSI_FUERA_RANGO"] += 1
-            return []
-    
-    # ═══════════════════════════════════════════════
-    # FILTROS TÉCNICOS INDIVIDUALES (ADX, SQZ, ATR)
-    # ═══════════════════════════════════════════════
-    if filtros_tecnicos:
-        adx_data = filtros_tecnicos.get("adx")
-        if adx_data:
-            adx_val = adx_data.get("adx", 0)
-            if adx_val < ADX_UMBRAL:
-                CONTADOR_FILTROS["ADX_BAJO"] += 1
-                return []
-            di_plus = adx_data.get("di_plus", 0)
-            di_minus = adx_data.get("di_minus", 0)
-            if bias_actual == "bullish" and di_plus <= di_minus:
-                CONTADOR_FILTROS["DI_NO_ALINEADO"] += 1
-                return []
-            if bias_actual == "bearish" and di_minus <= di_plus:
-                CONTADOR_FILTROS["DI_NO_ALINEADO"] += 1
-                return []
-        
-        sqz_data = filtros_tecnicos.get("sqz")
-        if sqz_data:
-            sqz_color = sqz_data.get("color", "")
-            if bias_actual == "bullish" and sqz_color not in ("lime", "maroon"):
-                CONTADOR_FILTROS["SQZ_NO_ALINEADO"] += 1
-                return []
-            if bias_actual == "bearish" and sqz_color not in ("red", "green"):
-                CONTADOR_FILTROS["SQZ_NO_ALINEADO"] += 1
-                return []
-        
-        atr_pct = filtros_tecnicos.get("atr_pct")
-        if atr_pct is not None and atr_pct < ATR_UMBRAL_MIN:
-            CONTADOR_FILTROS["ATR_BAJO"] += 1
-            return []
-    
-    # SEÑALES (originales)
+
+    motivos = []
+
     if bias_actual == "bullish" and bias_antes != "bullish":
         motivos.append({
             "tipo": "bias_bullish",
             "texto": f"De {bias_antes or 'neutral'} → BULLISH (score {score})",
         })
-    if (arch_actual and arch_actual != arch_antes and arch_dir == "long"):
+    if arch_actual and arch_actual != arch_antes and arch_dir == "long":
         motivos.append({
             "tipo": "nuevo_archetype_long",
             "texto": f"Setup: {actual.get('archetype_label','')}",
         })
-    if (regime_actual in ("TREND UP", "STRONG TREND UP") and regime_antes not in ("TREND UP", "STRONG TREND UP")):
+    if regime_actual in ("TREND UP", "STRONG TREND UP") and regime_antes not in ("TREND UP", "STRONG TREND UP"):
         motivos.append({
             "tipo": "regimen_alcista",
             "texto": f"Régimen: {regime_actual}",
@@ -573,44 +672,47 @@ def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
                 "tipo": "nuevo_patron_bull",
                 "texto": f"Patrón: {', '.join(nuevos_bull)}",
             })
-    if (ALERTA_CONFIRMADO_TF and confirmed and not confirmed_antes and bias_actual == "bullish"):
+    if ALERTA_CONFIRMADO_TF and confirmed and not confirmed_antes and bias_actual == "bullish":
         motivos.append({
             "tipo": "confirmado_tf_bull",
             "texto": f"Confirmado por: {confirmed}",
         })
     pctl_antes = anterior.get("percentile", 0)
-    if (bias_actual == "bullish" and pctl >= 95 and pctl_antes < 95):
+    if bias_actual == "bullish" and pctl >= 95 and pctl_antes < 95:
         motivos.append({
             "tipo": "setup_fuerte",
             "texto": f"Percentil {pctl:.1f} (antes {pctl_antes:.1f})",
         })
-    
+
     tipos = [m["tipo"] for m in motivos]
     if "bias_bullish" in tipos and "regimen_alcista" in tipos:
         motivos = [m for m in motivos if m["tipo"] != "regimen_alcista"]
         for m in motivos:
             if m["tipo"] == "bias_bullish":
                 m["texto"] += f" | Régimen: {regime_actual}"
-    
+
     if not motivos:
         CONTADOR_FILTROS["SIN_MOTIVOS"] += 1
         return []
+
     puntuacion = calcular_puntuacion(motivos, actual, anterior)
     motivos[0]["puntuacion"] = puntuacion
     if puntuacion < UMBRAL_PUNTOS:
         CONTADOR_FILTROS["PUNTOS_INSUFICIENTES"] += 1
         return []
+
     CONTADOR_FILTROS["PASA"] += 1
     return motivos
 
+
 # ============================================================
-# RESUMEN DIAGNÓSTICO
+# INFORMES
 # ============================================================
 
 def imprimir_resumen_diagnostico():
     total = sum(CONTADOR_FILTROS.values())
     print("\n" + "=" * 70, flush=True)
-    print("🔬 DIAGNÓSTICO — ¿Qué detuvo cada señal en este run?", flush=True)
+    print("🔬 DIAGNÓSTICO — ¿Qué filtros fallaron?", flush=True)
     print("=" * 70, flush=True)
 
     if total == 0:
@@ -628,13 +730,53 @@ def imprimir_resumen_diagnostico():
     print("-" * 70, flush=True)
     print(f"   TOTAL evaluaciones: {total}", flush=True)
 
+
+def imprimir_informe_zona_buena():
+    """
+    Lista de monedas que están mostrando signos de 'zona buena'.
+    Ordenadas por criterios cumplidos (mayor a menor).
+    """
+    print("\n" + "=" * 70, flush=True)
+    print("🎯 INFORME — Monedas en ZONA BUENA (para vigilar)", flush=True)
+    print("=" * 70, flush=True)
+
+    if not ZONA_BUENA:
+        print("   (Ninguna moneda muestra signos de zona buena)", flush=True)
+        return
+
+    # Ordenar por criterios cumplidos (descendente)
+    ZONA_BUENA.sort(key=lambda x: -x["criterios"])
+
+    print(f"\n   {len(ZONA_BUENA)} monedas con signos positivos:\n", flush=True)
+    print(f"   {'SÍMBOLO':<8} {'Bias':<8} {'Conf':>5} {'ADX':>6} {'SQZ':<7} {'ATR%':>6} {'Criterios'}", flush=True)
+    print("   " + "-" * 66, flush=True)
+
+    for item in ZONA_BUENA:
+        sym = item["symbol"]
+        bias = item["bias"][:7]
+        conf = item["conf"]
+        adx = item["adx"]
+        sqz = item["sqz"][:6]
+        atr = item["atr"]
+        criterios = item["criterios"]
+
+        print(f"   {sym:<8} {bias:<8} {conf:>5.1f} {adx:>6.1f} {sqz:<7} {atr:>6.1f} {criterios}/6", flush=True)
+
+    # Detallar los criterios de las TOP 5
+    print(f"\n   📋 Top 5 detalles:", flush=True)
+    for item in ZONA_BUENA[:5]:
+        detalle = " | ".join(item["detalle_criterios"])
+        print(f"      {item['symbol']}: {detalle}", flush=True)
+
+
 # ============================================================
 # MAIN
 # ============================================================
 
 def main():
-    global CONTADOR_FILTROS
+    global CONTADOR_FILTROS, ZONA_BUENA
     CONTADOR_FILTROS = {k: 0 for k in CONTADOR_FILTROS}
+    ZONA_BUENA = []
 
     print("=" * 70, flush=True)
     print("📐 SETUP 15M — LISTA FIJA 60 MONEDAS PREMIUM", flush=True)
@@ -652,22 +794,22 @@ def main():
 
     for i, base in enumerate(SYMBOLS, 1):
         symbol_binance = f"{base}USDT"
-        
-        # 1. Obtener setup de CoinBeacon
+
+        # 1. Setup de CoinBeacon
         data = consultar_setup(symbol_binance)
         if not data:
             errores += 1
             CONTADOR_FILTROS["SIN_SETUP"] += 1
             time.sleep(SLEEP_ENTRE_LLAMADAS)
             continue
-        
+
         actual = extraer_datos_clave(data)
         if not actual:
             CONTADOR_FILTROS["SIN_SETUP"] += 1
             time.sleep(SLEEP_ENTRE_LLAMADAS)
             continue
-        
-        # 2. Obtener velas de OKX y calcular filtros técnicos
+
+        # 2. Velas OKX + filtros técnicos
         velas = obtener_velas_okx(symbol_binance, TIMEFRAME, 200)
         filtros_tecnicos = {}
         if velas and len(velas) >= 50:
@@ -677,23 +819,74 @@ def main():
                 atr_pct = calcular_atr_percentile(velas, ATR_PERIOD, ATR_VENTANA)
                 filtros_tecnicos = {"adx": adx, "sqz": sqz, "atr_pct": atr_pct}
             except Exception as e:
-                print(f"      ⚠️ Error calculando filtros {base}: {str(e)[:60]}", flush=True)
-        
-        # 3. Calcular RSI 15m (ya existente)
+                print(f"      ⚠️ Error filtros {base}: {str(e)[:60]}", flush=True)
+
         rsi_15m = None
-        
         anterior = monedas_estado.get(symbol_binance)
-        
+
+        # Valores para log
+        adx_v = "-"
+        di_p_v = "-"
+        di_m_v = "-"
+        sqz_v = "-"
+        atr_v = "-"
+
+        if filtros_tecnicos.get("adx"):
+            a = filtros_tecnicos["adx"]
+            adx_v = f"{a['adx']:.1f}"
+            di_p_v = f"{a['di_plus']:.1f}" if a.get("di_plus") is not None else "-"
+            di_m_v = f"{a['di_minus']:.1f}" if a.get("di_minus") is not None else "-"
+        if filtros_tecnicos.get("sqz"):
+            sqz_v = filtros_tecnicos["sqz"]["color"]
+        if filtros_tecnicos.get("atr_pct") is not None:
+            atr_v = f"{filtros_tecnicos['atr_pct']:.1f}"
+
         if not anterior:
             nuevas_monedas += 1
             print(f"[{i}/{len(SYMBOLS)}] 🆕 {base} (primera vez)", flush=True)
         else:
             precio_dbg = actual.get("price")
             precio_str = f"${precio_dbg:.6f}" if precio_dbg else "N/A"
-            print(f"[{i}/{len(SYMBOLS)}] 🔍 {base} {precio_str} | bias={actual['bias']} conf={actual['confidence']:.1f}", flush=True)
-        
+            bias = actual.get("bias", "?")
+            conf = actual.get("confidence", 0)
+            print(f"[{i}/{len(SYMBOLS)}] {base:<6} {precio_str:<14} | "
+                  f"bias={bias:<8} conf={conf:>4.1f} | "
+                  f"ADX={adx_v:<5} DI+={di_p_v:<5} DI-={di_m_v:<5} | "
+                  f"SQZ={sqz_v:<7} ATR%={atr_v}", flush=True)
+
+        # 3. Evaluar TODOS los filtros independientemente
+        rechazos = evaluar_filtros_independientes(actual, filtros_tecnicos, rsi_15m)
+
+        # 4. Calcular zona buena (sin bloquear)
+        if anterior:
+            criterios_ok, detalle_criterios = calcular_zona_buena(actual, filtros_tecnicos)
+            if criterios_ok >= 4:  # Mínimo 4 de 6 criterios
+                ZONA_BUENA.append({
+                    "symbol": base,
+                    "bias": actual.get("bias", ""),
+                    "conf": actual.get("confidence", 0),
+                    "adx": filtros_tecnicos.get("adx", {}).get("adx", 0) if filtros_tecnicos.get("adx") else 0,
+                    "sqz": filtros_tecnicos.get("sqz", {}).get("color", "-") if filtros_tecnicos.get("sqz") else "-",
+                    "atr": filtros_tecnicos.get("atr_pct", 0) or 0,
+                    "criterios": criterios_ok,
+                    "detalle_criterios": detalle_criterios,
+                })
+
+        # 5. Si hay rechazos, salir (ya se registraron)
+        if rechazos:
+            time.sleep(SLEEP_ENTRE_LLAMADAS)
+            # Guardar estado igual
+            monedas_estado[symbol_binance] = {
+                **actual,
+                "rsi_15m": rsi_15m,
+                "filtros_tecnicos": filtros_tecnicos,
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+            }
+            continue
+
+        # 6. Todos los filtros pasaron → buscar motivos
         motivos = detectar_cambios(actual, anterior, rsi_15m, filtros_tecnicos)
-        
+
         if motivos:
             puntuacion = motivos[0].get("puntuacion", 0)
             print(f"      🎯 {len(motivos)} señal(es) | puntos={puntuacion}/100", flush=True)
@@ -716,20 +909,20 @@ def main():
                     "atr_pct": filtros_tecnicos.get("atr_pct"),
                 })
                 print(f"      ✅ enviado", flush=True)
-        
+
         monedas_estado[symbol_binance] = {
             **actual,
             "rsi_15m": rsi_15m,
             "filtros_tecnicos": filtros_tecnicos,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
-        
         time.sleep(SLEEP_ENTRE_LLAMADAS)
 
     estado["monedas"] = monedas_estado
     estado["updated_at"] = datetime.now(timezone.utc).isoformat()
     guardar_estado(estado)
 
+    # Resumen final
     print("\n" + "=" * 70, flush=True)
     print(f"🎯 Alertas enviadas: {enviadas}", flush=True)
     print(f"⚠️ Errores: {errores}", flush=True)
@@ -738,8 +931,10 @@ def main():
     print("=" * 70, flush=True)
 
     imprimir_resumen_diagnostico()
+    imprimir_informe_zona_buena()
 
     print("\n🏁 TERMINADO", flush=True)
+
 
 if __name__ == "__main__":
     try:
