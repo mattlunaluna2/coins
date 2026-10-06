@@ -6,6 +6,7 @@ SETUP — Smart Setup Bot (15m) con filtros técnicos por moneda
 - Sin filtros de BTC
 - Filtros técnicos individuales: ADX, Squeeze Momentum, ATR percentil
 - Mantiene uso de CoinBeacon (setup + líneas de soporte/resistencia)
+- DIAGNÓSTICO: contador de qué filtro detuvo cada señal
 """
 
 import json
@@ -71,6 +72,24 @@ LIMA_OFFSET = timedelta(hours=-5)
 
 COINBEACON_SETUP_URL = "https://api.coinbeacon.io/setups/binance"
 OKX_CANDLES_URL = "https://www.okx.com/api/v5/market/candles"
+
+# ═══════════════════════════════════════════════
+# CONTADOR DE DIAGNÓSTICO
+# ═══════════════════════════════════════════════
+CONTADOR_FILTROS = {
+    "SIN_SETUP": 0,
+    "CONFIANZA_BAJA": 0,
+    "SCORE_BAJO": 0,
+    "BIAS_REGIME_CONTRADICCION": 0,
+    "RSI_FUERA_RANGO": 0,
+    "ADX_BAJO": 0,
+    "DI_NO_ALINEADO": 0,
+    "SQZ_NO_ALINEADO": 0,
+    "ATR_BAJO": 0,
+    "SIN_MOTIVOS": 0,
+    "PUNTOS_INSUFICIENTES": 0,
+    "PASA": 0,
+}
 
 # ============================================================
 # FUNCIONES DE CÁLCULO DE INDICADORES TÉCNICOS
@@ -450,10 +469,11 @@ def construir_mensaje(symbol, actual, anterior, motivos, puntuacion, rsi_15m=Non
     return "\n".join(lineas)
 
 # ============================================================
-# DETECCIÓN DE CAMBIOS CON FILTROS TÉCNICOS
+# DETECCIÓN DE CAMBIOS CON FILTROS TÉCNICOS (con diagnóstico)
 # ============================================================
 
 def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
+    global CONTADOR_FILTROS
     if not anterior:
         return []
     motivos = []
@@ -472,15 +492,19 @@ def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
     
     # Filtros base originales
     if conf < CONFIANZA_MIN:
+        CONTADOR_FILTROS["CONFIANZA_BAJA"] += 1
         return []
     if score < DIRECTION_SCORE_MIN and bias_actual != "bullish":
+        CONTADOR_FILTROS["SCORE_BAJO"] += 1
         return []
     if bias_actual == "bullish" and "TREND DOWN" in regime_actual:
+        CONTADOR_FILTROS["BIAS_REGIME_CONTRADICCION"] += 1
         return []
     
     # Filtro RSI 15m
     if rsi_15m is not None:
         if rsi_15m > RSI_15M_MAX or rsi_15m < RSI_15M_MIN:
+            CONTADOR_FILTROS["RSI_FUERA_RANGO"] += 1
             return []
     
     # ═══════════════════════════════════════════════
@@ -491,13 +515,16 @@ def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
         if adx_data:
             adx_val = adx_data.get("adx", 0)
             if adx_val < ADX_UMBRAL:
+                CONTADOR_FILTROS["ADX_BAJO"] += 1
                 return []
             di_plus = adx_data.get("di_plus", 0)
             di_minus = adx_data.get("di_minus", 0)
             # Verificar alineación de DI con el bias
             if bias_actual == "bullish" and di_plus <= di_minus:
+                CONTADOR_FILTROS["DI_NO_ALINEADO"] += 1
                 return []
             if bias_actual == "bearish" and di_minus <= di_plus:
+                CONTADOR_FILTROS["DI_NO_ALINEADO"] += 1
                 return []
         
         sqz_data = filtros_tecnicos.get("sqz")
@@ -505,12 +532,15 @@ def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
             sqz_color = sqz_data.get("color", "")
             # Alineación de Squeeze con el bias
             if bias_actual == "bullish" and sqz_color not in ("lime", "maroon"):
+                CONTADOR_FILTROS["SQZ_NO_ALINEADO"] += 1
                 return []
             if bias_actual == "bearish" and sqz_color not in ("red", "green"):
+                CONTADOR_FILTROS["SQZ_NO_ALINEADO"] += 1
                 return []
         
         atr_pct = filtros_tecnicos.get("atr_pct")
         if atr_pct is not None and atr_pct < ATR_UMBRAL_MIN:
+            CONTADOR_FILTROS["ATR_BAJO"] += 1
             return []
     
     # SEÑALES (originales)
@@ -562,18 +592,49 @@ def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
                 m["texto"] += f" | Régimen: {regime_actual}"
     
     if not motivos:
+        CONTADOR_FILTROS["SIN_MOTIVOS"] += 1
         return []
     puntuacion = calcular_puntuacion(motivos, actual, anterior)
     motivos[0]["puntuacion"] = puntuacion
     if puntuacion < UMBRAL_PUNTOS:
+        CONTADOR_FILTROS["PUNTOS_INSUFICIENTES"] += 1
         return []
+    CONTADOR_FILTROS["PASA"] += 1
     return motivos
+
+# ============================================================
+# RESUMEN DIAGNÓSTICO
+# ============================================================
+
+def imprimir_resumen_diagnostico():
+    total = sum(CONTADOR_FILTROS.values())
+    print("\n" + "=" * 70, flush=True)
+    print("🔬 DIAGNÓSTICO — ¿Qué detuvo cada señal en este run?", flush=True)
+    print("=" * 70, flush=True)
+
+    if total == 0:
+        print("   (Sin evaluaciones registradas)", flush=True)
+        return
+
+    orden = sorted(CONTADOR_FILTROS.items(), key=lambda x: -x[1])
+    for nombre, count in orden:
+        if count == 0:
+            continue
+        pct = (count / total) * 100
+        barra = "█" * int(pct / 3)
+        print(f"   {nombre:28s} {count:3d}  ({pct:5.1f}%)  {barra}", flush=True)
+
+    print("-" * 70, flush=True)
+    print(f"   TOTAL evaluaciones: {total}", flush=True)
 
 # ============================================================
 # MAIN
 # ============================================================
 
 def main():
+    global CONTADOR_FILTROS
+    CONTADOR_FILTROS = {k: 0 for k in CONTADOR_FILTROS}
+
     print("=" * 70, flush=True)
     print("📐 SETUP 15M — LISTA FIJA 60 MONEDAS PREMIUM", flush=True)
     print(f"   Timeframe: {TIMEFRAME} | {len(SYMBOLS)} monedas", flush=True)
@@ -595,11 +656,13 @@ def main():
         data = consultar_setup(symbol_binance)
         if not data:
             errores += 1
+            CONTADOR_FILTROS["SIN_SETUP"] += 1
             time.sleep(SLEEP_ENTRE_LLAMADAS)
             continue
         
         actual = extraer_datos_clave(data)
         if not actual:
+            CONTADOR_FILTROS["SIN_SETUP"] += 1
             time.sleep(SLEEP_ENTRE_LLAMADAS)
             continue
         
@@ -672,7 +735,10 @@ def main():
     print(f"🆕 Monedas nuevas: {nuevas_monedas}", flush=True)
     print(f"💾 Monedas en estado: {len(monedas_estado)}", flush=True)
     print("=" * 70, flush=True)
-    print("🏁 TERMINADO", flush=True)
+
+    imprimir_resumen_diagnostico()
+
+    print("\n🏁 TERMINADO", flush=True)
 
 if __name__ == "__main__":
     try:
