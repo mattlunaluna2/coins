@@ -5,9 +5,10 @@ SETUP — Alerta cuando una moneda ENTRA en tendencia (15m)
 
 - Lista fija de monedas premium
 - Sin filtro de BTC
-- Filtros por moneda: Bias bullish + Confianza + ADX + DI + Squeeze + ATR%
-- Solo envía Telegram cuando la moneda PASA de NO cumplir a CUMPLIR todos los filtros
-- Salida de consola mínima: solo la alerta cuando ocurre
+- Filtros por moneda:
+    * CON setup CoinBeacon: bias + conf + ADX + DI + SQZ + ATR%
+    * SIN setup CoinBeacon: solo técnicos (ADX + DI + SQZ + ATR%)
+- Solo envía Telegram en transición NO-cumple → cumple
 """
 
 import json
@@ -40,7 +41,7 @@ SYMBOLS = [
 TIMEFRAME = "15m"
 SLEEP_ENTRE_LLAMADAS = 1.0
 
-# Umbrales para considerar "zona buena / tendencia"
+# Filtros
 CONFIANZA_MIN = 6.0
 ADX_LENGTH = 14
 ADX_UMBRAL = 23.0
@@ -322,10 +323,9 @@ def extraer_datos_clave(data):
     }
 
 
-def esta_en_tendencia(actual, filtros):
+def esta_en_tendencia_con_setup(actual, filtros):
     """
-    Devuelve (True, motivos) si la moneda cumple TODOS los filtros.
-    Si no, devuelve (False, motivo_principal).
+    Evalúa con CoinBeacon: bias + conf + ADX + DI + SQZ + ATR%
     """
     if not filtros:
         return False, "sin datos técnicos"
@@ -361,7 +361,6 @@ def esta_en_tendencia(actual, filtros):
     if atr_pct < ATR_UMBRAL_MIN:
         return False, f"ATR% {atr_pct:.1f} < {ATR_UMBRAL_MIN}"
 
-    # ✅ TODO OK
     return True, {
         "adx": adx_val,
         "di_plus": di_plus,
@@ -372,14 +371,52 @@ def esta_en_tendencia(actual, filtros):
     }
 
 
-def construir_mensaje_alerta(symbol, actual, datos_filtros):
-    precio = actual.get("price") or 0
-    bias = actual.get("bias", "?").upper()
-    regime = actual.get("regime", "")
-    conf = actual.get("confidence", 0)
-    score = actual.get("direction_score", 0)
-    arch_label = actual.get("archetype_label", "")
+def esta_en_tendencia_sin_setup(filtros):
+    """
+    Evalúa SIN CoinBeacon: solo técnicos.
+    Como no hay bias, se infiere bullish por:
+      - DI+ > DI-
+      - Squeeze lime o maroon
+    """
+    if not filtros:
+        return False, "sin datos técnicos"
 
+    adx_data = filtros.get("adx")
+    if not adx_data:
+        return False, "sin ADX"
+    adx_val = adx_data.get("adx", 0)
+    di_plus = adx_data.get("di_plus") or 0
+    di_minus = adx_data.get("di_minus") or 0
+
+    if adx_val < ADX_UMBRAL:
+        return False, f"ADX {adx_val:.1f} < {ADX_UMBRAL}"
+    if di_plus <= di_minus:
+        return False, f"DI+ {di_plus:.1f} <= DI- {di_minus:.1f}"
+
+    sqz = filtros.get("sqz")
+    if not sqz:
+        return False, "sin SQZ"
+    if sqz.get("color") not in ("lime", "maroon"):
+        return False, f"SQZ {sqz.get('color')}"
+
+    atr_pct = filtros.get("atr_pct")
+    if atr_pct is None:
+        return False, "sin ATR"
+    if atr_pct < ATR_UMBRAL_MIN:
+        return False, f"ATR% {atr_pct:.1f} < {ATR_UMBRAL_MIN}"
+
+    return True, {
+        "adx": adx_val,
+        "di_plus": di_plus,
+        "di_minus": di_minus,
+        "sqz_color": sqz.get("color"),
+        "sqz_val": sqz.get("momentum", 0),
+        "atr_pct": atr_pct,
+    }
+
+
+def construir_mensaje_alerta(symbol, actual, datos_filtros, con_setup):
+    precio = actual.get("price") or 0
     adx = datos_filtros["adx"]
     di_plus = datos_filtros["di_plus"]
     di_minus = datos_filtros["di_minus"]
@@ -387,22 +424,41 @@ def construir_mensaje_alerta(symbol, actual, datos_filtros):
     sqz_val = datos_filtros["sqz_val"]
     atr = datos_filtros["atr_pct"]
 
-    return (
-        f"🎯 {symbol} ENTRA EN TENDENCIA\n"
-        f"━━━━━━━━━━━━━━━━━━━\n"
-        f"💰 Precio: ${precio:.6f}\n"
-        f"🎯 Bias: {bias}\n"
-        f"📊 Régimen: {regime}\n"
-        f"💪 Confianza: {conf:.1f}/10\n"
-        f"📈 Score: {score}\n"
-        f"🔧 Setup: {arch_label}\n"
-        f"━━━━━━━━━━━━━━━━━━━\n"
-        f"📊 ADX: {adx:.1f} | DI+ {di_plus:.1f} > DI- {di_minus:.1f}\n"
-        f"📈 Squeeze: {sqz.upper()} ({sqz_val:+.4f})\n"
-        f"📉 ATR%: {atr:.1f}\n"
-        f"🕐 {hora_lima().strftime('%H:%M')} Lima\n"
-        f"━━━━━━━━━━━━━━━━━━━"
-    )
+    if con_setup:
+        bias = actual.get("bias", "?").upper()
+        regime = actual.get("regime", "")
+        conf = actual.get("confidence", 0)
+        score = actual.get("direction_score", 0)
+        arch_label = actual.get("archetype_label", "")
+        return (
+            f"🎯 {symbol} ENTRA EN TENDENCIA\n"
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"💰 Precio: ${precio:.6f}\n"
+            f"🎯 Bias: {bias}\n"
+            f"📊 Régimen: {regime}\n"
+            f"💪 Confianza: {conf:.1f}/10\n"
+            f"📈 Score: {score}\n"
+            f"🔧 Setup: {arch_label}\n"
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 ADX: {adx:.1f} | DI+ {di_plus:.1f} > DI- {di_minus:.1f}\n"
+            f"📈 Squeeze: {sqz.upper()} ({sqz_val:+.4f})\n"
+            f"📉 ATR%: {atr:.1f}\n"
+            f"🕐 {hora_lima().strftime('%H:%M')} Lima\n"
+            f"━━━━━━━━━━━━━━━━━━━"
+        )
+    else:
+        return (
+            f"🎯 {symbol} ENTRA EN TENDENCIA\n"
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"⚠️ Sin setup CoinBeacon (solo técnico)\n"
+            f"💰 Precio: ${precio:.6f}\n"
+            f"━━━━━━━━━━━━━━━━━━━\n"
+            f"📊 ADX: {adx:.1f} | DI+ {di_plus:.1f} > DI- {di_minus:.1f}\n"
+            f"📈 Squeeze: {sqz.upper()} ({sqz_val:+.4f})\n"
+            f"📉 ATR%: {atr:.1f}\n"
+            f"🕐 {hora_lima().strftime('%H:%M')} Lima\n"
+            f"━━━━━━━━━━━━━━━━━━━"
+        )
 
 
 # ============================================================
@@ -419,7 +475,8 @@ def main():
     estado = cargar_estado()
     monedas_estado = estado.get("monedas", {})
 
-    enviadas = 0
+    enviadas_con_setup = 0
+    enviadas_sin_setup = 0
     errores = 0
     en_tendencia_total = 0
     nuevas = 0
@@ -427,18 +484,16 @@ def main():
     for i, base in enumerate(SYMBOLS, 1):
         symbol_binance = f"{base}USDT"
 
+        # 1. Setup CoinBeacon (opcional)
         data = consultar_setup(symbol_binance)
-        if not data:
-            errores += 1
-            time.sleep(SLEEP_ENTRE_LLAMADAS)
-            continue
+        if data:
+            actual = extraer_datos_clave(data)
+            con_setup = actual is not None
+        else:
+            actual = None
+            con_setup = False
 
-        actual = extraer_datos_clave(data)
-        if not actual:
-            errores += 1
-            time.sleep(SLEEP_ENTRE_LLAMADAS)
-            continue
-
+        # 2. Velas OKX (SIEMPRE, para calcular técnicos)
         velas = obtener_velas_okx(symbol_binance, TIMEFRAME, 200)
         filtros = {}
         if velas and len(velas) >= 50:
@@ -449,32 +504,54 @@ def main():
                     "atr_pct": calcular_atr_percentile(velas, ATR_PERIOD, ATR_VENTANA),
                 }
             except Exception:
-                pass
+                filtros = {}
+
+        # Si no hay setup NI velas → error
+        if not actual and not filtros:
+            errores += 1
+            time.sleep(SLEEP_ENTRE_LLAMADAS)
+            continue
+
+        # Si no hay setup CoinBeacon, construir "actual" mínimo
+        if not actual:
+            precio_actual = velas[-1]["close"] if velas else 0
+            actual = {
+                "price": precio_actual,
+                "bias": "bullish (técnico)",
+                "regime": "N/A (sin CoinBeacon)",
+                "confidence": 0,
+                "direction_score": 0,
+                "archetype_label": "Sin setup CoinBeacon",
+            }
+
+        # 3. Evaluar tendencia
+        if con_setup:
+            cumple, detalle = esta_en_tendencia_con_setup(actual, filtros)
+        else:
+            cumple, detalle = esta_en_tendencia_sin_setup(filtros)
 
         anterior = monedas_estado.get(symbol_binance)
         estaba_en_tendencia = bool(anterior.get("en_tendencia")) if anterior else False
 
-        cumple, detalle = esta_en_tendencia(actual, filtros)
-
         if cumple:
             en_tendencia_total += 1
 
-        # ─── Solo alerta cuando HAY TRANSICIÓN: antes NO, ahora SÍ ───
+        # 4. Alerta SOLO en transición NO → SÍ
         if cumple and not estaba_en_tendencia and anterior is not None:
-            msg = construir_mensaje_alerta(base, actual, detalle)
+            msg = construir_mensaje_alerta(base, actual, detalle, con_setup)
             if enviar_telegram(msg):
-                enviadas += 1
-                print(f"✅ {base} ENTRA en tendencia → alerta enviada", flush=True)
+                if con_setup:
+                    enviadas_con_setup += 1
+                    print(f"✅ {base} ENTRA en tendencia (CoinBeacon) → alerta enviada", flush=True)
+                else:
+                    enviadas_sin_setup += 1
+                    print(f"✅ {base} ENTRA en tendencia (solo técnico) → alerta enviada", flush=True)
         elif cumple and anterior is None:
-            # Primera vez que vemos la moneda: solo guardar, no alertar
             nuevas += 1
 
-        # ─── Log silencioso (solo si hay cambio de estado) ───
-        if cumple != estaba_en_tendencia:
-            if cumple and anterior is not None:
-                pass  # ya lo imprimimos arriba
-            elif not cumple and estaba_en_tendencia:
-                print(f"⚠️ {base} SALE de tendencia ({detalle})", flush=True)
+        # 5. Log de salida de tendencia
+        if not cumple and estaba_en_tendencia:
+            print(f"⚠️ {base} SALE de tendencia ({detalle})", flush=True)
 
         # Guardar estado
         monedas_estado[symbol_binance] = {
@@ -483,6 +560,7 @@ def main():
             "price": actual.get("price"),
             "en_tendencia": cumple,
             "motivo": detalle if not cumple else "OK",
+            "con_setup": con_setup,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
 
@@ -493,10 +571,11 @@ def main():
     guardar_estado(estado)
 
     print("\n" + "=" * 70, flush=True)
-    print(f"🎯 Alertas enviadas: {enviadas}", flush=True)
+    print(f"🎯 Alertas enviadas (con CoinBeacon): {enviadas_con_setup}", flush=True)
+    print(f"🎯 Alertas enviadas (solo técnico): {enviadas_sin_setup}", flush=True)
     print(f"📊 Monedas en tendencia ahora: {en_tendencia_total}/{len(SYMBOLS)}", flush=True)
     print(f"🆕 Primeras (solo guardadas): {nuevas}", flush=True)
-    print(f"⚠️ Errores: {errores}", flush=True)
+    print(f"⚠️ Errores (sin setup ni velas): {errores}", flush=True)
     print("=" * 70, flush=True)
     print("🏁 TERMINADO", flush=True)
 
