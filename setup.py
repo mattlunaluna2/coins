@@ -63,6 +63,10 @@ SQZ_KC_MULT = 1.5
 RSI_15M_MIN = 30.0
 RSI_15M_MAX = 42.0  # Ajustado para captar entradas en suelo
 
+# Alertas opcionales
+ALERTA_NUEVO_PATRON = True
+ALERTA_CONFIRMADO_TF = True
+
 EXCLUIR = {"USDC", "USDT", "DAI", "TUSD", "FDUSD", "BUSD", "USDD"}
 
 STATE_FILE = Path("data/setup_state.json")
@@ -93,7 +97,6 @@ CONTADOR_FILTROS = {
 
 # ============================================================
 # FUNCIONES DE CÁLCULO DE INDICADORES TÉCNICOS
-# (Portadas del bot multi_smart)
 # ============================================================
 
 def _media(xs):
@@ -519,7 +522,6 @@ def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
                 return []
             di_plus = adx_data.get("di_plus", 0)
             di_minus = adx_data.get("di_minus", 0)
-            # Verificar alineación de DI con el bias
             if bias_actual == "bullish" and di_plus <= di_minus:
                 CONTADOR_FILTROS["DI_NO_ALINEADO"] += 1
                 return []
@@ -530,7 +532,6 @@ def detectar_cambios(actual, anterior, rsi_15m=None, filtros_tecnicos=None):
         sqz_data = filtros_tecnicos.get("sqz")
         if sqz_data:
             sqz_color = sqz_data.get("color", "")
-            # Alineación de Squeeze con el bias
             if bias_actual == "bullish" and sqz_color not in ("lime", "maroon"):
                 CONTADOR_FILTROS["SQZ_NO_ALINEADO"] += 1
                 return []
@@ -679,7 +680,7 @@ def main():
                 print(f"      ⚠️ Error calculando filtros {base}: {str(e)[:60]}", flush=True)
         
         # 3. Calcular RSI 15m (ya existente)
-        rsi_15m = None  # Se puede mantener la función original si se desea
+        rsi_15m = None
         
         anterior = monedas_estado.get(symbol_binance)
         
