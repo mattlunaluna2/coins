@@ -1,82 +1,82 @@
 {
   "monedas": {
     "BTCUSDT": {
-      "price": 85616.07,
+      "price": 85587.96,
       "bias": "bearish",
-      "regime": "TREND DOWN",
-      "confidence": 6.1,
-      "direction_score": -25,
-      "percentile": 63.7,
+      "regime": "STRONG TREND DOWN",
+      "confidence": 6.4,
+      "direction_score": -60,
+      "percentile": 70.2,
       "archetype_key": "breakout_watch",
       "archetype_label": "Breakout watch",
       "archetype_direction": "short",
-      "narrative": "Breakout watch on 15m. 3/5 checks pass. TREND DOWN.",
+      "narrative": "Breakout watch on 15m. 3/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
-      "continuation": 21,
-      "reversal": 0,
+      "continuation": 14,
+      "reversal": 14,
       "exhaustion": 29,
       "patterns": [],
       "trend_alignment": {
-        "15m": -25,
+        "15m": -60,
         "1h": -60,
         "4h": 26
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 12.839182496446908,
-          "di_plus": 19.149811971049747,
-          "di_minus": 21.897848243589113
+          "adx": 10.56586746374052,
+          "di_plus": 18.72988477762241,
+          "di_minus": 22.745173481899364
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -265.1581071428611,
-          "momentum_prev": -287.0235000000047,
+          "momentum": -247.02003571428776,
+          "momentum_prev": -265.1581071428611,
           "color": "maroon"
         },
-        "atr_pct": 30.0
+        "atr_pct": 26.0
       },
-      "updated_at": "2026-10-06T04:29:50.672967+00:00"
+      "updated_at": "2026-10-06T04:32:52.380803+00:00"
     },
     "ETHUSDT": {
-      "price": 2704.46,
+      "price": 2703.17,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 6,
-      "direction_score": -83,
-      "percentile": 63.4,
+      "confidence": 6.6,
+      "direction_score": -100,
+      "percentile": 74.6,
       "archetype_key": "level_bounce",
       "archetype_label": "Resistance fade",
       "archetype_direction": "short",
-      "narrative": "Resistance fade on 15m. 2/5 checks pass. STRONG TREND DOWN.",
+      "narrative": "Resistance fade on 15m. 3/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
-      "continuation": 29,
+      "continuation": 14,
       "reversal": 14,
-      "exhaustion": 14,
+      "exhaustion": 29,
       "patterns": [],
       "trend_alignment": {
-        "15m": -83,
-        "1h": -60,
+        "15m": -100,
+        "1h": -80,
         "4h": 26
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 18.0635353255165,
-          "di_plus": 20.96284713341615,
-          "di_minus": 25.853601538467274
+          "adx": 16.64763556595158,
+          "di_plus": 20.076009309717907,
+          "di_minus": 27.96711717661583
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -10.779692857142676,
-          "momentum_prev": -11.453082142856973,
+          "momentum": -10.37047142857135,
+          "momentum_prev": -10.788746428571233,
           "color": "maroon"
         },
         "atr_pct": 27.0
       },
-      "updated_at": "2026-10-06T04:29:52.475067+00:00"
+      "updated_at": "2026-10-06T04:32:54.210323+00:00"
     },
     "ZECUSDT": {
       "price": 1339.59,
@@ -102,98 +102,98 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 8.751200434821317,
-          "di_plus": 18.32996347215791,
-          "di_minus": 18.50737436561653
+          "adx": 8.892049243016265,
+          "di_plus": 18.194476581100496,
+          "di_minus": 19.109731402938454
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -5.00946785714275,
+          "momentum": -5.12535357142851,
           "momentum_prev": -2.9218499999998877,
           "color": "red"
         },
-        "atr_pct": 10.0
+        "atr_pct": 11.0
       },
-      "updated_at": "2026-10-06T04:31:14.403299+00:00"
+      "updated_at": "2026-10-06T04:34:18.728720+00:00"
     },
     "SOLUSDT": {
-      "price": 120.28,
+      "price": 120.24,
+      "bias": "bearish",
+      "regime": "RANGE",
+      "confidence": 4.9,
+      "direction_score": -56,
+      "percentile": 39.3,
+      "archetype_key": "breakout_watch",
+      "archetype_label": "Breakout watch",
+      "archetype_direction": "neutral",
+      "narrative": "Breakout watch on 15m. 3/5 checks pass. RANGE.",
+      "confirmed_by_tf": "1h",
+      "continuation": 14,
+      "reversal": 0,
+      "exhaustion": 29,
+      "patterns": [],
+      "trend_alignment": {
+        "15m": -56,
+        "1h": -60,
+        "4h": -37
+      },
+      "rsi_15m": null,
+      "filtros_tecnicos": {
+        "adx": {
+          "adx": 13.928995449092325,
+          "di_plus": 19.89502268386319,
+          "di_minus": 26.0044909567405
+        },
+        "sqz": {
+          "squeeze_on": false,
+          "squeeze_off": true,
+          "momentum": -0.6391964285714407,
+          "momentum_prev": -0.6692750000000111,
+          "color": "maroon"
+        },
+        "atr_pct": 13.0
+      },
+      "updated_at": "2026-10-06T04:32:57.964621+00:00"
+    },
+    "XRPUSDT": {
+      "price": 1.5008,
       "bias": "bearish",
       "regime": "TREND DOWN",
-      "confidence": 4.9,
-      "direction_score": -75,
-      "percentile": 33.2,
+      "confidence": 4.5,
+      "direction_score": -43,
+      "percentile": 30.9,
       "archetype_key": "breakout_watch",
       "archetype_label": "Breakout watch",
       "archetype_direction": "neutral",
       "narrative": "Breakout watch on 15m. 3/5 checks pass. TREND DOWN.",
       "confirmed_by_tf": "1h",
       "continuation": 14,
-      "reversal": 14,
-      "exhaustion": 29,
-      "patterns": [],
-      "trend_alignment": {
-        "15m": -75,
-        "1h": -47,
-        "4h": -37
-      },
-      "rsi_15m": null,
-      "filtros_tecnicos": {
-        "adx": {
-          "adx": 14.82649390498948,
-          "di_plus": 20.336737301483062,
-          "di_minus": 26.58184624776184
-        },
-        "sqz": {
-          "squeeze_on": false,
-          "squeeze_off": true,
-          "momentum": -0.6692750000000111,
-          "momentum_prev": -0.6960892857142933,
-          "color": "maroon"
-        },
-        "atr_pct": 18.0
-      },
-      "updated_at": "2026-10-06T04:29:56.013841+00:00"
-    },
-    "XRPUSDT": {
-      "price": 1.5005,
-      "bias": "bearish",
-      "regime": "TREND DOWN",
-      "confidence": 4.7,
-      "direction_score": -56,
-      "percentile": 28.3,
-      "archetype_key": "breakout_watch",
-      "archetype_label": "Breakout watch",
-      "archetype_direction": "neutral",
-      "narrative": "Breakout watch on 15m. 3/5 checks pass. TREND DOWN.",
-      "confirmed_by_tf": "1h",
-      "continuation": 29,
       "reversal": 0,
       "exhaustion": 29,
       "patterns": [],
       "trend_alignment": {
-        "15m": -56,
-        "1h": -50,
+        "15m": -43,
+        "1h": -33,
         "4h": 6
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 19.46928945915073,
-          "di_plus": 22.127329662444804,
-          "di_minus": 25.971772119494467
+          "adx": 18.443289059922442,
+          "di_plus": 21.782220858769982,
+          "di_minus": 25.3219887065409
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0085578214285714,
-          "momentum_prev": -0.00943932142857142,
+          "momentum": -0.007770035714285764,
+          "momentum_prev": -0.008594035714285757,
           "color": "maroon"
         },
-        "atr_pct": 24.0
+        "atr_pct": 21.0
       },
-      "updated_at": "2026-10-06T04:29:57.675879+00:00"
+      "updated_at": "2026-10-06T04:32:59.695655+00:00"
     },
     "WLDUSDT": {
       "price": 0.569,
@@ -219,59 +219,59 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 11.615782135125036,
-          "di_plus": 18.90271441762284,
-          "di_minus": 24.620184636286552
+          "adx": 11.50311818641785,
+          "di_plus": 19.3592309550792,
+          "di_minus": 24.419826966124543
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.006502285714285683,
+          "momentum": -0.006556607142857096,
           "momentum_prev": -0.007058785714285688,
           "color": "maroon"
         },
-        "atr_pct": 29.0
+        "atr_pct": 31.0
       },
-      "updated_at": "2026-10-06T04:31:16.141103+00:00"
+      "updated_at": "2026-10-06T04:34:20.506543+00:00"
     },
     "DOGEUSDT": {
-      "price": 0.0948,
+      "price": 0.09482,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 4.7,
-      "direction_score": -83,
-      "percentile": 28.3,
+      "confidence": 4.6,
+      "direction_score": -82,
+      "percentile": 33,
       "archetype_key": "breakout_watch",
       "archetype_label": "Breakout watch",
       "archetype_direction": "neutral",
       "narrative": "Breakout watch on 15m. 3/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
       "continuation": 29,
-      "reversal": 14,
+      "reversal": 0,
       "exhaustion": 29,
       "patterns": [],
       "trend_alignment": {
-        "15m": -83,
+        "15m": -82,
         "1h": -41,
-        "4h": -14
+        "4h": -5
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 26.129481268763325,
-          "di_plus": 17.599330748766462,
-          "di_minus": 25.792788700281733
+          "adx": 27.4615197881491,
+          "di_plus": 16.975475249435966,
+          "di_minus": 24.878490560376626
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0005861321428571427,
-          "momentum_prev": -0.0006859250000000004,
+          "momentum": -0.0004916607142857142,
+          "momentum_prev": -0.0005843214285714305,
           "color": "maroon"
         },
-        "atr_pct": 29.0
+        "atr_pct": 23.0
       },
-      "updated_at": "2026-10-06T04:29:59.474857+00:00"
+      "updated_at": "2026-10-06T04:33:01.547717+00:00"
     },
     "NEARUSDT": {
       "price": 5.244,
@@ -297,39 +297,39 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 7.769598758800556,
-          "di_plus": 16.54536862542108,
-          "di_minus": 18.602375781511903
+          "adx": 7.911343545425148,
+          "di_plus": 16.202045292077987,
+          "di_minus": 18.957455084426904
         },
         "sqz": {
           "squeeze_on": true,
           "squeeze_off": false,
-          "momentum": -0.01810392857142886,
+          "momentum": -0.020095714285714716,
           "momentum_prev": 0.005533928571428207,
           "color": "red"
         },
-        "atr_pct": 16.0
+        "atr_pct": 18.0
       },
-      "updated_at": "2026-10-06T04:31:02.231990+00:00"
+      "updated_at": "2026-10-06T04:34:06.204332+00:00"
     },
     "SUIUSDT": {
-      "price": 1.1905,
+      "price": 1.1908,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 7.3,
-      "direction_score": -70,
-      "percentile": 84.4,
+      "confidence": 6.9,
+      "direction_score": -56,
+      "percentile": 80,
       "archetype_key": "breakout_watch",
       "archetype_label": "Breakout watch",
       "archetype_direction": "short",
-      "narrative": "Breakout watch on 15m. 1.5\u00d7 volume. 4/5 checks pass. STRONG TREND DOWN.",
+      "narrative": "Breakout watch on 15m. 2/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
       "continuation": 46,
       "reversal": 0,
       "exhaustion": 29,
       "patterns": [],
       "trend_alignment": {
-        "15m": -70,
+        "15m": -56,
         "1h": -60,
         "4h": 7
       },
@@ -337,19 +337,19 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 33.07780920673756,
-          "di_plus": 12.805026263663798,
-          "di_minus": 27.84852831423461
+          "di_plus": 12.626970960950981,
+          "di_minus": 27.461291456066796
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.016256178571428574,
+          "momentum": -0.016328607142857166,
           "momentum_prev": -0.01740950000000003,
           "color": "maroon"
         },
-        "atr_pct": 6.0
+        "atr_pct": 8.0
       },
-      "updated_at": "2026-10-06T04:30:04.642763+00:00"
+      "updated_at": "2026-10-06T04:33:06.892217+00:00"
     },
     "FILUSDT": {
       "price": 1.1709,
@@ -375,20 +375,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 13.925506022623425,
-          "di_plus": 30.199460910491133,
-          "di_minus": 15.663356526085535
+          "adx": 13.449123870317882,
+          "di_plus": 29.238256076431657,
+          "di_minus": 17.53345045562875
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.008230642857142808,
+          "momentum": -0.008683321428571398,
           "momentum_prev": -0.012490392857142802,
           "color": "maroon"
         },
-        "atr_pct": 43.0
+        "atr_pct": 47.0
       },
-      "updated_at": "2026-10-06T04:31:10.916779+00:00"
+      "updated_at": "2026-10-06T04:34:15.162873+00:00"
     },
     "UNIUSDT": {
       "price": 8.849,
@@ -415,58 +415,58 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 27.707115953644216,
-          "di_plus": 9.754641435236806,
-          "di_minus": 30.7374296112132
+          "di_plus": 9.689164060855889,
+          "di_minus": 30.53110668283879
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.12536214285714337,
+          "momentum": -0.1244567857142865,
           "momentum_prev": -0.1210167857142864,
           "color": "red"
         },
         "atr_pct": 41.0
       },
-      "updated_at": "2026-10-06T04:30:55.221605+00:00"
+      "updated_at": "2026-10-06T04:33:58.565448+00:00"
     },
     "HYPEUSDT": {
-      "price": 93.56,
+      "price": 93.57,
       "bias": "bearish",
       "regime": "TREND DOWN",
       "confidence": 6.5,
-      "direction_score": -80,
-      "percentile": 74,
+      "direction_score": -100,
+      "percentile": 72.2,
       "archetype_key": "pattern_breakout",
       "archetype_label": "Breakout \u2014 Reversal Rising Wedge",
       "archetype_direction": "short",
-      "narrative": "Breakout \u2014 Reversal Rising Wedge \u2014 broke 4 bars ago on 15m. 2/6 checks pass. TREND DOWN.",
+      "narrative": "Breakout \u2014 Reversal Rising Wedge \u2014 broke 5 bars ago on 15m. 2/6 checks pass. TREND DOWN.",
       "confirmed_by_tf": null,
       "continuation": 29,
-      "reversal": 14,
+      "reversal": 0,
       "exhaustion": 29,
       "patterns": [],
       "trend_alignment": {
-        "15m": -80,
+        "15m": -100,
         "1h": 24,
         "4h": 50
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 11.012332742396168,
-          "di_plus": 19.95870919345693,
-          "di_minus": 23.4477245334714
+          "adx": 11.400409056699228,
+          "di_plus": 19.346146341849227,
+          "di_minus": 25.36987909884698
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.747672499999999,
+          "momentum": -0.7728414285714251,
           "momentum_prev": -0.7203353571428517,
           "color": "red"
         },
-        "atr_pct": 9.0
+        "atr_pct": 13.0
       },
-      "updated_at": "2026-10-06T04:30:11.673425+00:00"
+      "updated_at": "2026-10-06T04:33:14.226752+00:00"
     },
     "TRUMPUSDT": {
       "price": 2.062,
@@ -517,58 +517,58 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 14.967691873134115,
-          "di_plus": 18.261350721719126,
-          "di_minus": 21.796726500275025
+          "di_plus": 17.930542356628017,
+          "di_minus": 21.401874029186008
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.002044074999999995,
+          "momentum": -0.0020784785714285663,
           "momentum_prev": -0.0023775499999999995,
           "color": "maroon"
         },
         "atr_pct": 1.0
       },
-      "updated_at": "2026-10-06T04:30:53.473772+00:00"
+      "updated_at": "2026-10-06T04:33:56.822744+00:00"
     },
     "LTCUSDT": {
-      "price": 69.58,
+      "price": 69.65,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 5.4,
-      "direction_score": -43,
-      "percentile": 47,
+      "confidence": 5.8,
+      "direction_score": -33,
+      "percentile": 58.4,
       "archetype_key": "breakout_watch",
       "archetype_label": "Breakout watch",
       "archetype_direction": "long",
       "narrative": "Breakout watch on 15m. 3/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
-      "continuation": 75,
+      "continuation": 71,
       "reversal": 14,
       "exhaustion": 14,
       "patterns": [],
       "trend_alignment": {
-        "15m": -43,
+        "15m": -33,
         "1h": -65,
-        "4h": 43
+        "4h": 57
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
           "adx": 36.28987710703066,
-          "di_plus": 19.14543024285692,
-          "di_minus": 26.09319752107916
+          "di_plus": 18.641366674382464,
+          "di_minus": 25.406212162769375
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.27395714285714823,
+          "momentum": -0.28844285714286305,
           "momentum_prev": -0.37528928571429004,
           "color": "maroon"
         },
-        "atr_pct": 6.0
+        "atr_pct": 14.0
       },
-      "updated_at": "2026-10-06T04:30:02.887919+00:00"
+      "updated_at": "2026-10-06T04:33:05.093444+00:00"
     },
     "ENAUSDT": {
       "price": 0.2451,
@@ -594,20 +594,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 11.990111124526,
-          "di_plus": 15.097226378220352,
-          "di_minus": 24.477852440518046
+          "adx": 12.139924556933824,
+          "di_plus": 14.70890313873646,
+          "di_minus": 24.938139345211763
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0038306892857143116,
+          "momentum": -0.0039039535714286006,
           "momentum_prev": -0.0035926821428571678,
           "color": "red"
         },
         "atr_pct": 1.0
       },
-      "updated_at": "2026-10-06T04:31:00.496092+00:00"
+      "updated_at": "2026-10-06T04:34:04.234996+00:00"
     },
     "GRAMUSDT": {
       "price": 1.535,
@@ -685,40 +685,40 @@
       "price": 13.806,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 6.1,
-      "direction_score": -71,
-      "percentile": 64.2,
+      "confidence": 3,
+      "direction_score": -43,
+      "percentile": 6.5,
       "archetype_key": "level_bounce",
-      "archetype_label": "Resistance fade",
-      "archetype_direction": "short",
-      "narrative": "Resistance fade on 15m. 1/5 checks pass. STRONG TREND DOWN.",
+      "archetype_label": "Support bounce",
+      "archetype_direction": "long",
+      "narrative": "Support bounce on 15m. 0/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
       "continuation": 43,
       "reversal": 14,
-      "exhaustion": 29,
+      "exhaustion": 14,
       "patterns": [],
       "trend_alignment": {
-        "15m": -71,
+        "15m": -43,
         "1h": -83,
         "4h": -87
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 17.1503806655973,
-          "di_plus": 20.84723852837253,
-          "di_minus": 23.81967099381528
+          "adx": 17.009201977648825,
+          "di_plus": 20.534296907775776,
+          "di_minus": 23.46211046533637
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.06516999999999984,
-          "momentum_prev": -0.07481214285714279,
+          "momentum": -0.05697178571428559,
+          "momentum_prev": -0.06516999999999984,
           "color": "maroon"
         },
-        "atr_pct": 33.0
+        "atr_pct": 26.0
       },
-      "updated_at": "2026-10-06T04:30:01.088674+00:00"
+      "updated_at": "2026-10-06T04:33:03.231533+00:00"
     },
     "AVAXUSDT": {
       "price": 11.265,
@@ -745,19 +745,19 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 41.94822633206222,
-          "di_plus": 31.883434636618922,
-          "di_minus": 9.75108974443661
+          "di_plus": 31.19224982719395,
+          "di_minus": 9.539700815247866
         },
         "sqz": {
           "squeeze_on": true,
           "squeeze_off": false,
-          "momentum": 0.021749285714286165,
+          "momentum": 0.01939535714285763,
           "momentum_prev": 0.020795000000000632,
-          "color": "lime"
+          "color": "green"
         },
-        "atr_pct": 81.0
+        "atr_pct": 83.0
       },
-      "updated_at": "2026-10-06T04:30:51.723739+00:00"
+      "updated_at": "2026-10-06T04:33:55.035623+00:00"
     },
     "PUMPUSDT": {
       "price": 0.006334,
@@ -783,9 +783,9 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 7.230155174425974,
-          "di_plus": 19.994155699044803,
-          "di_minus": 23.070437108079865
+          "adx": 7.063762349003625,
+          "di_plus": 20.654736211122003,
+          "di_minus": 22.743909118847156
         },
         "sqz": {
           "squeeze_on": false,
@@ -796,7 +796,7 @@
         },
         "atr_pct": 1.0
       },
-      "updated_at": "2026-10-06T04:31:34.659869+00:00"
+      "updated_at": "2026-10-06T04:34:38.555859+00:00"
     },
     "ONDOUSDT": {
       "price": 0.4971,
@@ -894,20 +894,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 36.486375942069905,
-          "di_plus": 17.074475314034572,
-          "di_minus": 28.445474009970837
+          "adx": 37.11635381233907,
+          "di_plus": 16.098196289376894,
+          "di_minus": 32.53679638202453
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.396007142857142,
+          "momentum": -0.43584285714285775,
           "momentum_prev": -0.5097107142857153,
           "color": "maroon"
         },
-        "atr_pct": 47.0
+        "atr_pct": 61.0
       },
-      "updated_at": "2026-10-06T04:30:58.717541+00:00"
+      "updated_at": "2026-10-06T04:34:02.205585+00:00"
     },
     "DOTUSDT": {
       "price": 1.223,
@@ -933,20 +933,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 6.995879521734463,
-          "di_plus": 17.89388980706174,
-          "di_minus": 17.398258158096287
+          "adx": 6.995879521734464,
+          "di_plus": 17.823652342765126,
+          "di_minus": 17.329966157341907
         },
         "sqz": {
           "squeeze_on": true,
           "squeeze_off": false,
-          "momentum": -0.0021371071428570834,
+          "momentum": -0.002336285714285619,
           "momentum_prev": -0.0033611428571428056,
           "color": "maroon"
         },
-        "atr_pct": 33.0
+        "atr_pct": 36.0
       },
-      "updated_at": "2026-10-06T04:31:07.452769+00:00"
+      "updated_at": "2026-10-06T04:34:11.558571+00:00"
     },
     "TRXUSDT": {
       "price": 0.3356,
@@ -1114,20 +1114,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 17.104391738555574,
-          "di_plus": 12.45331034479373,
-          "di_minus": 23.77526293528794
+          "adx": 17.204255597987196,
+          "di_plus": 12.268775554000575,
+          "di_minus": 24.163864538705486
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0006138785714285742,
+          "momentum": -0.0006161071428571452,
           "momentum_prev": -0.0006041535714285727,
           "color": "red"
         },
         "atr_pct": 1.0
       },
-      "updated_at": "2026-10-06T04:30:27.899160+00:00"
+      "updated_at": "2026-10-06T04:33:30.572110+00:00"
     },
     "ICPUSDT": {
       "price": 3.499,
@@ -1153,59 +1153,59 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 23.092838984835662,
-          "di_plus": 23.2722482684084,
-          "di_minus": 27.600647213613595
+          "adx": 23.003194276748392,
+          "di_plus": 23.31243197793757,
+          "di_minus": 26.958716796084563
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.06957607142857107,
+          "momentum": -0.06867071428571399,
           "momentum_prev": -0.07638821428571399,
           "color": "maroon"
         },
-        "atr_pct": 54.0
+        "atr_pct": 58.0
       },
-      "updated_at": "2026-10-06T04:31:09.178675+00:00"
+      "updated_at": "2026-10-06T04:34:13.340722+00:00"
     },
     "BNBUSDT": {
-      "price": 781.98,
+      "price": 782,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 5,
-      "direction_score": -72,
-      "percentile": 36.7,
+      "confidence": 3,
+      "direction_score": -86,
+      "percentile": 6.2,
       "archetype_key": "level_bounce",
       "archetype_label": "Support bounce",
       "archetype_direction": "long",
-      "narrative": "Support bounce on 15m. 4/5 checks pass. STRONG TREND DOWN.",
+      "narrative": "Support bounce on 15m. 1/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
       "continuation": 46,
       "reversal": 14,
       "exhaustion": 14,
       "patterns": [],
       "trend_alignment": {
-        "15m": -72,
+        "15m": -86,
         "1h": -73,
         "4h": 35
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 43.91717511484817,
-          "di_plus": 11.871269278707972,
-          "di_minus": 25.728899110704752
+          "adx": 45.29199976802518,
+          "di_plus": 11.344619218823329,
+          "di_minus": 25.080402328102764
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -3.7544642857142745,
-          "momentum_prev": -4.090357142857127,
+          "momentum": -3.3966785714285526,
+          "momentum_prev": -3.7001428571428425,
           "color": "maroon"
         },
-        "atr_pct": 57.0
+        "atr_pct": 52.0
       },
-      "updated_at": "2026-10-06T04:29:54.221323+00:00"
+      "updated_at": "2026-10-06T04:32:56.030814+00:00"
     },
     "ETCUSDT": {
       "price": null,
@@ -1302,38 +1302,38 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 12.933321582488166,
-          "di_plus": 15.656001467408887,
-          "di_minus": 25.05028551295113
+          "di_plus": 15.498057256054073,
+          "di_minus": 24.79756788273167
         },
         "sqz": {
           "squeeze_on": true,
           "squeeze_off": false,
-          "momentum": -0.0002541857142857199,
+          "momentum": -0.0002632392857142888,
           "momentum_prev": -0.00019990357142857658,
           "color": "red"
         },
         "atr_pct": 58.0
       },
-      "updated_at": "2026-10-06T04:31:31.076588+00:00"
+      "updated_at": "2026-10-06T04:34:34.959941+00:00"
     },
     "RAYUSDT": {
-      "price": 2.144,
+      "price": 2.1455,
       "bias": "bearish",
-      "regime": "TREND DOWN",
-      "confidence": 5.6,
-      "direction_score": -38,
-      "percentile": 54,
+      "regime": "STRONG TREND DOWN",
+      "confidence": 6.3,
+      "direction_score": -60,
+      "percentile": 68.3,
       "archetype_key": "level_bounce",
       "archetype_label": "Support bounce",
       "archetype_direction": "long",
-      "narrative": "Support bounce on 15m. 3/5 checks pass. TREND DOWN.",
+      "narrative": "Support bounce on 15m. 4/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": null,
       "continuation": 29,
-      "reversal": 29,
+      "reversal": 14,
       "exhaustion": 14,
       "patterns": [],
       "trend_alignment": {
-        "15m": -38,
+        "15m": -60,
         "1h": 50,
         "4h": 74
       },
@@ -1353,7 +1353,7 @@
         },
         "atr_pct": 34.0
       },
-      "updated_at": "2026-10-06T04:30:06.451717+00:00"
+      "updated_at": "2026-10-06T04:33:08.725510+00:00"
     },
     "FETUSDT": {
       "price": 0.2536,
@@ -1380,19 +1380,19 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 24.244574626221613,
-          "di_plus": 24.97452061427656,
-          "di_minus": 16.026979275490323
+          "di_plus": 24.30085704363448,
+          "di_minus": 15.594666990018002
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.002287535714285712,
+          "momentum": -0.0023056428571428603,
           "momentum_prev": -0.002883928571428577,
           "color": "maroon"
         },
-        "atr_pct": 30.0
+        "atr_pct": 31.0
       },
-      "updated_at": "2026-10-06T04:30:36.721351+00:00"
+      "updated_at": "2026-10-06T04:33:39.579893+00:00"
     },
     "AAVEUSDT": {
       "price": 182.46,
@@ -1418,20 +1418,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 6.73891698069017,
-          "di_plus": 23.5493587051963,
-          "di_minus": 21.882303379380883
+          "adx": 6.7389169806901705,
+          "di_plus": 23.111421578964155,
+          "di_minus": 21.475367752076878
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -2.682239285714273,
+          "momentum": -2.684049999999982,
           "momentum_prev": -2.747685714285701,
           "color": "maroon"
         },
-        "atr_pct": 8.0
+        "atr_pct": 12.0
       },
-      "updated_at": "2026-10-06T04:30:29.648024+00:00"
+      "updated_at": "2026-10-06T04:33:32.391920+00:00"
     },
     "JTOUSDT": {
       "price": 0.5836,
@@ -1481,20 +1481,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 20.777377527981724,
-          "di_plus": 21.852321835889526,
-          "di_minus": 25.214389100937986
+          "adx": 20.913756762791888,
+          "di_plus": 21.638512435690075,
+          "di_minus": 25.9461130216253
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0009547928571428514,
+          "momentum": -0.0009457392857142775,
           "momentum_prev": -0.0011940071428571345,
           "color": "maroon"
         },
         "atr_pct": 1.0
       },
-      "updated_at": "2026-10-06T04:31:18.036074+00:00"
+      "updated_at": "2026-10-06T04:34:22.542771+00:00"
     },
     "PENGUUSDT": {
       "price": 0.009203,
@@ -1568,20 +1568,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 30.20844731619744,
-          "di_plus": 16.233719159510564,
-          "di_minus": 24.726093103939125
+          "adx": 30.341885175740334,
+          "di_plus": 15.874988727764276,
+          "di_minus": 25.146480709962688
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.020508714285714276,
+          "momentum": -0.020653571428571417,
           "momentum_prev": -0.022376607142857143,
           "color": "maroon"
         },
-        "atr_pct": 8.0
+        "atr_pct": 10.0
       },
-      "updated_at": "2026-10-06T04:30:49.991057+00:00"
+      "updated_at": "2026-10-06T04:33:53.097658+00:00"
     },
     "HBARUSDT": {
       "price": 0.10429,
@@ -1823,20 +1823,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 14.058526494983356,
-          "di_plus": 28.483433745660776,
-          "di_minus": 18.100539145821102
+          "adx": 13.133114417301664,
+          "di_plus": 26.993364905756305,
+          "di_minus": 22.38498868633267
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": 0.020275821428571233,
+          "momentum": 0.01685357142857123,
           "momentum_prev": 0.014370428571428328,
           "color": "lime"
         },
-        "atr_pct": 40.0
+        "atr_pct": 46.0
       },
-      "updated_at": "2026-10-06T04:31:32.872267+00:00"
+      "updated_at": "2026-10-06T04:34:36.790741+00:00"
     },
     "ALGOUSDT": {
       "price": 0.1278,
@@ -1863,19 +1863,19 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 21.52742379848286,
-          "di_plus": 22.5032149920272,
-          "di_minus": 25.218400981749316
+          "di_plus": 21.902144635248607,
+          "di_minus": 24.544806862826483
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": 0.0005984357142856928,
+          "momentum": 0.000545924999999984,
           "momentum_prev": 0.0004919499999999843,
           "color": "lime"
         },
-        "atr_pct": 63.0
+        "atr_pct": 64.0
       },
-      "updated_at": "2026-10-06T04:31:05.710844+00:00"
+      "updated_at": "2026-10-06T04:34:09.780784+00:00"
     },
     "NMRUSDT": {
       "price": 12.57,
@@ -1974,24 +1974,24 @@
       "updated_at": "2026-10-01T14:12:39.590951+00:00"
     },
     "STXUSDT": {
-      "price": 0.3799,
+      "price": 0.3797,
       "bias": "bullish",
       "regime": "TREND UP",
-      "confidence": 8.5,
-      "direction_score": 67,
-      "percentile": 99,
+      "confidence": 8,
+      "direction_score": 64,
+      "percentile": 96.4,
       "archetype_key": "pattern_breakout",
       "archetype_label": "Breakout \u2014 Symmetrical Triangle",
       "archetype_direction": "long",
-      "narrative": "Breakout \u2014 Symmetrical Triangle \u2014 broke 1 bar ago on 15m. 1.5\u00d7 volume. 5/6 checks pass. TREND UP.",
+      "narrative": "Breakout \u2014 Symmetrical Triangle \u2014 broke 2 bars ago on 15m. 1.4\u00d7 volume. 5/6 checks pass. TREND UP.",
       "confirmed_by_tf": "4h",
       "continuation": 43,
-      "reversal": 0,
-      "exhaustion": 29,
+      "reversal": 14,
+      "exhaustion": 14,
       "patterns": [],
       "trend_alignment": {
-        "15m": 67,
-        "1h": -9,
+        "15m": 64,
+        "1h": 9,
         "4h": 30
       },
       "rsi_15m": null,
@@ -2010,7 +2010,7 @@
         },
         "atr_pct": 32.0
       },
-      "updated_at": "2026-10-06T04:30:09.941852+00:00"
+      "updated_at": "2026-10-06T04:33:12.272437+00:00"
     },
     "MEGAUSDT": {
       "price": 0.04934,
@@ -2085,19 +2085,19 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 43.32086289054897,
-          "di_plus": 11.663401572859291,
-          "di_minus": 27.393513552732518
+          "di_plus": 11.582293115225413,
+          "di_minus": 27.20301632775442
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0014485250000000004,
+          "momentum": -0.0014521464285714325,
           "momentum_prev": -0.001661353571428575,
           "color": "maroon"
         },
-        "atr_pct": 7.0
+        "atr_pct": 9.0
       },
-      "updated_at": "2026-10-06T04:31:25.795741+00:00"
+      "updated_at": "2026-10-06T04:34:29.493349+00:00"
     },
     "APEUSDT": {
       "price": 0.16,
@@ -2124,19 +2124,19 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 47.82393076630141,
-          "di_plus": 16.617115620665622,
-          "di_minus": 35.26622026990462
+          "di_plus": 16.506323168116793,
+          "di_minus": 35.031087342805606
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0026519821428571395,
+          "momentum": -0.002666467857142853,
           "momentum_prev": -0.0028936642857142784,
           "color": "maroon"
         },
-        "atr_pct": 38.0
+        "atr_pct": 39.0
       },
-      "updated_at": "2026-10-06T04:31:29.342210+00:00"
+      "updated_at": "2026-10-06T04:34:33.166018+00:00"
     },
     "MANAUSDT": {
       "price": 0.1033,
@@ -2162,20 +2162,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 24.646293704564595,
-          "di_plus": 17.64636745679715,
-          "di_minus": 24.97783893372338
+          "adx": 24.323369812394272,
+          "di_plus": 18.760694788057517,
+          "di_minus": 24.208953496105114
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0016437142857142948,
+          "momentum": -0.0015966357142857255,
           "momentum_prev": -0.0016779678571428643,
           "color": "maroon"
         },
-        "atr_pct": 60.0
+        "atr_pct": 64.0
       },
-      "updated_at": "2026-10-06T04:31:27.523423+00:00"
+      "updated_at": "2026-10-06T04:34:31.334408+00:00"
     },
     "RESOLVUSDT": {
       "price": 0.01938,
@@ -2250,43 +2250,43 @@
       "updated_at": "2026-10-04T05:30:17.872631+00:00"
     },
     "AXSUSDT": {
-      "price": 1.293,
-      "bias": "bearish",
-      "regime": "TREND DOWN",
-      "confidence": 6.3,
-      "direction_score": -16,
-      "percentile": 69.9,
-      "archetype_key": "breakout_watch",
-      "archetype_label": "Breakout watch",
+      "price": 1.294,
+      "bias": "neutral",
+      "regime": "RANGE",
+      "confidence": 5.1,
+      "direction_score": 13,
+      "percentile": 44.9,
+      "archetype_key": "level_bounce",
+      "archetype_label": "Resistance fade",
       "archetype_direction": "short",
-      "narrative": "Breakout watch on 15m. 3/5 checks pass. TREND DOWN.",
-      "confirmed_by_tf": "1h",
-      "continuation": 43,
+      "narrative": "Resistance fade on 15m. 4/5 checks pass. RANGE.",
+      "confirmed_by_tf": "4h",
+      "continuation": 50,
       "reversal": 100,
-      "exhaustion": 14,
+      "exhaustion": 0,
       "patterns": [],
       "trend_alignment": {
-        "15m": -16,
-        "1h": -17,
+        "15m": 13,
+        "1h": -33,
         "4h": 44
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 11.084653673859917,
-          "di_plus": 28.099400573434945,
-          "di_minus": 19.656866027072613
+          "adx": 11.687069385437573,
+          "di_plus": 31.734130134851206,
+          "di_minus": 18.592689960048077
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.004761464285714283,
+          "momentum": -0.0038379999999999894,
           "momentum_prev": -0.007276749999999997,
           "color": "maroon"
         },
-        "atr_pct": 84.0
+        "atr_pct": 86.0
       },
-      "updated_at": "2026-10-06T04:30:24.728744+00:00"
+      "updated_at": "2026-10-06T04:33:27.285194+00:00"
     },
     "IOTAUSDT": {
       "price": 0.0577,
@@ -2312,20 +2312,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 25.685544356833653,
-          "di_plus": 16.568576723306336,
-          "di_minus": 29.48032354579042
+          "adx": 25.965429238425923,
+          "di_plus": 16.140555246822768,
+          "di_minus": 31.302081475945993
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0005943892857142856,
+          "momentum": -0.0006016321428571423,
           "momentum_prev": -0.000575124999999999,
           "color": "red"
         },
-        "atr_pct": 49.0
+        "atr_pct": 51.0
       },
-      "updated_at": "2026-10-06T04:30:39.932145+00:00"
+      "updated_at": "2026-10-06T04:33:42.853429+00:00"
     },
     "SENTUSDT": {
       "price": 0.02537,
@@ -2351,148 +2351,148 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 30.506333988361177,
-          "di_plus": 26.246107319516433,
-          "di_minus": 15.826535084911272
+          "adx": 31.024422335111318,
+          "di_plus": 29.340493009657482,
+          "di_minus": 15.108432477782403
         },
         "sqz": {
           "squeeze_on": true,
           "squeeze_off": false,
-          "momentum": 0.00010618928571428639,
+          "momentum": 0.00014421428571428642,
           "momentum_prev": 0.00010052857142857274,
           "color": "lime"
         },
-        "atr_pct": 96.0
+        "atr_pct": 100.0
       },
-      "updated_at": "2026-10-06T04:31:36.481959+00:00"
+      "updated_at": "2026-10-06T04:34:40.372058+00:00"
     },
     "INJUSDT": {
-      "price": 7.554,
+      "price": 7.561,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 6.1,
-      "direction_score": -82,
-      "percentile": 66.2,
+      "confidence": 6.2,
+      "direction_score": -50,
+      "percentile": 67.2,
       "archetype_key": "level_bounce",
-      "archetype_label": "Resistance fade",
-      "archetype_direction": "short",
-      "narrative": "Resistance fade on 15m. 1.8\u00d7 volume. 2/5 checks pass. STRONG TREND DOWN.",
+      "archetype_label": "Support bounce",
+      "archetype_direction": "long",
+      "narrative": "Support bounce on 15m. 1.6\u00d7 volume. 5/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": null,
       "continuation": 29,
-      "reversal": 0,
+      "reversal": 14,
       "exhaustion": 29,
       "patterns": [],
       "trend_alignment": {
-        "15m": -82,
+        "15m": -50,
         "1h": 14,
         "4h": 41
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 17.403419630167623,
-          "di_plus": 18.682936619814413,
-          "di_minus": 28.250626275358716
+          "adx": 17.40341963016762,
+          "di_plus": 18.09723992751408,
+          "di_minus": 27.364989359621276
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.09485821428571418,
+          "momentum": -0.09684999999999988,
           "momentum_prev": -0.10311535714285701,
           "color": "maroon"
         },
-        "atr_pct": 8.0
+        "atr_pct": 15.0
       },
-      "updated_at": "2026-10-06T04:30:08.191417+00:00"
+      "updated_at": "2026-10-06T04:33:10.519663+00:00"
     },
     "ORCAUSDT": {
       "price": 2.426,
       "bias": "bullish",
       "regime": "STRONG TREND UP",
       "confidence": 5.9,
-      "direction_score": 33,
-      "percentile": 59.2,
+      "direction_score": 37,
+      "percentile": 61.1,
       "archetype_key": "breakout_retest",
       "archetype_label": "Breakout retest",
       "archetype_direction": "short",
       "narrative": "Breakout retest \u2014 retest held just now on 15m. 4/6 checks pass. STRONG TREND UP.",
       "confirmed_by_tf": "1h",
-      "continuation": 100,
-      "reversal": 14,
+      "continuation": 93,
+      "reversal": 0,
       "exhaustion": 14,
       "patterns": [],
       "trend_alignment": {
-        "15m": 33,
+        "15m": 37,
         "1h": 89,
         "4h": 62
       },
       "rsi_15m": null,
       "filtros_tecnicos": {},
-      "updated_at": "2026-10-06T04:30:15.042745+00:00"
+      "updated_at": "2026-10-06T04:33:17.540816+00:00"
     },
     "SYRUPUSDT": {
       "price": 0.247,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
-      "confidence": 3.5,
-      "direction_score": -78,
-      "percentile": 7.8,
+      "confidence": 8.2,
+      "direction_score": -89,
+      "percentile": 97.4,
       "archetype_key": "level_bounce",
-      "archetype_label": "Support bounce",
-      "archetype_direction": "long",
-      "narrative": "Support bounce on 15m. 2/5 checks pass. STRONG TREND DOWN.",
+      "archetype_label": "Resistance fade",
+      "archetype_direction": "short",
+      "narrative": "Resistance fade on 15m. 3.5\u00d7 volume. 5/5 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
       "continuation": 75,
       "reversal": 14,
       "exhaustion": 29,
       "patterns": [],
       "trend_alignment": {
-        "15m": -78,
+        "15m": -89,
         "1h": -78,
         "4h": 0
       },
       "rsi_15m": null,
       "filtros_tecnicos": {},
-      "updated_at": "2026-10-06T04:30:18.165416+00:00"
+      "updated_at": "2026-10-06T04:33:20.758922+00:00"
     },
     "SKYUSDT": {
-      "price": 0.0878,
+      "price": 0.08782,
       "bias": "bearish",
       "regime": "STRONG TREND DOWN",
       "confidence": 7.4,
-      "direction_score": -50,
-      "percentile": 86.3,
+      "direction_score": -52,
+      "percentile": 88.5,
       "archetype_key": "breakout_retest",
       "archetype_label": "Breakout retest",
       "archetype_direction": "short",
       "narrative": "Breakout retest \u2014 retest held just now on 15m. 5/6 checks pass. STRONG TREND DOWN.",
       "confirmed_by_tf": "1h",
       "continuation": 86,
-      "reversal": 14,
+      "reversal": 29,
       "exhaustion": 0,
       "patterns": [],
       "trend_alignment": {
-        "15m": -50,
+        "15m": -52,
         "1h": -100,
         "4h": 33
       },
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 27.936416109032788,
-          "di_plus": 18.541078120110104,
-          "di_minus": 25.63877135964225
+          "adx": 28.0174016252654,
+          "di_plus": 18.363333339426465,
+          "di_minus": 25.992142989812052
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0005244107142857108,
+          "momentum": -0.0005570035714285695,
           "momentum_prev": -0.00046541071428571074,
           "color": "red"
         },
-        "atr_pct": 2.0
+        "atr_pct": 3.0
       },
-      "updated_at": "2026-10-06T04:30:21.342686+00:00"
+      "updated_at": "2026-10-06T04:33:23.937618+00:00"
     },
     "MORPHOUSDT": {
       "price": 2.719,
@@ -2519,19 +2519,19 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 30.5152423308949,
-          "di_plus": 23.93581422058798,
-          "di_minus": 29.16230320957403
+          "di_plus": 23.398409249463057,
+          "di_minus": 28.507553529038937
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.03838849999999997,
+          "momentum": -0.03934817857142858,
           "momentum_prev": -0.03127196428571424,
           "color": "red"
         },
         "atr_pct": 90.0
       },
-      "updated_at": "2026-10-06T04:30:31.440148+00:00"
+      "updated_at": "2026-10-06T04:33:34.215717+00:00"
     },
     "LDOUSDT": {
       "price": 0.4624,
@@ -2558,19 +2558,19 @@
       "filtros_tecnicos": {
         "adx": {
           "adx": 42.118885316216634,
-          "di_plus": 30.88809345731042,
-          "di_minus": 27.323774816550745
+          "di_plus": 30.582767803716916,
+          "di_minus": 27.05368208920145
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.00907014285714287,
+          "momentum": -0.009124464285714295,
           "momentum_prev": -0.010940321428571445,
           "color": "maroon"
         },
-        "atr_pct": 52.0
+        "atr_pct": 53.0
       },
-      "updated_at": "2026-10-06T04:30:33.166243+00:00"
+      "updated_at": "2026-10-06T04:33:35.960705+00:00"
     },
     "COMPUSDT": {
       "price": 24.4,
@@ -2609,7 +2609,7 @@
         },
         "atr_pct": 47.0
       },
-      "updated_at": "2026-10-06T04:30:34.916098+00:00"
+      "updated_at": "2026-10-06T04:33:37.816549+00:00"
     },
     "CHIPUSDT": {
       "price": 0.05465,
@@ -2635,20 +2635,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 46.3838991266101,
-          "di_plus": 37.49878956430051,
-          "di_minus": 10.295934240195459
+          "adx": 46.383899126610096,
+          "di_plus": 36.73819516238522,
+          "di_minus": 10.087100034169891
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": 0.000757885714285715,
+          "momentum": 0.0007434000000000017,
           "momentum_prev": 0.00068599642857143,
           "color": "lime"
         },
         "atr_pct": 99.0
       },
-      "updated_at": "2026-10-06T04:30:43.068179+00:00"
+      "updated_at": "2026-10-06T04:33:46.090661+00:00"
     },
     "BATUSDT": {
       "price": 0.1047,
@@ -2674,20 +2674,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 11.01246096804005,
-          "di_plus": 27.30786366191596,
-          "di_minus": 30.273975475593506
+          "adx": 11.187954091583142,
+          "di_plus": 26.896024609483394,
+          "di_minus": 31.325537041358515
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.0014576714285714216,
+          "momentum": -0.0014775892857142791,
           "momentum_prev": -0.0015125357142857093,
           "color": "maroon"
         },
-        "atr_pct": 28.0
+        "atr_pct": 35.0
       },
-      "updated_at": "2026-10-06T04:30:44.812945+00:00"
+      "updated_at": "2026-10-06T04:33:47.855666+00:00"
     },
     "RUNEUSDT": {
       "price": 0.775,
@@ -2712,7 +2712,7 @@
       },
       "rsi_15m": null,
       "filtros_tecnicos": {},
-      "updated_at": "2026-10-06T04:30:46.467270+00:00"
+      "updated_at": "2026-10-06T04:33:49.472191+00:00"
     },
     "XTZUSDT": {
       "price": 0.3318,
@@ -2751,7 +2751,7 @@
         },
         "atr_pct": 15.0
       },
-      "updated_at": "2026-10-06T04:30:48.241738+00:00"
+      "updated_at": "2026-10-06T04:33:51.338169+00:00"
     },
     "SUSHIUSDT": {
       "price": 0.2506,
@@ -2777,20 +2777,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 40.25889415279861,
-          "di_plus": 23.584521197929558,
-          "di_minus": 39.83809555726245
+          "adx": 39.909020551111404,
+          "di_plus": 25.501505744135482,
+          "di_minus": 38.838703618210985
         },
         "sqz": {
           "squeeze_on": false,
           "squeeze_off": true,
-          "momentum": -0.002959928571428577,
+          "momentum": -0.002905607142857153,
           "momentum_prev": -0.003345178571428587,
           "color": "maroon"
         },
-        "atr_pct": 36.0
+        "atr_pct": 38.0
       },
-      "updated_at": "2026-10-06T04:30:56.976016+00:00"
+      "updated_at": "2026-10-06T04:34:00.377276+00:00"
     },
     "GALAUSDT": {
       "price": 0.002425,
@@ -2829,7 +2829,7 @@
         },
         "atr_pct": 8.0
       },
-      "updated_at": "2026-10-06T04:31:03.989320+00:00"
+      "updated_at": "2026-10-06T04:34:07.970688+00:00"
     },
     "IMXUSDT": {
       "price": 0.1817,
@@ -2868,7 +2868,7 @@
         },
         "atr_pct": 23.0
       },
-      "updated_at": "2026-10-06T04:31:12.673527+00:00"
+      "updated_at": "2026-10-06T04:34:16.960254+00:00"
     },
     "ZENUSDT": {
       "price": 7.027,
@@ -2907,7 +2907,7 @@
         },
         "atr_pct": 10.0
       },
-      "updated_at": "2026-10-06T04:31:19.735884+00:00"
+      "updated_at": "2026-10-06T04:34:24.166487+00:00"
     },
     "KAVAUSDT": {
       "price": 0.0692,
@@ -2932,7 +2932,7 @@
       },
       "rsi_15m": null,
       "filtros_tecnicos": {},
-      "updated_at": "2026-10-06T04:31:22.018266+00:00"
+      "updated_at": "2026-10-06T04:34:24.962234+00:00"
     },
     "TWTUSDT": {
       "price": 0.5685,
@@ -2957,7 +2957,7 @@
       },
       "rsi_15m": null,
       "filtros_tecnicos": {},
-      "updated_at": "2026-10-06T04:31:23.964214+00:00"
+      "updated_at": "2026-10-06T04:34:27.711828+00:00"
     },
     "API3USDT": {
       "price": 0.3127,
@@ -2983,20 +2983,20 @@
       "rsi_15m": null,
       "filtros_tecnicos": {
         "adx": {
-          "adx": 28.306399796736525,
-          "di_plus": 29.070097144509035,
-          "di_minus": 15.891618711160405
+          "adx": 28.473413881202706,
+          "di_plus": 29.775499239610674,
+          "di_minus": 15.459300040477993
         },
         "sqz": {
           "squeeze_on": true,
           "squeeze_off": false,
-          "momentum": -0.0066197142857142835,
+          "momentum": -0.00640242857142858,
           "momentum_prev": -0.006967285714285714,
           "color": "maroon"
         },
-        "atr_pct": 68.0
+        "atr_pct": 70.0
       },
-      "updated_at": "2026-10-06T04:31:38.212693+00:00"
+      "updated_at": "2026-10-06T04:34:42.127733+00:00"
     },
     "CETUSUSDT": {
       "price": 0.02787,
@@ -3035,7 +3035,7 @@
         },
         "atr_pct": 48.0
       },
-      "updated_at": "2026-10-06T04:31:39.957383+00:00"
+      "updated_at": "2026-10-06T04:34:43.960039+00:00"
     },
     "AEROUSDT": {
       "price": 0.8508,
@@ -3060,8 +3060,8 @@
       },
       "rsi_15m": null,
       "filtros_tecnicos": {},
-      "updated_at": "2026-10-06T04:31:41.697056+00:00"
+      "updated_at": "2026-10-06T04:34:45.733456+00:00"
     }
   },
-  "updated_at": "2026-10-06T04:31:42.697217+00:00"
+  "updated_at": "2026-10-06T04:34:45.733498+00:00"
 }
