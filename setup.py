@@ -415,7 +415,7 @@ def calcular_filtros_tf(velas):
 def tf_en_tendencia_alcista(filtros, exigir_maroon=False):
     """
     Evalúa si un timeframe está en tendencia alcista.
-    
+
     - exigir_maroon=True  → SOLO acepta maroon (mejor entrada)
     - exigir_maroon=False → acepta maroon o lime
     """
@@ -470,7 +470,7 @@ def evaluar_multitf(filtros_1h, filtros_15m):
     Tendencia larga confirmada:
       - 1h en tendencia alcista (preferimos MAROON = gira al alza)
       - 15m en tendencia alcista (MAROON o LIME)
-    
+
     Estrategia de puntos:
       - 1h MAROON + 15m MAROON  → 100 puntos (excelente)
       - 1h MAROON + 15m LIME    → 80 puntos (bueno)
@@ -523,6 +523,7 @@ def construir_mensaje(symbol, cb_setup, detalle_mtf, precio, puntos):
         emoji = "🟡"
 
     lineas = [
+        f"📐 SETUP",
         f"{emoji} {symbol} ENTRA EN TENDENCIA LARGA",
         f"━━━━━━━━━━━━━━━━━━━",
         f"🎯 Calidad: {combo}",
@@ -552,7 +553,7 @@ def construir_mensaje(symbol, cb_setup, detalle_mtf, precio, puntos):
         f"━━━━━━━━━━━━━━━━━━━",
     ])
 
-    return "\n".join(lines_placeholder := lineas)  # por si acaso
+    return "\n".join(lineas)
 
 
 # ============================================================
