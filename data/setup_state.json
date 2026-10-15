@@ -1,7 +1,18 @@
 {
   "monedas": {
     "BTCUSDT": {
-      "price": 82188.1,
+      "price": 82129.1,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 20.7 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:12:08.692776+00:00"
+    },
+    "ETHUSDT": {
+      "price": 2434.83,
       "en_tendencia": true,
       "puntos": 50,
       "motivo": "OK",
@@ -9,109 +20,65 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:26.453034+00:00"
-    },
-    "ETHUSDT": {
-      "price": 2434.04,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:28.294197+00:00"
+      "updated_at": "2026-10-15T17:12:10.623934+00:00"
     },
     "ZECUSDT": {
-      "price": 1188.07,
+      "price": 1196.41,
       "en_tendencia": true,
-      "puntos": 80,
+      "puntos": 50,
       "motivo": "OK",
-      "sqz_1h": "maroon",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:48.240135+00:00"
+      "updated_at": "2026-10-15T17:13:51.126445+00:00"
     },
     "SOLUSDT": {
-      "price": 105.72,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
+      "price": 105.61,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 22.2 < 23.0",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:31.878051+00:00"
+      "updated_at": "2026-10-15T17:12:14.814326+00:00"
     },
     "XRPUSDT": {
       "price": 1.3375,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:33.505112+00:00"
-    },
-    "WLDUSDT": {
-      "price": 0.4965,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:49.755307+00:00"
-    },
-    "DOGEUSDT": {
-      "price": 0.08106,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: DI+ 40.5 <= DI- 41.5",
+      "motivo": "1h: ADX 22.6 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:12:17.049484+00:00"
+    },
+    "WLDUSDT": {
+      "price": 0.4948,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "15m: SQZ green",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:53.304210+00:00"
+    },
+    "DOGEUSDT": {
+      "price": 0.08068,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 37.8 <= DI- 45.4",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:35.175805+00:00"
+      "updated_at": "2026-10-15T17:12:19.321950+00:00"
     },
     "NEARUSDT": {
-      "price": 5.143,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:36.432031+00:00"
-    },
-    "SUIUSDT": {
-      "price": 1.0217,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:40.231615+00:00"
-    },
-    "FILUSDT": {
-      "price": 1.0697,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:44.764969+00:00"
-    },
-    "UNIUSDT": {
-      "price": 7.467,
+      "price": 5.137,
       "en_tendencia": true,
       "puntos": 50,
       "motivo": "OK",
@@ -119,18 +86,51 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:29.745486+00:00"
+      "updated_at": "2026-10-15T17:13:36.471515+00:00"
     },
-    "HYPEUSDT": {
-      "price": 81.235,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 19.2 < 23.0",
+    "SUIUSDT": {
+      "price": 1.0203,
+      "en_tendencia": true,
+      "puntos": 80,
+      "motivo": "OK",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:47.215006+00:00"
+      "updated_at": "2026-10-15T17:12:25.604858+00:00"
+    },
+    "FILUSDT": {
+      "price": 1.0684,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 42.2 <= DI- 42.4",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:47.149696+00:00"
+    },
+    "UNIUSDT": {
+      "price": 7.447,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "15m: SQZ green",
+      "sqz_1h": "lime",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:28.562105+00:00"
+    },
+    "HYPEUSDT": {
+      "price": 81.125,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 17.2 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:12:34.524748+00:00"
     },
     "TRUMPUSDT": {
       "price": 2.062,
@@ -157,18 +157,7 @@
       "updated_at": "2026-10-05T00:49:07.209116+00:00"
     },
     "ARBUSDT": {
-      "price": 0.19006,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:28.094704+00:00"
-    },
-    "LTCUSDT": {
-      "price": 60.23,
+      "price": 0.18952,
       "en_tendencia": true,
       "puntos": 50,
       "motivo": "OK",
@@ -176,18 +165,29 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:38.465041+00:00"
+      "updated_at": "2026-10-15T17:13:26.561364+00:00"
     },
-    "ENAUSDT": {
-      "price": 0.2009,
+    "LTCUSDT": {
+      "price": 60.21,
       "en_tendencia": true,
-      "puntos": 80,
+      "puntos": 50,
       "motivo": "OK",
-      "sqz_1h": "maroon",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:34.783508+00:00"
+      "updated_at": "2026-10-15T17:12:23.576345+00:00"
+    },
+    "ENAUSDT": {
+      "price": 0.19948,
+      "en_tendencia": true,
+      "puntos": 50,
+      "motivo": "OK",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:34.399329+00:00"
     },
     "GRAMUSDT": {
       "price": 1.535,
@@ -262,7 +262,7 @@
       "updated_at": "2026-10-03T18:19:03.575416+00:00"
     },
     "LINKUSDT": {
-      "price": 12.436,
+      "price": 12.422,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -270,29 +270,29 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:36.819504+00:00"
+      "updated_at": "2026-10-15T17:12:21.558898+00:00"
     },
     "AVAXUSDT": {
-      "price": 9.95,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:26.473226+00:00"
-    },
-    "PUMPUSDT": {
-      "price": 0.00453,
+      "price": 9.94,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: DI+ 40.8 <= DI- 41.2",
+      "motivo": "15m: SQZ green",
       "sqz_1h": "maroon",
-      "sqz_15m": "lime",
+      "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T17:00:06.498630+00:00"
+      "updated_at": "2026-10-15T17:13:24.354060+00:00"
+    },
+    "PUMPUSDT": {
+      "price": 0.004507,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 40.0 <= DI- 42.2",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:14:14.094021+00:00"
     },
     "ONDOUSDT": {
       "price": 0.4971,
@@ -367,26 +367,26 @@
       "updated_at": "2026-10-05T00:48:45.529428+00:00"
     },
     "DASHUSDT": {
-      "price": 49.31,
+      "price": 49.32,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 21.8 < 23.0",
-      "sqz_1h": "maroon",
+      "motivo": "1h: ADX 19.3 < 23.0",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:33.161228+00:00"
+      "updated_at": "2026-10-15T17:13:32.462932+00:00"
     },
     "DOTUSDT": {
-      "price": 1.1078,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
+      "price": 1.1053,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 40.1 <= DI- 43.9",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:41.414147+00:00"
+      "updated_at": "2026-10-15T17:13:42.820974+00:00"
     },
     "TRXUSDT": {
       "price": 0.3356,
@@ -531,37 +531,37 @@
       "updated_at": "2026-10-04T05:30:11.187214+00:00"
     },
     "STRKUSDT": {
-      "price": 0.08764,
+      "price": 0.08895,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 16.8 < 23.0",
+      "motivo": "1h: ADX 18.0 < 23.0",
       "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:03.705987+00:00"
+      "updated_at": "2026-10-15T17:12:55.025458+00:00"
     },
     "ICPUSDT": {
-      "price": 3.047,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
+      "price": 3.038,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "15m: SQZ green",
       "sqz_1h": "maroon",
-      "sqz_15m": "lime",
+      "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:43.076901+00:00"
+      "updated_at": "2026-10-15T17:13:44.941440+00:00"
     },
     "BNBUSDT": {
-      "price": 731.6,
+      "price": 731.8,
       "en_tendencia": true,
-      "puntos": 80,
+      "puntos": 50,
       "motivo": "OK",
-      "sqz_1h": "maroon",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:30.112789+00:00"
+      "updated_at": "2026-10-15T17:12:12.640757+00:00"
     },
     "ETCUSDT": {
       "price": null,
@@ -634,7 +634,7 @@
       "updated_at": "2026-09-27T11:36:52.863270+00:00"
     },
     "SEIUSDT": {
-      "price": 0.06146,
+      "price": 0.06137,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -642,21 +642,21 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T17:00:03.122632+00:00"
+      "updated_at": "2026-10-15T17:14:09.809122+00:00"
     },
     "RAYUSDT": {
-      "price": 1.8145,
+      "price": 1.81,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "15m: ADX 21.0 < 23.0",
+      "motivo": "1h: DI+ 39.2 <= DI- 48.7",
       "sqz_1h": "maroon",
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:41.859466+00:00"
+      "updated_at": "2026-10-15T17:12:27.895835+00:00"
     },
     "FETUSDT": {
-      "price": 0.2096,
+      "price": 0.2086,
       "en_tendencia": true,
       "puntos": 50,
       "motivo": "OK",
@@ -664,18 +664,18 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:11.944567+00:00"
+      "updated_at": "2026-10-15T17:13:05.693260+00:00"
     },
     "AAVEUSDT": {
-      "price": 155.61,
+      "price": 155.31,
       "en_tendencia": true,
-      "puntos": 80,
+      "puntos": 50,
       "motivo": "OK",
-      "sqz_1h": "maroon",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:05.345986+00:00"
+      "updated_at": "2026-10-15T17:12:56.984032+00:00"
     },
     "JTOUSDT": {
       "price": 0.5836,
@@ -702,15 +702,15 @@
       "updated_at": "2026-09-28T03:10:13.281239+00:00"
     },
     "PYTHUSDT": {
-      "price": 0.09399,
+      "price": 0.09521,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 12.1 < 23.0",
+      "motivo": "1h: ADX 13.8 < 23.0",
       "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:51.394954+00:00"
+      "updated_at": "2026-10-15T17:13:55.400033+00:00"
     },
     "PENGUUSDT": {
       "price": 0.009203,
@@ -761,15 +761,15 @@
       "updated_at": "2026-09-28T15:34:43.446175+00:00"
     },
     "APTUSDT": {
-      "price": 0.8152,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
+      "price": 0.8131,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "15m: SQZ green",
       "sqz_1h": "maroon",
-      "sqz_15m": "lime",
+      "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:24.842267+00:00"
+      "updated_at": "2026-10-15T17:13:22.495190+00:00"
     },
     "HBARUSDT": {
       "price": 0.10429,
@@ -988,18 +988,18 @@
       "updated_at": "2026-09-29T09:11:18.750566+00:00"
     },
     "ZROUSDT": {
-      "price": 2.0779,
-      "en_tendencia": true,
-      "puntos": 50,
-      "motivo": "OK",
+      "price": 2.0683,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "15m: SQZ green",
       "sqz_1h": "lime",
-      "sqz_15m": "lime",
+      "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T17:00:04.830771+00:00"
+      "updated_at": "2026-10-15T17:14:11.850934+00:00"
     },
     "ALGOUSDT": {
-      "price": 0.11413,
+      "price": 0.11404,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -1007,7 +1007,7 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:39.744508+00:00"
+      "updated_at": "2026-10-15T17:13:40.641840+00:00"
     },
     "NMRUSDT": {
       "price": 12.57,
@@ -1106,15 +1106,15 @@
       "updated_at": "2026-10-01T14:12:39.590951+00:00"
     },
     "STXUSDT": {
-      "price": 0.4032,
+      "price": 0.4038,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "1h: ADX 14.8 < 23.0",
-      "sqz_1h": "maroon",
+      "sqz_1h": "red",
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:45.436511+00:00"
+      "updated_at": "2026-10-15T17:12:32.290117+00:00"
     },
     "MEGAUSDT": {
       "price": 0.04934,
@@ -1165,18 +1165,18 @@
       "updated_at": "2026-10-04T13:45:45.285293+00:00"
     },
     "SANDUSDT": {
-      "price": 0.05521,
+      "price": 0.055,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: DI+ 41.8 <= DI- 42.3",
+      "motivo": "1h: DI+ 39.1 <= DI- 45.3",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:58.093265+00:00"
+      "updated_at": "2026-10-15T17:14:03.705710+00:00"
     },
     "APEUSDT": {
-      "price": 0.14307,
+      "price": 0.14277,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -1184,10 +1184,10 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T17:00:01.431094+00:00"
+      "updated_at": "2026-10-15T17:14:07.867866+00:00"
     },
     "MANAUSDT": {
-      "price": 0.08889,
+      "price": 0.0886,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -1195,7 +1195,7 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:59.748742+00:00"
+      "updated_at": "2026-10-15T17:14:05.780252+00:00"
     },
     "RESOLVUSDT": {
       "price": 0.01938,
@@ -1270,7 +1270,7 @@
       "updated_at": "2026-10-04T05:30:17.872631+00:00"
     },
     "AXSUSDT": {
-      "price": 1.0667,
+      "price": 1.0657,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -1278,10 +1278,10 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:00.522684+00:00"
+      "updated_at": "2026-10-15T17:12:51.208759+00:00"
     },
     "IOTAUSDT": {
-      "price": 0.04786,
+      "price": 0.04764,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -1289,131 +1289,21 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:15.130461+00:00"
+      "updated_at": "2026-10-15T17:13:09.783427+00:00"
     },
     "SENTUSDT": {
-      "price": 0.02017,
+      "price": 0.02016,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 21.9 < 23.0",
+      "motivo": "1h: ADX 20.2 < 23.0",
       "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T17:00:08.174520+00:00"
+      "updated_at": "2026-10-15T17:14:16.008519+00:00"
     },
     "INJUSDT": {
-      "price": 8.085,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:43.697451+00:00"
-    },
-    "ORCAUSDT": {
-      "price": 1.9294,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: DI+ 38.9 <= DI- 48.8",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:50.385356+00:00"
-    },
-    "SYRUPUSDT": {
-      "price": 0.20886,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:53.602239+00:00"
-    },
-    "SKYUSDT": {
-      "price": 0.07031,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "15m: ADX 19.8 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:56.761273+00:00"
-    },
-    "MORPHOUSDT": {
-      "price": 2.4112,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 19.6 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:06.997448+00:00"
-    },
-    "LDOUSDT": {
-      "price": 0.4016,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:08.644822+00:00"
-    },
-    "COMPUSDT": {
-      "price": 22.12,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: DI+ 45.1 <= DI- 46.2",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:10.327582+00:00"
-    },
-    "CHIPUSDT": {
-      "price": 0.0467,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: DI+ 38.0 <= DI- 48.8",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:18.298248+00:00"
-    },
-    "BATUSDT": {
-      "price": 0.18978,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 9.3 < 23.0",
-      "sqz_1h": "lime",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:19.922326+00:00"
-    },
-    "RUNEUSDT": {
-      "price": 0.646,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "15m: SQZ green",
-      "sqz_1h": "lime",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:21.576876+00:00"
-    },
-    "XTZUSDT": {
-      "price": 0.3174,
+      "price": 8.163,
       "en_tendencia": true,
       "puntos": 50,
       "motivo": "OK",
@@ -1421,7 +1311,117 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:23.223806+00:00"
+      "updated_at": "2026-10-15T17:12:29.945169+00:00"
+    },
+    "ORCAUSDT": {
+      "price": 1.9312,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 40.4 <= DI- 47.4",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:12:38.631494+00:00"
+    },
+    "SYRUPUSDT": {
+      "price": 0.2088,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 44.4 <= DI- 44.7",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:12:42.565770+00:00"
+    },
+    "SKYUSDT": {
+      "price": 0.07083,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 44.5 <= DI- 47.5",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:12:46.709493+00:00"
+    },
+    "MORPHOUSDT": {
+      "price": 2.4054,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 19.1 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:12:59.460267+00:00"
+    },
+    "LDOUSDT": {
+      "price": 0.4016,
+      "en_tendencia": true,
+      "puntos": 50,
+      "motivo": "OK",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:01.642218+00:00"
+    },
+    "COMPUSDT": {
+      "price": 22.05,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 41.1 <= DI- 48.1",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:03.717839+00:00"
+    },
+    "CHIPUSDT": {
+      "price": 0.04635,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: DI+ 35.5 <= DI- 51.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:13.862486+00:00"
+    },
+    "BATUSDT": {
+      "price": 0.18618,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 10.6 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:16.209558+00:00"
+    },
+    "RUNEUSDT": {
+      "price": 0.6453,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "15m: SQZ green",
+      "sqz_1h": "lime",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:18.116657+00:00"
+    },
+    "XTZUSDT": {
+      "price": 0.3172,
+      "en_tendencia": true,
+      "puntos": 50,
+      "motivo": "OK",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:20.252093+00:00"
     },
     "SUSHIUSDT": {
       "price": 0.2281,
@@ -1432,10 +1432,10 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:31.495121+00:00"
+      "updated_at": "2026-10-15T17:13:30.587933+00:00"
     },
     "GALAUSDT": {
-      "price": 0.002053,
+      "price": 0.002054,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -1443,7 +1443,7 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:38.071746+00:00"
+      "updated_at": "2026-10-15T17:13:38.608065+00:00"
     },
     "IMXUSDT": {
       "price": 0.1666,
@@ -1454,21 +1454,21 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:46.403611+00:00"
+      "updated_at": "2026-10-15T17:13:49.186239+00:00"
     },
     "ZENUSDT": {
-      "price": 6.054,
+      "price": 6.045,
       "en_tendencia": true,
-      "puntos": 80,
+      "puntos": 50,
       "motivo": "OK",
-      "sqz_1h": "maroon",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:53.023451+00:00"
+      "updated_at": "2026-10-15T17:13:57.435572+00:00"
     },
     "KAVAUSDT": {
-      "price": 0.06907,
+      "price": 0.06905,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "1h: ADX 8.4 < 23.0",
@@ -1476,21 +1476,21 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:54.778265+00:00"
+      "updated_at": "2026-10-15T17:13:59.506816+00:00"
     },
     "TWTUSDT": {
-      "price": 0.4873,
+      "price": 0.4852,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: DI+ 40.3 <= DI- 49.6",
+      "motivo": "1h: DI+ 41.7 <= DI- 48.3",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:56.450621+00:00"
+      "updated_at": "2026-10-15T17:14:01.637267+00:00"
     },
     "API3USDT": {
-      "price": 0.294,
+      "price": 0.2933,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -1498,7 +1498,7 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T17:00:09.863284+00:00"
+      "updated_at": "2026-10-15T17:14:18.060078+00:00"
     },
     "CETUSUSDT": {
       "price": 0.02421,
@@ -1509,32 +1509,32 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T17:00:11.551081+00:00"
+      "updated_at": "2026-10-15T17:14:20.060355+00:00"
     },
     "AEROUSDT": {
-      "price": 0.8911,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
+      "price": 0.8916,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "15m: SQZ green",
       "sqz_1h": "maroon",
-      "sqz_15m": "lime",
+      "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T17:00:13.238618+00:00"
+      "updated_at": "2026-10-15T17:14:22.105499+00:00"
     },
     "FLUIDUSDT": {
-      "price": 2.3308,
+      "price": 2.3244,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 17.1 < 23.0",
+      "motivo": "1h: ADX 17.6 < 23.0",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:48.740627+00:00"
+      "updated_at": "2026-10-15T17:12:36.421494+00:00"
     },
     "ATHUSDT": {
-      "price": 0.006087,
+      "price": 0.006039,
       "en_tendencia": true,
       "puntos": 80,
       "motivo": "OK",
@@ -1542,43 +1542,10 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:02.045438+00:00"
+      "updated_at": "2026-10-15T17:12:53.114894+00:00"
     },
     "GEODUSDT": {
-      "price": 0.2632,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:51.936292+00:00"
-    },
-    "PEAQUSDT": {
-      "price": 0.03952,
-      "en_tendencia": true,
-      "puntos": 80,
-      "motivo": "OK",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:58:55.122989+00:00"
-    },
-    "BEAMUSDT": {
-      "price": 0.008841,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 22.2 < 23.0",
-      "sqz_1h": "lime",
-      "sqz_15m": "red",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:13.485039+00:00"
-    },
-    "HNTUSDT": {
-      "price": 0.4473,
+      "price": 0.2626,
       "en_tendencia": true,
       "puntos": 50,
       "motivo": "OK",
@@ -1586,8 +1553,41 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-15T16:59:16.655563+00:00"
+      "updated_at": "2026-10-15T17:12:40.436961+00:00"
+    },
+    "PEAQUSDT": {
+      "price": 0.03949,
+      "en_tendencia": true,
+      "puntos": 80,
+      "motivo": "OK",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:12:44.639373+00:00"
+    },
+    "BEAMUSDT": {
+      "price": 0.008828,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 21.5 < 23.0",
+      "sqz_1h": "green",
+      "sqz_15m": "red",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:07.634934+00:00"
+    },
+    "HNTUSDT": {
+      "price": 0.4463,
+      "en_tendencia": true,
+      "puntos": 50,
+      "motivo": "OK",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-15T17:13:11.694224+00:00"
     }
   },
-  "updated_at": "2026-10-15T17:00:14.238783+00:00"
+  "updated_at": "2026-10-15T17:14:23.105645+00:00"
 }
