@@ -1,7 +1,18 @@
 {
   "monedas": {
     "BTCUSDT": {
-      "price": 80992.2,
+      "price": 81350.4,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 22.5 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:12:46.576616+00:00"
+    },
+    "ETHUSDT": {
+      "price": 2361.89,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "1h: ADX 22.6 < 23.0",
@@ -9,65 +20,21 @@
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:01.496277+00:00"
-    },
-    "ETHUSDT": {
-      "price": 2350.19,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 22.2 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:03.227933+00:00"
+      "updated_at": "2026-10-28T21:12:48.535008+00:00"
     },
     "ZECUSDT": {
-      "price": 1285.6,
+      "price": 1300.68,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 17.5 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:35.751703+00:00"
-    },
-    "SOLUSDT": {
-      "price": 101.99,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "15m: SQZ green",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:07.180743+00:00"
-    },
-    "XRPUSDT": {
-      "price": 1.3273,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 15.9 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:09.138862+00:00"
-    },
-    "WLDUSDT": {
-      "price": 0.4378,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 16.2 < 23.0",
+      "motivo": "1h: ADX 17.1 < 23.0",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:37.794546+00:00"
+      "updated_at": "2026-10-28T21:14:21.344696+00:00"
     },
-    "DOGEUSDT": {
-      "price": 0.07984,
+    "SOLUSDT": {
+      "price": 102.57,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "15m: SQZ green",
@@ -75,62 +42,95 @@
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:11.030938+00:00"
+      "updated_at": "2026-10-28T21:12:52.737647+00:00"
+    },
+    "XRPUSDT": {
+      "price": 1.3302,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 16.3 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:12:54.777785+00:00"
+    },
+    "WLDUSDT": {
+      "price": 0.442,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 16.7 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:23.144940+00:00"
+    },
+    "DOGEUSDT": {
+      "price": 0.08027,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: SQZ red",
+      "sqz_1h": "red",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:12:56.728654+00:00"
     },
     "NEARUSDT": {
-      "price": 4.678,
+      "price": 4.74,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 15.6 < 23.0",
+      "motivo": "1h: ADX 15.8 < 23.0",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:23.076303+00:00"
+      "updated_at": "2026-10-28T21:14:08.632697+00:00"
     },
     "SUIUSDT": {
-      "price": 0.94,
+      "price": 0.9502,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 19.7 < 23.0",
+      "motivo": "1h: ADX 21.0 < 23.0",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:17.055316+00:00"
+      "updated_at": "2026-10-28T21:13:02.959830+00:00"
     },
     "FILUSDT": {
-      "price": 0.9137,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 13.9 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:32.237373+00:00"
-    },
-    "UNIUSDT": {
-      "price": 7.191,
+      "price": 0.9222,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "1h: ADX 15.5 < 23.0",
-      "sqz_1h": "lime",
-      "sqz_15m": "green",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:15.790263+00:00"
+      "updated_at": "2026-10-28T21:14:17.438316+00:00"
     },
-    "HYPEUSDT": {
-      "price": 80.589,
+    "UNIUSDT": {
+      "price": 7.258,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 18.6 < 23.0",
+      "motivo": "1h: ADX 16.8 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:00.320034+00:00"
+    },
+    "HYPEUSDT": {
+      "price": 81.213,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 17.7 < 23.0",
       "sqz_1h": "maroon",
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:25.169430+00:00"
+      "updated_at": "2026-10-28T21:13:10.244620+00:00"
     },
     "TRUMPUSDT": {
       "price": 2.062,
@@ -157,37 +157,37 @@
       "updated_at": "2026-10-05T00:49:07.209116+00:00"
     },
     "ARBUSDT": {
-      "price": 0.17369,
+      "price": 0.17533,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 16.6 < 23.0",
+      "motivo": "1h: ADX 18.9 < 23.0",
       "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:14.042063+00:00"
+      "updated_at": "2026-10-28T21:13:58.563389+00:00"
     },
     "LTCUSDT": {
-      "price": 58.69,
+      "price": 59.0,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "15m: ADX 22.7 < 23.0",
-      "sqz_1h": "lime",
+      "motivo": "1h: SQZ green",
+      "sqz_1h": "green",
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:15.108565+00:00"
+      "updated_at": "2026-10-28T21:13:01.207575+00:00"
     },
     "ENAUSDT": {
-      "price": 0.20766,
+      "price": 0.21273,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 19.8 < 23.0",
+      "motivo": "1h: ADX 21.3 < 23.0",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:21.283434+00:00"
+      "updated_at": "2026-10-28T21:14:06.556057+00:00"
     },
     "GRAMUSDT": {
       "price": 1.535,
@@ -262,37 +262,37 @@
       "updated_at": "2026-10-03T18:19:03.575416+00:00"
     },
     "LINKUSDT": {
-      "price": 11.746,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "15m: SQZ green",
+      "price": 11.843,
+      "en_tendencia": true,
+      "puntos": 80,
+      "motivo": "OK",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:13.124400+00:00"
+      "updated_at": "2026-10-28T21:12:59.245209+00:00"
     },
     "AVAXUSDT": {
-      "price": 8.969,
+      "price": 9.031,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 16.1 < 23.0",
+      "motivo": "1h: ADX 17.1 < 23.0",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:12.325891+00:00"
+      "updated_at": "2026-10-28T21:13:56.300483+00:00"
     },
     "PUMPUSDT": {
-      "price": 0.004459,
+      "price": 0.004553,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 18.6 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "motivo": "1h: ADX 21.1 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:57.515611+00:00"
+      "updated_at": "2026-10-28T21:14:41.456641+00:00"
     },
     "ONDOUSDT": {
       "price": 0.4971,
@@ -367,26 +367,26 @@
       "updated_at": "2026-10-05T00:48:45.529428+00:00"
     },
     "DASHUSDT": {
-      "price": 53.68,
+      "price": 54.18,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 15.6 < 23.0",
+      "motivo": "1h: ADX 16.1 < 23.0",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:19.436617+00:00"
+      "updated_at": "2026-10-28T21:14:04.525239+00:00"
     },
     "DOTUSDT": {
-      "price": 1.0157,
+      "price": 1.0253,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 13.7 < 23.0",
+      "motivo": "1h: ADX 15.5 < 23.0",
       "sqz_1h": "lime",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:28.635552+00:00"
+      "updated_at": "2026-10-28T21:14:13.951727+00:00"
     },
     "TRXUSDT": {
       "price": 0.3356,
@@ -531,37 +531,37 @@
       "updated_at": "2026-10-04T05:30:11.187214+00:00"
     },
     "STRKUSDT": {
-      "price": 0.04726,
+      "price": 0.0476,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 14.3 < 23.0",
-      "sqz_1h": "maroon",
+      "motivo": "1h: ADX 14.8 < 23.0",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:46.422184+00:00"
+      "updated_at": "2026-10-28T21:13:29.588348+00:00"
     },
     "ICPUSDT": {
-      "price": 2.633,
+      "price": 2.648,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 11.1 < 23.0",
+      "motivo": "1h: ADX 11.8 < 23.0",
       "sqz_1h": "lime",
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:30.393270+00:00"
+      "updated_at": "2026-10-28T21:14:15.716657+00:00"
     },
     "BNBUSDT": {
-      "price": 752.79,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 22.3 < 23.0",
+      "price": 756.82,
+      "en_tendencia": true,
+      "puntos": 50,
+      "motivo": "OK",
       "sqz_1h": "lime",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:05.147270+00:00"
+      "updated_at": "2026-10-28T21:12:50.931420+00:00"
     },
     "ETCUSDT": {
       "price": null,
@@ -634,48 +634,48 @@
       "updated_at": "2026-09-27T11:36:52.863270+00:00"
     },
     "SEIUSDT": {
-      "price": 0.05356,
+      "price": 0.05396,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 15.0 < 23.0",
+      "motivo": "1h: ADX 15.6 < 23.0",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:51.782107+00:00"
+      "updated_at": "2026-10-28T21:14:37.999307+00:00"
     },
     "RAYUSDT": {
-      "price": 1.8204,
+      "price": 1.8438,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 17.3 < 23.0",
+      "motivo": "1h: ADX 18.6 < 23.0",
       "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:19.151241+00:00"
+      "updated_at": "2026-10-28T21:13:04.783329+00:00"
     },
     "FETUSDT": {
-      "price": 0.1841,
+      "price": 0.1861,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 12.6 < 23.0",
-      "sqz_1h": "maroon",
+      "motivo": "1h: ADX 14.4 < 23.0",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:55.786073+00:00"
+      "updated_at": "2026-10-28T21:13:39.677083+00:00"
     },
     "AAVEUSDT": {
-      "price": 134.97,
+      "price": 136.28,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "1h: ADX 19.4 < 23.0",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:48.373118+00:00"
+      "updated_at": "2026-10-28T21:13:31.678069+00:00"
     },
     "JTOUSDT": {
       "price": 0.5836,
@@ -702,15 +702,15 @@
       "updated_at": "2026-09-28T03:10:13.281239+00:00"
     },
     "PYTHUSDT": {
-      "price": 0.07217,
+      "price": 0.07293,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 21.1 < 23.0",
+      "motivo": "1h: ADX 20.4 < 23.0",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:39.616176+00:00"
+      "updated_at": "2026-10-28T21:14:25.058512+00:00"
     },
     "PENGUUSDT": {
       "price": 0.009203,
@@ -761,15 +761,15 @@
       "updated_at": "2026-09-28T15:34:43.446175+00:00"
     },
     "APTUSDT": {
-      "price": 0.7009,
+      "price": 0.7073,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 12.7 < 23.0",
-      "sqz_1h": "maroon",
+      "motivo": "1h: ADX 14.2 < 23.0",
+      "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:10.447592+00:00"
+      "updated_at": "2026-10-28T21:13:54.458375+00:00"
     },
     "HBARUSDT": {
       "price": 0.10429,
@@ -988,26 +988,26 @@
       "updated_at": "2026-09-29T09:11:18.750566+00:00"
     },
     "ZROUSDT": {
-      "price": 1.7108,
+      "price": 1.7273,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 17.1 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "motivo": "1h: ADX 15.9 < 23.0",
+      "sqz_1h": "red",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:54.519147+00:00"
+      "updated_at": "2026-10-28T21:14:39.744992+00:00"
     },
     "ALGOUSDT": {
-      "price": 0.10375,
+      "price": 0.10455,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 14.0 < 23.0",
+      "motivo": "1h: ADX 14.8 < 23.0",
       "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:26.737787+00:00"
+      "updated_at": "2026-10-28T21:14:12.195128+00:00"
     },
     "NMRUSDT": {
       "price": 12.57,
@@ -1106,15 +1106,15 @@
       "updated_at": "2026-10-01T14:12:39.590951+00:00"
     },
     "STXUSDT": {
-      "price": 0.3027,
+      "price": 0.3061,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 11.6 < 23.0",
+      "motivo": "1h: ADX 11.5 < 23.0",
       "sqz_1h": "lime",
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:22.970044+00:00"
+      "updated_at": "2026-10-28T21:13:08.477904+00:00"
     },
     "MEGAUSDT": {
       "price": 0.04934,
@@ -1165,7 +1165,7 @@
       "updated_at": "2026-10-04T13:45:45.285293+00:00"
     },
     "SANDUSDT": {
-      "price": 0.04746,
+      "price": 0.04794,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "1h: ADX 15.9 < 23.0",
@@ -1173,29 +1173,29 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:46.490420+00:00"
+      "updated_at": "2026-10-28T21:14:32.405128+00:00"
     },
     "APEUSDT": {
-      "price": 0.12474,
+      "price": 0.12605,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 9.3 < 23.0",
+      "motivo": "1h: ADX 9.7 < 23.0",
       "sqz_1h": "lime",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:50.067003+00:00"
+      "updated_at": "2026-10-28T21:14:36.126460+00:00"
     },
     "MANAUSDT": {
-      "price": 0.07957,
+      "price": 0.08032,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "1h: ADX 12.2 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:48.350911+00:00"
+      "updated_at": "2026-10-28T21:14:34.329327+00:00"
     },
     "RESOLVUSDT": {
       "price": 0.01938,
@@ -1270,282 +1270,84 @@
       "updated_at": "2026-10-04T05:30:17.872631+00:00"
     },
     "AXSUSDT": {
-      "price": 0.9589,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 11.7 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:42.711632+00:00"
-    },
-    "IOTAUSDT": {
-      "price": 0.04195,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 16.3 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:59.373091+00:00"
-    },
-    "SENTUSDT": {
-      "price": 0.02125,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 8.1 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "red",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:59.254444+00:00"
-    },
-    "INJUSDT": {
-      "price": 7.935,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 9.5 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:21.217881+00:00"
-    },
-    "ORCAUSDT": {
-      "price": 1.6969,
+      "price": 0.966,
       "en_tendencia": false,
       "puntos": 0,
       "motivo": "1h: ADX 12.9 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:25.542710+00:00"
+    },
+    "IOTAUSDT": {
+      "price": 0.04215,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 16.4 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:43.399578+00:00"
+    },
+    "SENTUSDT": {
+      "price": 0.02138,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 9.0 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "maroon",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:43.304879+00:00"
+    },
+    "INJUSDT": {
+      "price": 8.094,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 11.5 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:06.638351+00:00"
+    },
+    "ORCAUSDT": {
+      "price": 1.7,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 14.0 < 23.0",
       "sqz_1h": "lime",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:30.489793+00:00"
+      "updated_at": "2026-10-28T21:13:14.000454+00:00"
     },
     "SYRUPUSDT": {
-      "price": 0.17067,
+      "price": 0.17199,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 17.5 < 23.0",
+      "motivo": "1h: ADX 16.7 < 23.0",
       "sqz_1h": "maroon",
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:34.610021+00:00"
+      "updated_at": "2026-10-28T21:13:17.535503+00:00"
     },
     "SKYUSDT": {
-      "price": 0.06563,
+      "price": 0.06597,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 14.7 < 23.0",
+      "motivo": "1h: ADX 15.1 < 23.0",
       "sqz_1h": "maroon",
       "sqz_15m": "green",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:38.754270+00:00"
+      "updated_at": "2026-10-28T21:13:21.294712+00:00"
     },
     "MORPHOUSDT": {
-      "price": 2.2253,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "15m: SQZ green",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:50.264322+00:00"
-    },
-    "LDOUSDT": {
-      "price": 0.3785,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 13.1 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:52.127476+00:00"
-    },
-    "COMPUSDT": {
-      "price": 21.5,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 9.6 < 23.0",
-      "sqz_1h": "lime",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:53.954968+00:00"
-    },
-    "CHIPUSDT": {
-      "price": 0.0496,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 13.2 < 23.0",
-      "sqz_1h": "red",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:03.020572+00:00"
-    },
-    "BATUSDT": {
-      "price": 0.14105,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 20.8 < 23.0",
-      "sqz_1h": "red",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:04.747515+00:00"
-    },
-    "RUNEUSDT": {
-      "price": 0.6237,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 16.6 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:06.596219+00:00"
-    },
-    "XTZUSDT": {
-      "price": 0.2813,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 12.1 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:08.715885+00:00"
-    },
-    "SUSHIUSDT": {
-      "price": 0.2087,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 11.0 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:17.614028+00:00"
-    },
-    "GALAUSDT": {
-      "price": 0.001799,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 17.8 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:24.921761+00:00"
-    },
-    "IMXUSDT": {
-      "price": 0.1399,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 16.0 < 23.0",
-      "sqz_1h": "lime",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:33.947161+00:00"
-    },
-    "ZENUSDT": {
-      "price": 5.896,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 15.0 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:41.348332+00:00"
-    },
-    "KAVAUSDT": {
-      "price": 0.06931,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 17.8 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:43.063462+00:00"
-    },
-    "TWTUSDT": {
-      "price": 0.4411,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 18.0 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "lime",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:44.794000+00:00"
-    },
-    "API3USDT": {
-      "price": 0.2618,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 15.3 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:07:01.040579+00:00"
-    },
-    "CETUSUSDT": {
-      "price": 0.02159,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 14.3 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:07:02.760469+00:00"
-    },
-    "AEROUSDT": {
-      "price": 0.6959,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 16.0 < 23.0",
-      "sqz_1h": "lime",
-      "sqz_15m": "red",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:07:04.749926+00:00"
-    },
-    "FLUIDUSDT": {
-      "price": 2.1924,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 15.2 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:28.489971+00:00"
-    },
-    "ATHUSDT": {
-      "price": 0.005853,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 12.0 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:44.588095+00:00"
-    },
-    "GEODUSDT": {
-      "price": 0.2582,
+      "price": 2.2498,
       "en_tendencia": true,
       "puntos": 50,
       "motivo": "OK",
@@ -1553,41 +1355,239 @@
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:32.257777+00:00"
+      "updated_at": "2026-10-28T21:13:33.988365+00:00"
     },
-    "PEAQUSDT": {
-      "price": 0.03449,
+    "LDOUSDT": {
+      "price": 0.3815,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 21.3 < 23.0",
-      "sqz_1h": "maroon",
-      "sqz_15m": "green",
-      "src_1h": "cache",
-      "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:36.686770+00:00"
-    },
-    "BEAMUSDT": {
-      "price": 0.006671,
-      "en_tendencia": false,
-      "puntos": 0,
-      "motivo": "1h: ADX 15.5 < 23.0",
+      "motivo": "1h: ADX 15.1 < 23.0",
       "sqz_1h": "lime",
-      "sqz_15m": "green",
+      "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:05:57.620513+00:00"
+      "updated_at": "2026-10-28T21:13:35.886062+00:00"
     },
-    "HNTUSDT": {
-      "price": 0.3902,
+    "COMPUSDT": {
+      "price": 21.64,
       "en_tendencia": false,
       "puntos": 0,
-      "motivo": "1h: ADX 12.1 < 23.0",
+      "motivo": "1h: ADX 8.8 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:37.822774+00:00"
+    },
+    "CHIPUSDT": {
+      "price": 0.04982,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 12.6 < 23.0",
+      "sqz_1h": "red",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:47.027968+00:00"
+    },
+    "BATUSDT": {
+      "price": 0.14334,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 20.6 < 23.0",
+      "sqz_1h": "red",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:48.929412+00:00"
+    },
+    "RUNEUSDT": {
+      "price": 0.6261,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 16.7 < 23.0",
       "sqz_1h": "maroon",
       "sqz_15m": "lime",
       "src_1h": "cache",
       "src_15m": "cache",
-      "updated_at": "2026-10-28T21:06:01.230946+00:00"
+      "updated_at": "2026-10-28T21:13:50.769657+00:00"
+    },
+    "XTZUSDT": {
+      "price": 0.282,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 13.0 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:52.543397+00:00"
+    },
+    "SUSHIUSDT": {
+      "price": 0.2105,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 11.9 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:02.582124+00:00"
+    },
+    "GALAUSDT": {
+      "price": 0.001811,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 19.2 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:10.356372+00:00"
+    },
+    "IMXUSDT": {
+      "price": 0.1409,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 15.8 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:19.456040+00:00"
+    },
+    "ZENUSDT": {
+      "price": 5.955,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 13.8 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:26.882279+00:00"
+    },
+    "KAVAUSDT": {
+      "price": 0.06933,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 14.8 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:28.864944+00:00"
+    },
+    "TWTUSDT": {
+      "price": 0.4426,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 18.1 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:30.625691+00:00"
+    },
+    "API3USDT": {
+      "price": 0.2634,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 15.4 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:45.165065+00:00"
+    },
+    "CETUSUSDT": {
+      "price": 0.02172,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 14.7 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:46.924918+00:00"
+    },
+    "AEROUSDT": {
+      "price": 0.701,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 15.5 < 23.0",
+      "sqz_1h": "green",
+      "sqz_15m": "maroon",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:14:48.884254+00:00"
+    },
+    "FLUIDUSDT": {
+      "price": 2.2076,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 15.0 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:12.153152+00:00"
+    },
+    "ATHUSDT": {
+      "price": 0.005905,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 11.1 < 23.0",
+      "sqz_1h": "red",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:27.533090+00:00"
+    },
+    "GEODUSDT": {
+      "price": 0.2592,
+      "en_tendencia": true,
+      "puntos": 50,
+      "motivo": "OK",
+      "sqz_1h": "lime",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:15.781587+00:00"
+    },
+    "PEAQUSDT": {
+      "price": 0.03458,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 20.1 < 23.0",
+      "sqz_1h": "red",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:19.278670+00:00"
+    },
+    "BEAMUSDT": {
+      "price": 0.00667,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 15.7 < 23.0",
+      "sqz_1h": "lime",
+      "sqz_15m": "green",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:41.529353+00:00"
+    },
+    "HNTUSDT": {
+      "price": 0.3901,
+      "en_tendencia": false,
+      "puntos": 0,
+      "motivo": "1h: ADX 11.4 < 23.0",
+      "sqz_1h": "maroon",
+      "sqz_15m": "lime",
+      "src_1h": "cache",
+      "src_15m": "cache",
+      "updated_at": "2026-10-28T21:13:45.294580+00:00"
     }
   },
-  "updated_at": "2026-10-28T21:07:05.750072+00:00"
+  "updated_at": "2026-10-28T21:14:49.884374+00:00"
 }
